@@ -24,6 +24,8 @@
 #ifndef DEVDUINO_DEFAULT_FONT_H
 #define DEVDUINO_DEFAULT_FONT_H
 
+#include <arduino.h>
+
 #include "font.h"
 
 /**

@@ -255,7 +255,11 @@ namespace devduino {
 			for (uint8_t currentY = 0; currentY < h; currentY++) {
 				//Get the 8 pixels on byte.
 				uint8_t pixels = pgm_read_byte(&buffer[((h - 1) - currentY) * w + currentX]);
-				drawPixels(pixels, x + currentX, y + currentY * 8);
+				for (int pixelY = 1, i = 0; pixelY <= 128; pixelY <<= 1, i++) {
+					if (pixels & pixelY) {
+						drawPixel(x + currentX, y + currentY * 8 + i);
+					}
+				}
 			}
 		}
 	}
@@ -353,14 +357,6 @@ namespace devduino {
 
 	void Oled::incrementTextPosition(uint8_t pixels) {
 		textX += fontSize * pixels + 1;
-	}
-
-	void Oled::drawPixels(uint8_t pixels, uint8_t x, uint8_t y) {
-		if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) {
-			return;
-		}
-
-		buffer[x + ((y / SSD1306_PIXELS_PER_BYTE) * SSD1306_WIDTH)] |= pixels;
 	}
 
 	void Oled::setMemoryAddressingMode(memoryAddressingMode_t mode) {

@@ -21,8 +21,8 @@
 * SOFTWARE.
 */
 
-#ifndef DEVDUINO_FONT_H
-#define DEVDUINO_FONT_H
+#ifndef DEVDUINO_BCD_H
+#define DEVDUINO_BCD_H
 
 #include <stdint.h>
 
@@ -31,34 +31,28 @@
 */
 namespace devduino {
 	/**
-	 * \brief A font is the graphical representation of a set of characters to display.
-	 *
-	 * A font is composed of glyphs which are a graphical representation of a character.
+	 * \brief Utility class to work with BCD encoding.
+     * 
+     * For more information on bcd, you can visit <a href="https://en.wikipedia.org/wiki/Binary-coded_decimal" target="_blank">wikipedia</a>.
 	 */
-	class Font {
+	class Bcd {
 	public:
 		/**
-		 * Get the width of the glyph.
+		 * Utility method to convert from bcd to binary.
 		 */
-		virtual uint8_t getGlyphWidth(uint8_t characterCode) = 0;
+		static uint8_t toBinary(uint8_t bcd);
 
 		/**
-		 * Get the height of the glyph.
+		 * Utility method to convert from binary to bcd.
 		 */
-		virtual uint8_t getGlyphHeight(uint8_t characterCode) = 0;
+		static uint8_t fromBinary(uint8_t binary);
 
+	private:
 		/**
-		 * Get the pixels of the glyph.
-		 * 
-		 * \attention The ordering of the buffer of pixels must be compatible with the display buffer.
+		 * \brief Bcd is a utility class that only exposes static method and cannot be instanciated.
 		 */
-		virtual const uint8_t* getGlyphPixels(uint8_t characterCode) = 0;
-
-		/**
-		 * Get the kerning of the glyph.
-		 */
-		virtual int8_t getGlyphKerning(uint8_t characterCode, uint8_t previousCharacterCode) = 0;
+		Bcd();
 	};
 } // namespace devduino
 
-#endif //DEVDUINO_FONT_H
+#endif //DEVDUINO_BCD_H

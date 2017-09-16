@@ -21,8 +21,8 @@
 * SOFTWARE.
 */
 
-#ifndef DEVDUINO_FONT_H
-#define DEVDUINO_FONT_H
+#ifndef DEVDUINO_DATE_TIME_H
+#define DEVDUINO_DATE_TIME_H
 
 #include <stdint.h>
 
@@ -30,35 +30,29 @@
 * Default namespace for devduino related code.
 */
 namespace devduino {
-	/**
-	 * \brief A font is the graphical representation of a set of characters to display.
-	 *
-	 * A font is composed of glyphs which are a graphical representation of a character.
-	 */
-	class Font {
+	class DateTime {
 	public:
-		/**
-		 * Get the width of the glyph.
-		 */
-		virtual uint8_t getGlyphWidth(uint8_t characterCode) = 0;
+		DateTime(uint16_t year, uint8_t month, uint8_t day, uint8_t hour = 0, uint8_t minute = 0, uint8_t second = 0);
 
-		/**
-		 * Get the height of the glyph.
-		 */
-		virtual uint8_t getGlyphHeight(uint8_t characterCode) = 0;
+		uint16_t getYear();
+		uint8_t getMonth();
+		uint8_t getDay();
+		uint8_t getHour();
+		uint8_t getMinute();
+		uint8_t getSecond();
 
-		/**
-		 * Get the pixels of the glyph.
-		 * 
-		 * \attention The ordering of the buffer of pixels must be compatible with the display buffer.
-		 */
-		virtual const uint8_t* getGlyphPixels(uint8_t characterCode) = 0;
+		uint16_t toDayEpoch();
+		uint32_t toDay();
+		uint8_t toDayOfWeek();
 
-		/**
-		 * Get the kerning of the glyph.
-		 */
-		virtual int8_t getGlyphKerning(uint8_t characterCode, uint8_t previousCharacterCode) = 0;
+		static uint32_t toDay(uint16_t year, uint8_t month, uint8_t day);
+		static uint8_t toDayOfWeek(uint16_t year, uint8_t month, uint8_t day);
+
+	protected:
+		uint32_t dateTime;
+
+		void setDateTime(uint16_t year, uint8_t month, uint8_t day, uint8_t hour = 0, uint8_t minute = 0, uint8_t second = 0);
 	};
 } // namespace devduino
 
-#endif //DEVDUINO_FONT_H
+#endif //DEVDUINO_DATE_TIME_H

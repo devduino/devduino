@@ -24,6 +24,8 @@
 #ifndef DEVDUINO_SPRITE_H
 #define DEVDUINO_SPRITE_H
 
+#include <stdint.h>
+
 /**
 * Default namespace for devduino related code.
 */

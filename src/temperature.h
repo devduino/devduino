@@ -24,7 +24,7 @@
 #ifndef DEVDUINO_TEMPERATURE_H
 #define DEVDUINO_TEMPERATURE_H
 
-#include <Arduino.h>
+#include <stdint.h>
 
 /**
 * Default namespace for devduino related code.
@@ -74,7 +74,7 @@ namespace devduino {
 } // namespace devduino
 
 //Define global temperature variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED)
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
 	extern devduino::Temperature temperature;
 #endif
 

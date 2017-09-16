@@ -24,7 +24,7 @@
 #ifndef DEVDUINO_OLED_H
 #define DEVDUINO_OLED_H
 
-#include <Arduino.h>
+#include <stdint.h>
 
 #include <Sprite.h>
 #include <Font.h>
@@ -198,7 +198,7 @@ namespace devduino {
      * \param x The position in pixel on X axis of the buffer to draw.
      * \param y The position in pixel on Y axis of the buffer to draw.
      * \param w The width in pixel of the buffer.
-     * \param h The height in pixel of the buffer.
+     * \param h The height in bytes of the buffer.
 	 */
 	void drawBuffer(const uint8_t* buffer, uint8_t x, uint8_t y, uint8_t w, uint8_t h);
 
@@ -473,17 +473,6 @@ namespace devduino {
 	 * \param pixels The number of pixels to increment position.
 	 */
 	void incrementTextPosition(uint8_t pixels);
-
-	/**
-     * \brief Draw 8 pixels vertically on screen.
-	 * 
-	 * This is an optimization to fill buffer directly with 1 byte.
-     *
-     * \param pixels The byte to draw.
-     * \param x The x coordinate where to draw pixels.
-     * \param y The y coordinate where to draw pixels.
-	 */
-	void drawPixels(uint8_t pixels, uint8_t x, uint8_t y);
     
     /** 
      * \brief Set Memory Addressing Mode.
