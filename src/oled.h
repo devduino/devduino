@@ -378,7 +378,7 @@ namespace devduino {
 	 *
 	 * 1 means normal size, other values multiply the size of text.
 	 */
-	uint8_t fontSize;
+	uint8_t fontSize = 1;
 	/**
 	* \brief The buffer that stores the pixel of screen.
 	*/
