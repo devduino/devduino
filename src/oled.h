@@ -25,9 +25,10 @@
 #define DEVDUINO_OLED_H
 
 #include <stdint.h>
+#include <arduino.h>
 
-#include <Sprite.h>
-#include <Font.h>
+#include "Sprite.h"
+#include "Font.h"
 
 /**
 * Default namespace for devduino related code.
@@ -242,7 +243,7 @@ namespace devduino {
      * 
      * Before calling this method, the X and Y positions defaults to 0.
      * 
-     * \see writeText().
+     * \see write().
      * 
      * \param x The position in pixel on X axis of the pixel to draw.
      * \param y The position in pixel on Y axis of the pixel to draw.
@@ -304,7 +305,7 @@ namespace devduino {
      * 
      * \remark the rendering will be effective after a call to method display().
      * 
-     * \see writeText(const char *buffer, size_t buffer_size).
+     * \see write(const char *buffer, size_t buffer_size).
      * \see setTextPosition().
      * \see setFontSize().
      * \see display().
@@ -316,7 +317,7 @@ namespace devduino {
     /**
      * \brief Write a text.
      * 
-     * \see writeText(string text) for a more detailled description.
+     * \see write(string text) for a more detailled description.
      * This method should be prefered to the one with (string) parameter for memory consumption reason.
      * 
      * \remark the rendering will be effective after a call to method display().
@@ -335,7 +336,7 @@ namespace devduino {
      * 
      * \remark the rendering will be effective after a call to method display().
      * 
-     * \see writeText(string text) for a more detailled description.
+     * \see write(string text) for a more detailled description.
      * \see display().
      * 
      * \param characterCode The code of the character to write to screen.
