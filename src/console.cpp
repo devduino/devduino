@@ -27,37 +27,28 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	Console::Console(const Oled& oled) : oled(oled) {
+	Console::Console(const Oled& oled, uint8_t nbZonesX, uint8_t nbZonesY, bool autoFlush) : 
+		oled(oled), 
+		nbZonesX(nbZonesX), 
+		nbZonesY(nbZonesY), 
+		autoFlush(autoFlush)
+	{
 		oled.setTextPosition(0, 64);
-	}
-
-	Console& Console::operator<<(const uint8_t* value) {
-		oled.write(value);
-		oled.display();
-		return *this;
-	}
-
-	Console& Console::operator<<(const String value) {
-		oled.write(value);
-		oled.display();
-		return *this;
-	}
-
-	Console& Console::operator<<(const OutputStream& value) {
-		for (int i = 0; i < value.nbCharacters(); i++) {
-			oled.write(value.nextCharacter());
-		}
-		oled.display();
-		return *this;
 	}
 
 	Console& Console::write(const uint8_t* value) {
 		oled.write(value);
+		if (autoFlush) {
+			flush();
+		}
 		return *this;
 	}
 
-	Console& Console::write(const String value) {
+	Console& Console::write(const String& value) {
 		oled.write(value);
+		if (autoFlush) {
+			flush();
+		}
 		return *this;
 	}
 
@@ -65,18 +56,27 @@ namespace devduino {
 		for (int i = 0; i < value.nbCharacters(); i++) {
 			oled.write(value.nextCharacter());
 		}
+		if (autoFlush) {
+			flush();
+		}
 		return *this;
 	}
 
 	Console& Console::writeln(const uint8_t* value) {
 		oled.write(value);
 		oled.write("\n");
+		if (autoFlush) {
+			flush();
+		}
 		return *this;
 	}
 
-	Console& Console::writeln(const String value) {
+	Console& Console::writeln(const String& value) {
 		oled.write(value);
 		oled.write("\n");
+		if (autoFlush) {
+			flush();
+		}
 		return *this;
 	}
 
@@ -85,11 +85,52 @@ namespace devduino {
 			oled.write(value.nextCharacter());
 		}
 		oled.write("\n");
+		if (autoFlush) {
+			flush();
+		}
 		return *this;
+	}
+
+	Console& Console::writeToArea(uint8_t zoneId, const String& value) {
+		//If there is only 1 zone on X, then zoneId is the index of zone Y.
+		if (nbZonesX == 1) {
+			writeToArea(0, zoneId, value);
+		}
+		else {
+			writeToArea(zoneId, 0, value);
+		}
+		if (autoFlush) {
+			flush();
+		}
+		return *this;
+	}
+
+	Console& Console::writeToArea(uint8_t areaXId, uint8_t areaYId, const String& value) {
+		uint8_t areaWidth = oled.getWidth() / nbZonesX;
+		uint8_t areaHeight = oled.getHeight() / nbZonesY;
+		uint8_t areaX = areaXId * areaWidth;
+		uint8_t areaY = areaYId * areaHeight;
+		oled.clearArea(areaX, areaY, areaWidth, areaWidth);
+		oled.setTextPosition(areaX, areaY);
+		oled.write(value);
+		if (autoFlush) {
+			flush();
+		}
+		return *this;
+	}
+
+	Console& Console::setAreas(uint8_t nbAreasX, uint8_t nbAreasY) {
+		this->nbZonesX = nbZonesX;
+		this->nbZonesY = nbZonesY;
 	}
 
 	Console& Console::flush() {
 		oled.display();
+		return *this;
+	}
+
+	Console& Console::enableAutoFlush(bool autoFlush) {
+		this->autoFlush = autoFlush;
 		return *this;
 	}
 

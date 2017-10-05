@@ -355,11 +355,30 @@ namespace devduino {
      * \brief Clear the screen.
      *
      * Clear buffer to discard all preceding orders.
-     * The clearing of screen of screen will be effective after the next display command issued.
+     * The clearing of screen will be effective after the next display command issued.
      * 
      * \see display().
      */
     void clear();
+
+	/**
+	* \brief Clear a part of the screen.
+	*
+	* Clear buffer to discard all preceding orders on a specific part of the screen.
+	* The clearing of area will be effective after the next display command issued.
+	*
+	* \see display().
+	*/
+	void clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
+
+	/**
+	* \brief Clear a pixel on screen.
+	*
+	* The clearing of pixel will be effective after the next display command issued.
+	*
+	* \see display().
+	*/
+	void clearPixel(uint8_t x, uint8_t y);
     
   private:
 	/**

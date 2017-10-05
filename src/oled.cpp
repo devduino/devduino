@@ -351,6 +351,22 @@ namespace devduino {
 		memset(buffer, 0, SSD1306_BUFFER_SIZE);
 	}
 
+	void Oled::clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
+		for (uint8_t i = x; i <= x + width; i++) {
+			for (uint8_t j = y; j <= y + height; j++) {
+				clearPixel(i, j);
+			}
+		}
+	}
+
+	void Oled::clearPixel(uint8_t x, uint8_t y) {
+		if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) {
+			return;
+		}
+
+		buffer[x + ((y / SSD1306_PIXELS_PER_BYTE) * SSD1306_WIDTH)] &= ~(1 << (y & (SSD1306_PIXELS_PER_BYTE - 1)));
+	}
+
 	//------------------------------------------------------------------------//
 	//--------------------------- Private methods ----------------------------//
 	//------------------------------------------------------------------------//

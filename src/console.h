@@ -41,29 +41,12 @@ namespace devduino {
   class Console {
   public:
 	/** \brief Construct a console working with the given oled display.
-	 */
-	Console(const Oled& oled);
-
-	/**
-	* \brief Write a text to oled and flush display.
-	*
-	* Write the text to oled, scroll if needed and refresh oled display.
+	 *
+	 * \param oled The oled display to bind console to.
+	 * \param nbZonesX The number of zones to define on X axis.
+	 * \param nbZonesY The number of zones to define on Y axis.
 	*/
-	Console& operator<<(const uint8_t* value);
-
-    /**
-     * \brief Write a text to oled and flush display.
-     * 
-     * Write the text to oled, scroll if needed and refresh oled display.
-     */
-	Console& operator<<(const String value);
-
-	/**
-	* \brief Write a text to oled and flush display.
-	*
-	* Write the text to oled, scroll if needed and refresh oled display.
-	*/
-	Console& operator<<(const OutputStream& value);
+	Console(const Oled& oled, uint8_t nbZonesX = 1, uint8_t nbZonesY = 4, bool autoFlush = true);
 
 	/**
 	* \brief Write a text to oled.
@@ -79,7 +62,7 @@ namespace devduino {
 	* Write the text to oled, scroll if needed but do not refresh oled display.
 	* Use the \see flush method to flush the console to display.
 	*/
-	Console& write(const String value);
+	Console& write(const String& value);
 
 	/**
 	* \brief Write a text to oled.
@@ -103,7 +86,7 @@ namespace devduino {
 	* Write the text to oled, end line, scroll if needed but do not refresh oled display.
 	* Use the \see flush method to flush the console to display.
 	*/
-	Console& writeln(const String value);
+	Console& writeln(const String& value);
 
 	/**
 	* \brief Write a text to oled and jump to next line.
@@ -113,6 +96,12 @@ namespace devduino {
 	*/
 	Console& writeln(const OutputStream& value);
 
+	Console& writeToArea(uint8_t areaId, const String& value);
+
+	Console& writeToArea(uint8_t areaXId, uint8_t areaYId, const String& value);
+
+	Console& setAreas(uint8_t nbAreasX, uint8_t nbAreasY);
+
 	/**
 	* \brief Flush the console to display.
 	*
@@ -120,9 +109,15 @@ namespace devduino {
 	*/
 	Console& flush();
 
+	Console& enableAutoFlush(bool autoFlush);
+
   private:
 	  //The oled to display console output.
 	  const Oled& oled;
+
+	  bool autoFlush;
+	  uint8_t nbZonesX;
+	  uint8_t nbZonesY;
   };
 } // namespace devduino
 
