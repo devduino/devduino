@@ -43,10 +43,10 @@ namespace devduino {
 	/** \brief Construct a console working with the given oled display.
 	 *
 	 * \param oled The oled display to bind console to.
-	 * \param nbZonesX The number of zones to define on X axis.
-	 * \param nbZonesY The number of zones to define on Y axis.
+	 * \param nbAreasX The number of areas to define on X axis.
+	 * \param nbAreasY The number of areas to define on Y axis.
 	*/
-	Console(const Oled& oled, uint8_t nbZonesX = 1, uint8_t nbZonesY = 4, bool autoFlush = true);
+	Console(const Oled& oled, uint8_t nbAreasX = 1, uint8_t nbAreasY = 4, bool autoFlush = true);
 
 	/**
 	* \brief Write a text to oled.
@@ -116,8 +116,8 @@ namespace devduino {
 	  const Oled& oled;
 
 	  bool autoFlush;
-	  uint8_t nbZonesX;
-	  uint8_t nbZonesY;
+	  uint8_t nbAreasX;
+	  uint8_t nbAreasY;
   };
 } // namespace devduino
 

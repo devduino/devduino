@@ -27,10 +27,10 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	Console::Console(const Oled& oled, uint8_t nbZonesX, uint8_t nbZonesY, bool autoFlush) : 
+	Console::Console(const Oled& oled, uint8_t nbAreasX, uint8_t nbAreasY, bool autoFlush) :
 		oled(oled), 
-		nbZonesX(nbZonesX), 
-		nbZonesY(nbZonesY), 
+		nbAreasX(nbAreasX),
+		nbAreasY(nbAreasY),
 		autoFlush(autoFlush)
 	{
 		oled.setTextPosition(0, 64);
@@ -91,37 +91,34 @@ namespace devduino {
 		return *this;
 	}
 
-	Console& Console::writeToArea(uint8_t zoneId, const String& value) {
-		//If there is only 1 zone on X, then zoneId is the index of zone Y.
-		if (nbZonesX == 1) {
-			writeToArea(0, zoneId, value);
-		}
-		else {
-			writeToArea(zoneId, 0, value);
-		}
-		if (autoFlush) {
-			flush();
-		}
+	Console& Console::writeToArea(uint8_t areaId, const String& value) {
+		uint8_t y = areaId / nbAreasX;
+		uint8_t x = areaId - (y * nbAreasX);
+
+		writeToArea(x, (nbAreasY - y) - 1, value);
+
 		return *this;
 	}
 
 	Console& Console::writeToArea(uint8_t areaXId, uint8_t areaYId, const String& value) {
-		uint8_t areaWidth = oled.getWidth() / nbZonesX;
-		uint8_t areaHeight = oled.getHeight() / nbZonesY;
-		uint8_t areaX = areaXId * areaWidth;
-		uint8_t areaY = areaYId * areaHeight;
-		oled.clearArea(areaX, areaY, areaWidth, areaWidth);
-		oled.setTextPosition(areaX, areaY);
-		oled.write(value);
-		if (autoFlush) {
-			flush();
+		if (areaXId < nbAreasX && areaYId < nbAreasY) {
+			uint8_t areaWidth = oled.getWidth() / nbAreasX;
+			uint8_t areaHeight = oled.getHeight() / nbAreasY;
+			uint8_t areaX = areaXId * areaWidth;
+			uint8_t areaY = areaYId * areaHeight;
+			oled.clearArea(areaX, areaY, areaWidth, areaHeight);
+			oled.setTextPosition(areaX, areaY);
+			oled.write(value);
+			if (autoFlush) {
+				flush();
+			}
 		}
 		return *this;
 	}
 
 	Console& Console::setAreas(uint8_t nbAreasX, uint8_t nbAreasY) {
-		this->nbZonesX = nbZonesX;
-		this->nbZonesY = nbZonesY;
+		this->nbAreasX = nbAreasX;
+		this->nbAreasY = nbAreasY;
 	}
 
 	Console& Console::flush() {
