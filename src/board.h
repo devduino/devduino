@@ -29,6 +29,12 @@
 #include <stdint.h>
 #include <arduino.h>
 
+#include "rtc.h"
+#include "temperature.h"
+#include "oled.h"
+#include "console.h"
+#include "spreadsheet.h"
+
 /**
 * Default namespace for devduino related code.
 */
@@ -55,6 +61,31 @@ namespace devduino {
 //Define global board variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BOARD)
 extern devduino::Board board;
+#endif
+
+//Define global rtc variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
+extern devduino::Rtc rtc;
+#endif
+
+//Define global temperature variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
+extern devduino::Temperature temperature;
+#endif
+
+//Define global oled variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED)
+extern devduino::Oled oled;
+#endif
+
+//Define global console variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_CONSOLE)
+extern devduino::Console console;
+#endif
+
+//Define global console variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_SPREADSHEET)
+extern devduino::Spreadsheet spreadsheet;
 #endif
 
 #endif //DEVDUINO_BOARD_H

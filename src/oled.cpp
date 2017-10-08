@@ -473,7 +473,3 @@ namespace devduino {
 		Wire.endTransmission();
 	}
 } // namespace devduino
-
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED)
-devduino::Oled oled;
-#endif

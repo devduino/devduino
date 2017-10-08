@@ -64,9 +64,4 @@ namespace devduino {
   };
 } // namespace devduino
 
-//Define global console variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_SPREADSHEET)
-	extern devduino::Spreadsheet spreadsheet;
-#endif
-
 #endif //DEVDUINO_SPREADSHEET_H

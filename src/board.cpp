@@ -30,6 +30,18 @@ namespace devduino {
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
 	void Board::begin() {
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
+		rtc.begin();
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
+		temperature.begin();
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED)
+		oled.begin();
+#endif
+
 		//Set "INT" button as input pullup.
 		pinMode(PIN_INT_BUTTON, INPUT_PULLUP);
 	}
@@ -42,3 +54,27 @@ namespace devduino {
 	//---------------------------- Private methods ---------------------------//
 	//------------------------------------------------------------------------//
 } // namespace devduino
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BOARD)
+devduino::Board board;
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
+devduino::Rtc rtc;
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
+devduino::Temperature temperature;
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED)
+devduino::Oled oled;
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_CONSOLE)
+devduino::Console console(oled);
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_SPREADSHEET)
+devduino::Spreadsheet spreadsheet(oled);
+#endif

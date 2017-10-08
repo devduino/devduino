@@ -88,7 +88,3 @@ namespace devduino {
 
 	Rtc::RtcDateTime::RtcDateTime() : DateTime(2016, 1, 1) {}
 } // namespace devduino
-
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
-devduino::Rtc rtc;
-#endif

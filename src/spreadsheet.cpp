@@ -94,7 +94,3 @@ namespace devduino {
 	//--------------------------- Private methods ----------------------------//
 	//------------------------------------------------------------------------//
 } // namespace devduino
-
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_SPREADSHEET)
-	devduino::Spreadsheet spreadsheet(oled);
-#endif

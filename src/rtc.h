@@ -98,9 +98,4 @@ namespace devduino {
 	};
 } // namespace devduino
 
-//Define global rtc variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
-extern devduino::Rtc rtc;
-#endif
-
 #endif //DEVDUINO_RTC_H

@@ -73,9 +73,4 @@ namespace devduino {
   };
 } // namespace devduino
 
-//Define global temperature variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
-	extern devduino::Temperature temperature;
-#endif
-
 #endif //DEVDUINO_TEMPERATURE_H

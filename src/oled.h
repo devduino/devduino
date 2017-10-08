@@ -674,9 +674,4 @@ namespace devduino {
   };
 } // namespace devduino
 
-//Define global oled variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED)
-extern devduino::Oled oled;
-#endif
-
 #endif //DEVDUINO_OLED_H

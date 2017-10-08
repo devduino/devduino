@@ -130,7 +130,3 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 
 } // namespace devduino
-
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
-	devduino::Temperature temperature;
-#endif

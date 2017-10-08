@@ -96,9 +96,4 @@ namespace devduino {
   };
 } // namespace devduino
 
-//Define global console variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_CONSOLE)
-	extern devduino::Console console;
-#endif
-
 #endif //DEVDUINO_CONSOLE_H

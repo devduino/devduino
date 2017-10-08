@@ -83,7 +83,3 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 
 } // namespace devduino
-
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_CONSOLE)
-	devduino::Console console(oled);
-#endif
