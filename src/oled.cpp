@@ -352,6 +352,9 @@ namespace devduino {
 	}
 
 	void Oled::clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
+		if (x + width >= SSD1306_WIDTH || y + height >= SSD1306_HEIGHT) {
+			return;
+		}
 		for (uint8_t i = x; i <= x + width; i++) {
 			for (uint8_t j = y; j <= y + height; j++) {
 				clearPixel(i, j);

@@ -21,28 +21,52 @@
 * SOFTWARE.
 */
 
-#ifndef DEVDUINO_ENDL_H
-#define DEVDUINO_ENDL_H
+#ifndef DEVDUINO_SPREADSHEET_H
+#define DEVDUINO_SPREADSHEET_H
 
-#include "outputStream.h"
+#include <arduino.h>
+
+#include "oled.h"
 
 /**
 * Default namespace for devduino related code.
 */
 namespace devduino {
+  /** 
+   * 
+   */
+  class Spreadsheet {
+  public:
+	Spreadsheet(const Oled& oled, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool autoFlush = true);
+
+	Spreadsheet& write(uint8_t cellId, const char* value, size_t buffer_size);
+
+	Spreadsheet& write(uint8_t cellId, const String& value);
+
+	Spreadsheet& setGrid(uint8_t nbRows, uint8_t nbColumns);
+
 	/**
-	 * \brief End Of Line output stream.
-     * 
-     * When inserted into a n output stream, end a line.
-	 */
-	class Endl : public OutputStream {
-	public:
-		const uint8_t nbCharacters();
-		const uint8_t nextCharacter();
-	private:
-	};
+	* \brief Flush the console to display.
+	*
+	* \remark Console needs to be flushed if "write" methods are used.
+	*/
+	Spreadsheet& flush();
+
+	Spreadsheet& enableAutoFlush(bool autoFlush);
+
+  private:
+	  //The oled to display console output.
+	  const Oled& oled;
+
+	  bool autoFlush;
+	  uint8_t nbRows;
+	  uint8_t nbColumns;
+  };
 } // namespace devduino
 
-extern devduino::Endl endl;
+//Define global console variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_SPREADSHEET)
+	extern devduino::Spreadsheet spreadsheet;
+#endif
 
-#endif //DEVDUINO_ENDL_H
+#endif //DEVDUINO_SPREADSHEET_H

@@ -25,7 +25,6 @@
 #define DEVDUINO_CONSOLE_H
 
 #include "oled.h"
-#include "endl.h"
 
 /**
 * Default namespace for devduino related code.
@@ -46,7 +45,7 @@ namespace devduino {
 	 * \param nbAreasX The number of areas to define on X axis.
 	 * \param nbAreasY The number of areas to define on Y axis.
 	*/
-	Console(const Oled& oled, uint8_t nbAreasX = 1, uint8_t nbAreasY = 4, bool autoFlush = true);
+	Console(const Oled& oled, bool autoFlush = true);
 
 	/**
 	* \brief Write a text to oled.
@@ -54,7 +53,7 @@ namespace devduino {
 	* Write the text to oled, scroll if needed but do not refresh oled display.
 	* Use the \see flush method to flush the console to display.
 	*/
-	Console& write(const uint8_t* value);
+	Console& write(const char* value, size_t buffer_size);
 
 	/**
 	* \brief Write a text to oled.
@@ -65,20 +64,12 @@ namespace devduino {
 	Console& write(const String& value);
 
 	/**
-	* \brief Write a text to oled.
-	*
-	* Write the text to oled, scroll if needed but do not refresh oled display.
-	* Use the \see flush method to flush the console to display.
-	*/
-	Console& write(const OutputStream& value);
-
-	/**
 	* \brief Write a text to oled and jump to next line.
 	*
 	* Write the text to oled, end line, scroll if needed but do not refresh oled display.
 	* Use the \see flush method to flush the console to display.
 	*/
-	Console& writeln(const uint8_t* value);
+	Console& writeln(const char* value, size_t buffer_size);
 
 	/**
 	* \brief Write a text to oled and jump to next line.
@@ -87,20 +78,6 @@ namespace devduino {
 	* Use the \see flush method to flush the console to display.
 	*/
 	Console& writeln(const String& value);
-
-	/**
-	* \brief Write a text to oled and jump to next line.
-	*
-	* Write the text to oled, end line, scroll if needed but do not refresh oled display.
-	* Use the \see flush method to flush the console to display.
-	*/
-	Console& writeln(const OutputStream& value);
-
-	Console& writeToArea(uint8_t areaId, const String& value);
-
-	Console& writeToArea(uint8_t areaXId, uint8_t areaYId, const String& value);
-
-	Console& setAreas(uint8_t nbAreasX, uint8_t nbAreasY);
 
 	/**
 	* \brief Flush the console to display.
@@ -116,8 +93,6 @@ namespace devduino {
 	  const Oled& oled;
 
 	  bool autoFlush;
-	  uint8_t nbAreasX;
-	  uint8_t nbAreasY;
   };
 } // namespace devduino
 

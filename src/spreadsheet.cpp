@@ -21,59 +21,71 @@
 * SOFTWARE.
 */
 
-#include "console.h"
+#include "spreadsheet.h"
 
 namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	Console::Console(const Oled& oled, bool autoFlush) :
+	Spreadsheet::Spreadsheet(const Oled& oled, uint8_t nbRows, uint8_t nbColumns, bool autoFlush) :
 		oled(oled), 
 		autoFlush(autoFlush)
 	{
-		oled.setTextPosition(0, 64);
+		setGrid(nbRows, nbColumns);
 	}
 
-	Console& Console::write(const char* value, size_t buffer_size) {
-		oled.write(value, buffer_size);
-		if (autoFlush) {
-			flush();
+	Spreadsheet& Spreadsheet::write(uint8_t cellId, const char* value, size_t buffer_size) {
+		uint8_t row = cellId / nbColumns;
+		uint8_t column = cellId - (row * nbColumns);
+
+		if (row < nbRows && column < nbColumns) {
+			uint8_t cellWidth = oled.getWidth() / nbColumns;
+			uint8_t cellHeight = oled.getHeight() / nbRows;
+			uint8_t cellX = column * cellWidth;
+			uint8_t cellY = oled.getHeight() - ((row + 1) * cellHeight);
+			oled.clearArea(cellX, cellY, cellWidth - 1, cellHeight - 1);
+			oled.setTextPosition(cellX, cellY);
+			oled.write(value, buffer_size);
+			if (autoFlush) {
+				flush();
+			}
 		}
+
 		return *this;
 	}
 
-	Console& Console::write(const String& value) {
-		oled.write(value);
+	Spreadsheet& Spreadsheet::write(uint8_t cellId, const String& value) {
+		return write(cellId, value.c_str(), value.length());
+	}
+
+	Spreadsheet& Spreadsheet::setGrid(uint8_t nbRows, uint8_t nbColumns) {
+		this->nbRows = nbRows;
+		this->nbColumns = nbColumns;
+
+		/*oled.clear();
+
+		uint8_t cellWidth = oled.getWidth() / nbColumns;
+		for (uint8_t column = 1; column < nbColumns; column++) {
+			oled.drawVerticalLine(column * cellWidth, 0, oled.getHeight());
+		}
+
+		uint8_t cellHeight = oled.getHeight() / nbRows;
+		for (uint8_t row = 1; row < nbRows; row++) {
+			oled.drawVerticalLine(row * cellHeight, 0, oled.getWidth());
+		}
+
 		if (autoFlush) {
 			flush();
-		}
+		}*/
 		return *this;
 	}
 
-	Console& Console::writeln(const char* value, size_t buffer_size) {
-		oled.write(value, buffer_size);
-		oled.write("\n");
-		if (autoFlush) {
-			flush();
-		}
-		return *this;
-	}
-
-	Console& Console::writeln(const String& value) {
-		oled.write(value);
-		oled.write("\n");
-		if (autoFlush) {
-			flush();
-		}
-		return *this;
-	}
-
-	Console& Console::flush() {
+	Spreadsheet& Spreadsheet::flush() {
 		oled.display();
 		return *this;
 	}
 
-	Console& Console::enableAutoFlush(bool autoFlush) {
+	Spreadsheet& Spreadsheet::enableAutoFlush(bool autoFlush) {
 		this->autoFlush = autoFlush;
 		return *this;
 	}
@@ -81,9 +93,8 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//--------------------------- Private methods ----------------------------//
 	//------------------------------------------------------------------------//
-
 } // namespace devduino
 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_CONSOLE)
-	devduino::Console console(oled);
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_SPREADSHEET)
+	devduino::Spreadsheet spreadsheet(oled);
 #endif
