@@ -59,6 +59,8 @@
 
 //Scrolling Commands
 #define SSD1306_COMMAND_SET_HORIZONTAL_SCROLL 0x26
+#define SSD1306_COMMAND_SET_VERTICAL_RIGHT_SCROLL 0x29
+#define SSD1306_COMMAND_SET_VERTICAL_LEFT_SCROLL 0x2A
 #define SSD1306_COMMAND_SET_PARAM_HORIZONTAL_SCROLL_RIGHT 0x00
 #define SSD1306_COMMAND_SET_PARAM_HORIZONTAL_SCROLL_LEFT 0x01
 #define SSD1306_COMMAND_SET_SCROLL_DEACTIVATE 0x2E
@@ -196,6 +198,22 @@ namespace devduino {
 			w--;
 			drawVerticalLine(x + w, y, y + h - 1);
 		}
+	}
+
+	void Oled::verticalScroll() {
+		setActivateScroll(activateScroll_t::deactivate);
+
+		sendCommand(SSD1306_COMMAND_SET_VERTICAL_SCROLL_AREA);
+		sendCommand(0X00);
+		sendCommand(SSD1306_HEIGHT);
+		sendCommand(SSD1306_COMMAND_SET_VERTICAL_RIGHT_SCROLL);
+		sendCommand(0X00);
+		sendCommand(0X00);
+		sendCommand(0X00);
+		sendCommand(0X00);
+		sendCommand(-0X01);
+
+		setActivateScroll(activateScroll_t::activate);
 	}
 
 	void Oled::drawCircle(uint8_t centerX, uint8_t centerY, int8_t radius) {
