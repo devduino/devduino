@@ -27,8 +27,8 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	Spreadsheet::Spreadsheet(const Oled& oled, uint8_t nbRows, uint8_t nbColumns, bool autoFlush) :
-		oled(oled), 
+	Spreadsheet::Spreadsheet(const Console& console, uint8_t nbRows, uint8_t nbColumns, bool autoFlush) :
+		console(console),
 		autoFlush(autoFlush)
 	{
 		setGrid(nbRows, nbColumns);
@@ -39,13 +39,13 @@ namespace devduino {
 		uint8_t column = cellId - (row * nbColumns);
 
 		if (row < nbRows && column < nbColumns) {
-			uint8_t cellWidth = oled.getWidth() / nbColumns;
-			uint8_t cellHeight = oled.getHeight() / nbRows;
+			uint8_t cellWidth = console.getOled().getWidth() / nbColumns;
+			uint8_t cellHeight = console.getOled().getHeight() / nbRows;
 			uint8_t cellX = column * cellWidth;
-			uint8_t cellY = oled.getHeight() - ((row + 1) * cellHeight);
-			oled.clearArea(cellX, cellY, cellWidth - 1, cellHeight - 1);
-			oled.setTextPosition(cellX, cellY);
-			oled.write(value, buffer_size);
+			uint8_t cellY = console.getOled().getHeight() - ((row + 1) * cellHeight);
+			console.getOled().clearArea(cellX, cellY, cellWidth - 1, cellHeight - 1);
+			console.setTextPosition(cellX, cellY);			
+			console.write(value, buffer_size);
 			if (autoFlush) {
 				flush();
 			}
@@ -81,7 +81,7 @@ namespace devduino {
 	}
 
 	Spreadsheet& Spreadsheet::flush() {
-		oled.display();
+		console.getOled().display();
 		return *this;
 	}
 

@@ -26,7 +26,7 @@
 
 #include <arduino.h>
 
-#include "oled.h"
+#include "console.h"
 
 /**
 * Default namespace for devduino related code.
@@ -37,7 +37,7 @@ namespace devduino {
    */
   class Spreadsheet {
   public:
-	Spreadsheet(const Oled& oled, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool autoFlush = true);
+	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool autoFlush = true);
 
 	Spreadsheet& write(uint8_t cellId, const char* value, size_t buffer_size);
 
@@ -55,12 +55,21 @@ namespace devduino {
 	Spreadsheet& enableAutoFlush(bool autoFlush);
 
   private:
-	  //The oled to display console output.
-	  const Oled& oled;
+	  //The console to display output to.
+	  const Console& console;
 
 	  bool autoFlush;
 	  uint8_t nbRows;
 	  uint8_t nbColumns;
+
+	  /**
+	  * \brief The x position in  screen coordinates of next character to display.
+	  */
+	  uint8_t textX;
+	  /**
+	  * \brief The y position in  screen coordinates of next character to display.
+	  */
+	  uint8_t textY;
   };
 } // namespace devduino
 

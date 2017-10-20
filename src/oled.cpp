@@ -25,11 +25,6 @@
 
 #include "oled.h"
 
-//Include devduino default font if allowed. 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_OLED_FONT)
-#include "devduino.font.h"
-#endif
-
 //------------------------------------------------------------------------//
 //---------------------------- Pre-processors ----------------------------//
 //------------------------------------------------------------------------//
@@ -39,13 +34,6 @@
 #define SSD1306_HEIGHT 64
 
 #define SSD1306_PIXELS_PER_BYTE 8
-
-#define SSD1306_FONT_WIDTH 5
-
-//The first ASCII code to be coded in font.
-#define SSD_1306_FONT_FIRST_CODE 33
-
-#define SSD1306_FONT_HEIGHT 7
 
 //Size in uint8_t of buffer of boolean.
 #define SSD1306_BUFFER_SIZE SSD1306_WIDTH * SSD1306_HEIGHT / SSD1306_PIXELS_PER_BYTE
@@ -114,20 +102,10 @@ namespace devduino {
 		return SSD1306_HEIGHT;
 	}
 
-	void Oled::begin(const Font* font) {
-		if (font == nullptr) {
-			//If no font is set but default font accepted, we set it.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_OLED_FONT)
-			setFont(&devduinoFont);
-#endif
-		}
-		else {
-			setFont(font);
-		}
-
+	void Oled::begin() {
 		Wire.begin();
-
 		setDisplayOnOff(displayOnOff_t::off);
+		setDisplayStartLine(0);
 		setMemoryAddressingMode(memoryAddressingMode_t::horizontal);
 		setColumnAddress(0, SSD1306_HEIGHT - 1);
 		setSegmentReMap(segmentReMap_t::end);
@@ -200,7 +178,42 @@ namespace devduino {
 		}
 	}
 
-	void Oled::verticalScroll() {
+	void Oled::verticalScroll(int8_t pixels) {
+		//Compute display start line and clear scrolled buffer.
+		int8_t newStartLine = displayStartLine + pixels;
+		if (newStartLine > 64) {
+			newStartLine = (displayStartLine + pixels) % 64;
+			//Clear buffer from old start line to screen height.
+			clearArea(0, displayStartLine, SSD1306_WIDTH, 64 - displayStartLine);
+			//Clear buffer from 0 to new start line.
+			clearArea(0, 0, SSD1306_WIDTH, newStartLine);
+		}
+		else if (newStartLine < 0) {
+			newStartLine = 64 + (displayStartLine + pixels);
+			//Clear buffer from 0 to old start line.
+			clearArea(0, 0, SSD1306_WIDTH, displayStartLine);
+			//Clear buffer from new start line to screen height.
+			clearArea(0, newStartLine, SSD1306_WIDTH, 64 - newStartLine);
+		}
+		else {
+			//Clear buffer from new start line to old start line.
+			//write(String("Start line:") + String(displayStartLine) + String("\n"));
+			if (pixels > 0) {
+				clearArea(0, displayStartLine, SSD1306_WIDTH, pixels);
+			}
+			else {
+				clearArea(0, newStartLine, SSD1306_WIDTH, -pixels);
+			}
+		}
+
+		setDisplayStartLine(newStartLine);
+	}
+
+	int8_t Oled::getVerticalScroll() {
+		return displayStartLine;
+	}
+
+	void Oled::continuousVerticalScroll(uint8_t speed) {
 		setActivateScroll(activateScroll_t::deactivate);
 
 		sendCommand(SSD1306_COMMAND_SET_VERTICAL_SCROLL_AREA);
@@ -211,9 +224,13 @@ namespace devduino {
 		sendCommand(0X00);
 		sendCommand(0X00);
 		sendCommand(0X00);
-		sendCommand(-0X01);
+		sendCommand(speed);
 
 		setActivateScroll(activateScroll_t::activate);
+	}
+
+	void Oled::stopContinuousVerticalScroll() {
+		setActivateScroll(activateScroll_t::deactivate);
 	}
 
 	void Oled::drawCircle(uint8_t centerX, uint8_t centerY, int8_t radius) {
@@ -294,51 +311,21 @@ namespace devduino {
 
 		buffer[x + ((y / SSD1306_PIXELS_PER_BYTE) * SSD1306_WIDTH)] |= (1 << (y & (SSD1306_PIXELS_PER_BYTE - 1)));
 	}
-	
-	void Oled::setTextPosition(uint8_t x, uint8_t y) {
-		textX = x;
-		textY = y;
+
+	void Oled::write(String text, uint8_t x, uint8_t y, Font* font, uint8_t fontSize) {
+		write(text.c_str(), text.length(), x, y, font, fontSize);
 	}
 
-	void Oled::setFont(const Font* font) {
-		this->font = font;
-	}
-
-	void Oled::setFontSize(uint8_t size) {
-		fontSize = size;
-	}
-
-	void Oled::newLine() {
-		textX = 0;
-		textY -= fontSize * SSD1306_FONT_HEIGHT + 1;
-	}
-
-	void Oled::newLine(uint8_t pixels) {
-		if (textX + fontSize * pixels > SSD1306_WIDTH) {
-			newLine();
-		}
-	}
-
-	void Oled::write(String text) {
-		write(text.c_str(), text.length());		
-	}
-
-	void Oled::write(const char *buffer, size_t buffer_size) {
+	void Oled::write(const char *buffer, size_t buffer_size, uint8_t x, uint8_t y, Font* font, uint8_t fontSize) {
 		while (buffer_size--) {
-			write(*buffer++);
+			write(*buffer++, x, y, font, fontSize);
 		}
 	}
-    
-	void Oled::write(uint8_t characterCode, uint8_t previousCharacterCode) {
-		if (characterCode == '\n') {
-			newLine();
-		} else {
-			int8_t kerning = font->getGlyphKerning(characterCode, previousCharacterCode);
-			uint8_t width = font->getGlyphWidth(characterCode);
-			newLine(width + kerning);
-			drawBuffer(font->getGlyphPixels(characterCode), textX + kerning, textY, width, font->getGlyphHeight(characterCode) / 8 + 1);
-			incrementTextPosition(width + kerning);
-		}
+
+	void Oled::write(uint8_t characterCode, uint8_t x, uint8_t y, Font* font, uint8_t fontSize) {
+		uint8_t width = font->getGlyphWidth(characterCode);
+		uint8_t height = font->getGlyphHeight(characterCode);
+		drawBuffer(font->getGlyphPixels(characterCode), x, y, width, height / 8 + 1);
 	}
 
 	void Oled::display() {
@@ -360,6 +347,7 @@ namespace devduino {
 
 			Wire.endTransmission();
 		}
+		sendCommand(SSD1306_COMMAND_SET_DISPLAY_START_LINE | displayStartLine);
 
 		//Go back to previous clock configuration.
 		TWBR = previousClock;
@@ -370,11 +358,11 @@ namespace devduino {
 	}
 
 	void Oled::clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
-		if (x + width >= SSD1306_WIDTH || y + height >= SSD1306_HEIGHT) {
+		if (x + width > SSD1306_WIDTH || y + height > SSD1306_HEIGHT) {
 			return;
 		}
-		for (uint8_t i = x; i <= x + width; i++) {
-			for (uint8_t j = y; j <= y + height; j++) {
+		for (uint8_t i = x; i < x + width; i++) {
+			for (uint8_t j = y; j < y + height; j++) {
 				clearPixel(i, j);
 			}
 		}
@@ -391,10 +379,6 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//--------------------------- Private methods ----------------------------//
 	//------------------------------------------------------------------------//
-
-	void Oled::incrementTextPosition(uint8_t pixels) {
-		textX += fontSize * pixels + 1;
-	}
 
 	void Oled::setMemoryAddressingMode(memoryAddressingMode_t mode) {
 		sendCommand(SSD1306_COMMAND_SET_MEMORY_MODE);
@@ -414,7 +398,7 @@ namespace devduino {
 	}
 
 	void Oled::setDisplayStartLine(uint8_t line) {
-		sendCommand(SSD1306_COMMAND_SET_DISPLAY_START_LINE | line);
+		displayStartLine = line % SSD1306_HEIGHT;
 	}
 
 	void Oled::setContrastControl(uint8_t contrast) {
