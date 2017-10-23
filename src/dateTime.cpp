@@ -31,24 +31,6 @@ namespace devduino {
 		setDateTime(year, month, day, hour, minute, second);
 	}
 
-	/*DateTime::DateTime(uint16_t dayNumber) {
-		//736329 is number of days from 0 till 01/01/2016
-		uint32_t absoluteDayNumber = dayNumber + 736329;
-
-		uint16_t year = (uint16_t)(((uint32_t)10000 * absoluteDayNumber + 14780) / 3652425);
-		uint16_t tempDay = absoluteDayNumber - (365 * year + year / 4 - year / 100 + year / 400);
-		if (tempDay < 0) {
-			year = year - 1;
-			tempDay = absoluteDayNumber - (365 * year + year / 4 - year / 100 + year / 400);
-		}
-		uint8_t nbMonth = (100 * tempDay + 52) / 3060;
-		month = (nbMonth + 2) % 12 + 1;
-		year = year + (nbMonth + 2) / 12;
-		day = tempDay - (nbMonth * 306 + 5) / 10 + 1;
-
-		setDateTime(year, month, day);
-	}*/
-
 	uint16_t DateTime::getYear() {
 		return 2016 + (dateTime >> 26);
 	}

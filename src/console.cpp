@@ -39,8 +39,8 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	Console::Console(const Oled& oled, const Font* font, bool autoFlush) :
-		oled(oled), 
+	Console::Console(const Display& display, const Font* font, bool autoFlush) :
+		display(display), 
 		autoFlush(autoFlush)
 	{
 		if (font == nullptr) {
@@ -52,11 +52,11 @@ namespace devduino {
 		else {
 			setFont(font);
 		}
-		setTextPosition(0, 64);
+		setTextPosition(0, 64 - CONSOLE_FONT_HEIGHT);
 	}
 
-	const Oled& Console::getOled() {
-		return oled;
+	const Display& Console::getDisplay() {
+		return display;
 	}
 
 	Console& Console::setTextPosition(uint8_t x, uint8_t y) {
@@ -87,8 +87,7 @@ namespace devduino {
 	}
 
 	Console& Console::write(String text) {
-		write(text.c_str(), text.length());
-		return *this;
+		return write(text.c_str(), text.length());
 	}
 
 	Console& Console::write(const char *buffer, size_t buffer_size) {
@@ -101,25 +100,15 @@ namespace devduino {
 		return *this;
 	}
 
-	Console& Console::writeln(const char* value, size_t buffer_size) {
-		bool currentAutoFlush = autoFlush;
-		enableAutoFlush(false);
-
-		write(value, buffer_size);
-		write("\n");
-
-		if (currentAutoFlush) {
-			enableAutoFlush(true);
-			flush();
-		}
-		return *this;
+	Console& Console::writeln(const String& text) {
+		return writeln(text.c_str(), text.length());
 	}
 
-	Console& Console::writeln(const String& value) {
+	Console& Console::writeln(const char* text, size_t buffer_size) {
 		bool currentAutoFlush = autoFlush;
 		enableAutoFlush(false);
 
-		write(value);
+		write(text, buffer_size);
 		write("\n");
 
 		if (currentAutoFlush) {
@@ -130,7 +119,7 @@ namespace devduino {
 	}
 
 	Console& Console::flush() {
-		oled.display();
+		display.display();
 		return *this;
 	}
 
@@ -153,14 +142,15 @@ namespace devduino {
 
 			newLine(kerning + width);
 
+			uint8_t height = font->getGlyphHeight(characterCode);
+
 			if (textY < 0) {
-				oled.verticalScroll(textY);
+				display.verticalScroll(textY);
 				textY = 0;
 			}
 
-			uint8_t height = font->getGlyphHeight(characterCode);
-			uint8_t y = (textY) + oled.getVerticalScroll();
-			oled.drawBuffer(font->getGlyphPixels(characterCode), textX + kerning, y, width, height / 8 + 1);
+			uint8_t y = textY + display.getVerticalScroll();
+			display.drawBuffer(font->getGlyphPixels(characterCode), textX + kerning, y, width, height / 8 + 1);
 			incrementTextPosition(width + kerning);
 		}
 	}
@@ -170,7 +160,7 @@ namespace devduino {
 	}
 
 	Console& Console::newLine(uint8_t pixels) {
-		if (textX + fontSize * pixels > oled.getWidth()) {
+		if (textX + fontSize * pixels > display.getWidth()) {
 			if (autoFlush) {
 				enableAutoFlush(false);
 				newLine();

@@ -38,8 +38,8 @@ namespace devduino {
 		temperature.begin();
 #endif
 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED)
-		oled.begin();
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY)
+		display.begin();
 #endif
 
 		//Set "INT" button as input pullup.
@@ -67,14 +67,14 @@ devduino::Rtc rtc;
 devduino::Temperature temperature;
 #endif
 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED)
-devduino::Oled oled;
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY)
+devduino::Display display;
 #endif
 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_CONSOLE)
-devduino::Console console(oled);
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_CONSOLE)
+devduino::Console console(display);
 #endif
 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_SPREADSHEET)
-devduino::Spreadsheet spreadsheet(oled);
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_CONSOLE) && !defined(NO_GLOBAL_SPREADSHEET)
+devduino::Spreadsheet spreadsheet(console);
 #endif

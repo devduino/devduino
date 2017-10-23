@@ -24,6 +24,9 @@
 #ifndef DEVDUINO_BOARD_H
 #define DEVDUINO_BOARD_H
 
+/**
+ * The pin for "Interrupt" button on devduino board.
+ */
 #define PIN_INT_BUTTON 7
 
 #include <stdint.h>
@@ -31,28 +34,34 @@
 
 #include "rtc.h"
 #include "temperature.h"
-#include "oled.h"
+#include "display.h"
 #include "console.h"
 #include "spreadsheet.h"
 
 /**
-* Default namespace for devduino related code.
-*/
+ * Default namespace for devduino related code.
+ */
 namespace devduino {
 	/**
-	* \brief Board of devduino.
-	*
-	* This class allows to initialize DevDuino board.
-	*/
+	 * \brief Board of devduino.
+	 *
+	 * This class allows to initialize DevDuino board.
+	 */
 	class Board {
 	public:
 		/**
-		* \brief Initialize DevDuino board.
-		*
-		* This method must be called before any other method of this class.
-		*/
+		 * \brief Initialize DevDuino board.
+		 *
+		 * This method must be called before any other method of this class.
+		 */
 		void begin();
 
+		/**
+		 * \brief Attach function to "Interrupt" button.
+		 *
+		 * \param callback The function to attach.
+		 * \param mode The pin mode of button to attach.
+		 */
 		void attachToIntButton(void (*callback)(), int mode = FALLING);
 	private:
 	};
@@ -73,18 +82,18 @@ extern devduino::Rtc rtc;
 extern devduino::Temperature temperature;
 #endif
 
-//Define global oled variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED)
-extern devduino::Oled oled;
+//Define global display variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY)
+extern devduino::Display display;
 #endif
 
 //Define global console variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_CONSOLE)
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_CONSOLE)
 extern devduino::Console console;
 #endif
 
-//Define global console variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_SPREADSHEET)
+//Define global spreadsheet variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_SPREADSHEET)
 extern devduino::Spreadsheet spreadsheet;
 #endif
 

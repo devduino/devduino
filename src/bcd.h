@@ -27,8 +27,8 @@
 #include <stdint.h>
 
 /**
-* Default namespace for devduino related code.
-*/
+ * Default namespace for devduino related code.
+ */
 namespace devduino {
 	/**
 	 * \brief Utility class to work with BCD encoding.
@@ -39,11 +39,17 @@ namespace devduino {
 	public:
 		/**
 		 * Utility method to convert from bcd to binary.
+		 *
+		 * \param bcd The BCD to convert to binary.
+		 * \return decoded BCD as binary.
 		 */
 		static uint8_t toBinary(uint8_t bcd);
 
 		/**
 		 * Utility method to convert from binary to bcd.
+		 *
+		 * \binary The binary to convert to BCD.
+		 * \return encoded binary as BCD.
 		 */
 		static uint8_t fromBinary(uint8_t binary);
 

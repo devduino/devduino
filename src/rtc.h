@@ -27,8 +27,8 @@
 #include "dateTime.h"
 
 /**
-* Default namespace for devduino related code.
-*/
+ * Default namespace for devduino related code.
+ */
 namespace devduino {
 	/**
 	 * \brief High level driver for PCF8523 of devduino.

@@ -47,7 +47,7 @@ namespace devduino {
 	};
 } // namespace devduino
 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_OLED) && !defined(NO_GLOBAL_OLED_FONT)
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT)
 extern devduino::DevduinoFont devduinoFont;
 #endif
 

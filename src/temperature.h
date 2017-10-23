@@ -27,8 +27,8 @@
 #include <stdint.h>
 
 /**
-* Default namespace for devduino related code.
-*/
+ * Default namespace for devduino related code.
+ */
 namespace devduino {
   /** 
    * \brief High level driver for MCP9808 of devduino.

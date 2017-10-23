@@ -29,37 +29,92 @@
 #include "console.h"
 
 /**
-* Default namespace for devduino related code.
-*/
+ * Default namespace for devduino related code.
+ */
 namespace devduino {
   /** 
-   * 
+   * Partition and write to screen like on a spreadsheet.
    */
   class Spreadsheet {
   public:
+	/**
+	 * \brief Construct a spreadsheet with the given number of rows and columns.
+	 *
+	 * \param console The console display output to.
+	 * \param nbRows The number of rows of the spreadsheet.
+	 * \param nbColumns The number of columns of the spreadsheet.
+	 * \param autoFlush Defines if spreadsheet should be auto-flushed.
+	 */
 	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool autoFlush = true);
 
+	/**
+	 * \brief Write to the given cell of the spreadsheet.
+	 *
+	 * \param cellId The cell to ouput value to.
+	 * \param value The buffer containing value to output.
+	 * \param buffer_size The size of value buffer.
+	 *
+	 * \return A reference to this spreadsheet.
+	 */
 	Spreadsheet& write(uint8_t cellId, const char* value, size_t buffer_size);
 
+	/**
+	 * \brief Write to the given cell of the spreadsheet.
+	 *
+	 * \param cellId The cell to ouput value to.
+	 * \param value The value to output.
+	 *
+	 * \return A reference to this spreadsheet.
+	 */
 	Spreadsheet& write(uint8_t cellId, const String& value);
 
+	/**
+	 * \brief Set the number of rows and columns of the spreadsheet.
+	 *
+	 * \param nbRows The number of rows of the spreadsheet.
+	 * \param nbColumns The number of columns of the spreadsheet.
+	 *
+	 * \return A reference to this spreadsheet.
+	 */
 	Spreadsheet& setGrid(uint8_t nbRows, uint8_t nbColumns);
 
 	/**
-	* \brief Flush the console to display.
-	*
-	* \remark Console needs to be flushed if "write" methods are used.
-	*/
+	 * \brief Flush the console to display.
+	 *
+	 * \remark Console needs to be flushed if "write" methods are used.
+	 *
+	 * \return A reference to this spreadsheet.
+	 */
 	Spreadsheet& flush();
 
+	/**
+	 * \brief Defines if spreadsheet should be auto-flushed.
+	 *
+	 * \param autoFlush true if spreadsheet must be auto-flushed, false otherwise.
+	 *
+	 * \return A reference to this spreadsheet.
+	 */
 	Spreadsheet& enableAutoFlush(bool autoFlush);
 
   private:
-	  //The console to display output to.
+	  /**
+	   * \brief The console to display output to.
+	   */
 	  const Console& console;
 
+	  /**
+	  * \brief Defines if spreadsheet should be auto-flushed.
+	  */
 	  bool autoFlush;
+
+	  /**
+	  * \brief The number of rows of the spreadsheet.
+	  */
 	  uint8_t nbRows;
+
+	  /**
+	  * \brief The number of columns of the spreadsheet.
+	  */
 	  uint8_t nbColumns;
 
 	  /**

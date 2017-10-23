@@ -39,11 +39,11 @@ namespace devduino {
 		uint8_t column = cellId - (row * nbColumns);
 
 		if (row < nbRows && column < nbColumns) {
-			uint8_t cellWidth = console.getOled().getWidth() / nbColumns;
-			uint8_t cellHeight = console.getOled().getHeight() / nbRows;
+			uint8_t cellWidth = console.getDisplay().getWidth() / nbColumns;
+			uint8_t cellHeight = console.getDisplay().getHeight() / nbRows;
 			uint8_t cellX = column * cellWidth;
-			uint8_t cellY = console.getOled().getHeight() - ((row + 1) * cellHeight);
-			console.getOled().clearArea(cellX, cellY, cellWidth - 1, cellHeight - 1);
+			uint8_t cellY = console.getDisplay().getHeight() - ((row + 1) * cellHeight);
+			console.getDisplay().clearArea(cellX, cellY, cellWidth - 1, cellHeight - 1);
 			console.setTextPosition(cellX, cellY);			
 			console.write(value, buffer_size);
 			if (autoFlush) {
@@ -62,16 +62,16 @@ namespace devduino {
 		this->nbRows = nbRows;
 		this->nbColumns = nbColumns;
 
-		/*oled.clear();
+		/*display.clear();
 
-		uint8_t cellWidth = oled.getWidth() / nbColumns;
+		uint8_t cellWidth = display.getWidth() / nbColumns;
 		for (uint8_t column = 1; column < nbColumns; column++) {
-			oled.drawVerticalLine(column * cellWidth, 0, oled.getHeight());
+			display.drawVerticalLine(column * cellWidth, 0, display.getHeight());
 		}
 
-		uint8_t cellHeight = oled.getHeight() / nbRows;
+		uint8_t cellHeight = display.getHeight() / nbRows;
 		for (uint8_t row = 1; row < nbRows; row++) {
-			oled.drawVerticalLine(row * cellHeight, 0, oled.getWidth());
+			display.drawVerticalLine(row * cellHeight, 0, display.getWidth());
 		}
 
 		if (autoFlush) {
@@ -81,7 +81,7 @@ namespace devduino {
 	}
 
 	Spreadsheet& Spreadsheet::flush() {
-		console.getOled().display();
+		console.getDisplay().display();
 		return *this;
 	}
 

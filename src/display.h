@@ -21,8 +21,8 @@
 * SOFTWARE.
 */
 
-#ifndef DEVDUINO_OLED_H
-#define DEVDUINO_OLED_H
+#ifndef DEVDUINO_DISPLAY_H
+#define DEVDUINO_DISPLAY_H
 
 #include <stdint.h>
 #include <arduino.h>
@@ -31,8 +31,8 @@
 #include "Font.h"
 
 /**
-* Default namespace for devduino related code.
-*/
+ * Default namespace for devduino related code.
+ */
 namespace devduino {
   /** 
    * \brief High level driver for SSD1306 of devduino.
@@ -43,9 +43,9 @@ namespace devduino {
    * 
    * All coordinates greater than x=127 and y=63 are ignored.
    * 
-   * For more information on internal behavior, the oled screen datasheet is available <a href="http:\\www.datasheetspdf.com\datasheet\SSD1306" target="_blank">here</a>.
+   * For more information on internal behavior, the display screen datasheet is available <a href="http:\\www.datasheetspdf.com\datasheet\SSD1306" target="_blank">here</a>.
    */
-  class Oled {
+  class Display {
   public:
 	/**
 	 * \brief Get the width of screen.
@@ -62,11 +62,11 @@ namespace devduino {
 	uint8_t getHeight();
 
 	/**
-	 * \brief Initialize oled screen on DevDuino.
+	 * \brief Initialize display screen on DevDuino.
 	 *
 	 * This method must be called before any other method of this class.
 	 *
-	 * \remark Default font can be disabled by setting the preprocessor NO_GLOBAL_OLED_FONT.
+	 * \remark Default font can be disabled by setting the preprocessor NO_GLOBAL_DISPLAY_FONT.
 	 *
 	 * \param font A pointer to the font to use when rendering text. If null, the DevDuino default font will be used. If no default is found, no text will have to be rendered.
 	 */
@@ -185,9 +185,36 @@ namespace devduino {
      */
     void fillRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h);
 
+	/**
+	 * \brief Scrolls display vertically.
+	 *
+	 * Negative pixels scroll to bottom of screen, positive ones scroll to top of screen.
+	 *
+	 * \param pixels The number of pixels to scroll.
+	 */
 	void verticalScroll(int8_t pixels);
+
+	/**
+	 * Get the current vertical scroll offset.
+	 *
+	 * \attention Does not work with continuous scrolling function.
+	 *
+	 * \return the number of pixels scrolled.
+	 */
 	int8_t getVerticalScroll();
+
+	/**
+	* \brief Continuously scroll display vertically.
+	*
+	* Negative speed scrolls bottom of screen, positive one scroll top of screen.
+	*
+	* \param pixels The speed of scroll.
+	*/
 	void continuousVerticalScroll(uint8_t speed);
+
+	/**
+	 * \brief stop the continuous vertical scrolling of screen.
+	 */
 	void stopContinuousVerticalScroll();
 
 	/**
@@ -254,7 +281,7 @@ namespace devduino {
 	*
 	* \param text The text to write.
 	*/
-	void write(String text, uint8_t x, uint8_t y, Font* font, uint8_t fontSize);
+	void write(String text, uint8_t x, uint8_t y, Font* font);
 
 	/**
 	* \brief Write a text.
@@ -268,9 +295,9 @@ namespace devduino {
 	*
 	* \param buffer[in] The characters to write to screen.
 	*/
-	void write(const char *buffer, size_t buffer_size, uint8_t x, uint8_t y, Font* font, uint8_t fontSize);
+	void write(const char *buffer, size_t buffer_size, uint8_t x, uint8_t y, Font* font);
 
-	void write(uint8_t characterCode, uint8_t x, uint8_t y, Font* font, uint8_t fontSize);
+	void write(uint8_t characterCode, uint8_t x, uint8_t y, Font* font);
     
     /**
      * \brief Display the current drawings and writes to screen.
@@ -314,7 +341,7 @@ namespace devduino {
 	/**
 	* \brief The buffer that stores the pixel of screen.
 	*/
-	static uint8_t Oled::buffer[];
+	static uint8_t Display::buffer[];
 
 	/**
 	 * Constants for memory adressing mode.
@@ -577,4 +604,4 @@ namespace devduino {
   };
 } // namespace devduino
 
-#endif //DEVDUINO_OLED_H
+#endif //DEVDUINO_DISPLAY_H
