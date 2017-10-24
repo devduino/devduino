@@ -81,7 +81,7 @@ namespace devduino {
 	}
 
 	Spreadsheet& Spreadsheet::flush() {
-		console.getDisplay().display();
+		console.getDisplay().flush();
 		return *this;
 	}
 

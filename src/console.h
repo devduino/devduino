@@ -101,10 +101,10 @@ namespace devduino {
 	 *
 	 * The position of the new line is calculated from the current font size.
 	 *
-	 * \remark the rendering will be effective after a call to method display().
+	 * \remark the rendering will be effective after a call to method flush().
 	 *
 	 * \see setFontSize().
-	 * \see display().
+	 * \see flush().
 	 *
 	 * \return A reference to this console.
 	 */
@@ -119,12 +119,12 @@ namespace devduino {
 	 *
 	 * \attention If you need to reduce memory usage, you should not use class "String" and prefer the method with 'C style' parameters (char*, size_t).
 	 *
-	 * \remark the rendering will be effective after a call to method display().
+	 * \remark the rendering will be effective after a call to method flush().
 	 *
 	 * \see write(const char *buffer, size_t buffer_size).
 	 * \see setTextPosition().
 	 * \see setFontSize().
-	 * \see display().
+	 * \see flush().
 	 *
 	 * \param text The text to write.
 	 *
@@ -239,10 +239,10 @@ namespace devduino {
 	   * This method draws a single character.
 	   * The kerning is calculated from previous character code.
 	   *
-	   * \remark the rendering will be effective after a call to method display().
+	   * \remark the rendering will be effective after a call to method flush().
 	   *
 	   * \see write(string text) for a more detailled description.
-	   * \see display().
+	   * \see flush().
 	   *
 	   * \param characterCode The code of the character to write to screen.
 	   * \param previousCharacterCode The code of the previous character to writen to screen or 0 (default) if none.
@@ -266,10 +266,10 @@ namespace devduino {
 	   *
 	   * \param pixels The number of pixels used to compute if a new line must be created.
 	   *
-	   * \remark the rendering will be effective after a call to method display().
+	   * \remark the rendering will be effective after a call to method flush().
 	   *
 	   * \see setFontSize().
-	   * \see display().
+	   * \see flush().
 	   *
 	   * \return A reference to this console.
 	   */

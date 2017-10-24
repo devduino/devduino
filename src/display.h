@@ -82,11 +82,11 @@ namespace devduino {
 	 * 
 	 * X and Y coordinates must be between 0 and 127 (included).
      * 
-     * \remark the rendering will be effective after a call to method display().
+     * \remark the rendering will be effective after a call to method flush().
      * 
      * \see drawHorizontalLine().
      * \see drawVerticalLine().
-     * \see display().
+     * \see flush().
      * 
      * \param x0 The start position in pixel on X axis of the line to draw.
      * \param y0 The start position in pixel on Y axis of the line to draw.
@@ -102,9 +102,9 @@ namespace devduino {
 	 * 
 	 * X and Y coordinates must be between 0 and 127 (included).
      * 
-     * \remark the rendering will be effective after a call to method display().
+     * \remark the rendering will be effective after a call to method flush().
      * 
-     * \see display().
+     * \see flush().
      * 
      * \param x0 The start position in pixel on X axis of the line to draw.
      * \param x1 The end position in pixel on X axis of the line to draw.
@@ -119,9 +119,9 @@ namespace devduino {
 	 * 
 	 * X and Y coordinates must be between 0 and 127 (included).
      * 
-     * \remark the rendering will be effective after a call to method display().
+     * \remark the rendering will be effective after a call to method flush().
      * 
-     * \see display().
+     * \see flush().
      * 
      * \param x The position in pixel on X axis of the line to draw.
      * \param y0 The start position in pixel on Y axis of the line to draw.
@@ -132,23 +132,39 @@ namespace devduino {
 	/**
 	 * \brief Draw a rectangle with white border.
 	 *
-	 * \remark the rendering will be effective after a call to method display().
+	 * \remark the rendering will be effective after a call to method flush().
 	 *
-	 * \see display().
+	 * \see flush().
 	 *
-	 * \param top The position in pixel on Y axis of the top border to draw.
-	 * \param left The position in pixel on X axis of the left border to draw.
-	 * \param bottom The position in pixel on Y axis of the bottom border to draw.
-	 * \param right The position in pixel on X axis of the right border to draw.
+	 * \param x The position in pixel on X axis of the top border to draw.
+	 * \param y The position in pixel on Y axis of the left border to draw.
+	* \param w The width in pixel of the rectangle to draw.
+	* \param h The height in pixel of the rectangle to draw.
 	 */
-	void drawRectangle(uint8_t top, uint8_t left, uint8_t bottom, uint8_t right);
+	void drawRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h);
+
+	/**
+	* \brief Fill a rectangle with white.
+	*
+	* Rectangle is filled from \p x and \p y, a width \p w and a height \h.
+	*
+	* \remark the rendering will be effective after a call to method flush().
+	*
+	* \see flush().
+	*
+	* \param x The position in pixel on X axis of the rectangle to draw.
+	* \param y The position in pixel on Y axis of the rectangle to draw.
+	* \param w The width in pixel of the rectangle to draw.
+	* \param h The height in pixel of the rectangle to draw.
+	*/
+	void fillRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h);
 
 	/**
 	 * \brief Draw a circle with white border.
 	 *
-	 * \remark the rendering will be effective after a call to method display().
+	 * \remark the rendering will be effective after a call to method flush().
 	 *
-	 * \see display().
+	 * \see flush().
 	 *
 	 * \param centerX The position in pixel of the X center of the circle.
 	 * \param centerY The position in pixel of the Y center of the circle.
@@ -159,9 +175,9 @@ namespace devduino {
 	/**
 	* \brief Fill a circle with white.
 	*
-	* \remark the rendering will be effective after a call to method display().
+	* \remark the rendering will be effective after a call to method flush().
 	*
-	* \see display().
+	* \see flush().
 	*
 	* \param centerX The position in pixel of the X center of the circle.
 	* \param centerY The position in pixel of the Y center of the circle.
@@ -169,24 +185,8 @@ namespace devduino {
 	*/
 	void fillCircle(uint8_t centerX, uint8_t centerY, int8_t radius);
 
-    /**
-     * \brief Fill a rectangle with white.
-     * 
-     * Rectangle is filled from \p x and \p y, a width \p w and a height \h.
-     * 
-     * \remark the rendering will be effective after a call to method display().
-     * 
-     * \see display().
-     * 
-     * \param x The position in pixel on X axis of the rectangle to draw.
-     * \param y The position in pixel on Y axis of the rectangle to draw.
-     * \param w The width in pixel of the rectangle to draw.
-     * \param h The height in pixel of the rectangle to draw.
-     */
-    void fillRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h);
-
 	/**
-	 * \brief Scrolls display vertically.
+	 * \brief Scrolls flush vertically.
 	 *
 	 * Negative pixels scroll to bottom of screen, positive ones scroll to top of screen.
 	 *
@@ -204,7 +204,7 @@ namespace devduino {
 	int8_t getVerticalScroll();
 
 	/**
-	* \brief Continuously scroll display vertically.
+	* \brief Continuously scroll flush vertically.
 	*
 	* Negative speed scrolls bottom of screen, positive one scroll top of screen.
 	*
@@ -218,15 +218,15 @@ namespace devduino {
 	void stopContinuousVerticalScroll();
 
 	/**
-	 * \brief Draw a buffer.
+	 * \brief Draws a buffer.
      * 
      * Buffer is drawn to \p x and \p y.
 	 * \p w and \p h parameters are the width and height in pixels of the buffer. It does not affect the scale of the drawn image.
      * 
      * \remark \p buffer must be stored in flash memory (PROGMEM).
-     * \remark The rendering will be effective after a call to method display().
+     * \remark The rendering will be effective after a call to method flush().
      * 
-     * \see display().
+     * \see flush().
      * 
      * \param x The position in pixel on X axis of the buffer to draw.
      * \param y The position in pixel on Y axis of the buffer to draw.
@@ -236,27 +236,26 @@ namespace devduino {
 	void drawBuffer(const uint8_t* buffer, uint8_t x, uint8_t y, uint8_t w, uint8_t h);
 
 	/**
-	* \brief Draw a sprite.
+	* \brief Draws a sprite.
 	*
 	* Sprite is drawn to \p x and \p y.
 	*
 	* \remark \p sprite's buffer must be stored in flash memory (PROGMEM).
-	* \remark the rendering will be effective after a call to method display().
+	* \remark the rendering will be effective after a call to method flush().
 	*
-	* \see display().
+	* \see flush().
 	*
 	* \param x The position in pixel on X axis of the sprite to draw.
 	* \param y The position in pixel on Y axis of the sprite to draw.
-	* \param scale The scale to apply to the sprite to draw.
 	*/
-	void drawSprite(const Sprite& sprite, uint8_t x, uint8_t y, uint8_t scale = 0);
+	void drawSprite(const Sprite& sprite, uint8_t x, uint8_t y);
 
     /**
-     * \brief Draw a white pixel.
+     * \brief Draws a white pixel.
      * 
-     * \remark the rendering will be effective after a call to method display().
+     * \remark the rendering will be effective after a call to method flush().
      * 
-     * \see display().
+     * \see flush().
      * 
      * \param x The position in pixel on X axis of the pixel to draw.
      * \param y The position in pixel on Y axis of the pixel to draw.
@@ -264,7 +263,7 @@ namespace devduino {
     void drawPixel(uint8_t x, uint8_t y);
 
 	/**
-	* \brief Write a text.
+	* \brief Writes a text.
 	*
 	* Text will be rendered at current position with current font size.
 	* After this method call, the current position of text will be updated to be the next empty coordinates.
@@ -272,71 +271,97 @@ namespace devduino {
 	*
 	* \attention If you need to reduce memory usage, you should not use class "String" and prefer the method with 'C style' parameters (char*, size_t).
 	*
-	* \remark the rendering will be effective after a call to method display().
+	* \remark the rendering will be effective after a call to method flush().
 	*
 	* \see write(const char *buffer, size_t buffer_size).
 	* \see setTextPosition().
 	* \see setFontSize().
-	* \see display().
+	* \see flush().
 	*
 	* \param text The text to write.
 	*/
 	void write(String text, uint8_t x, uint8_t y, Font* font);
 
 	/**
-	* \brief Write a text.
+	* \brief Writes a text.
 	*
 	* \see write(string text) for a more detailled description.
 	* This method should be prefered to the one with (string) parameter for memory consumption reason.
 	*
-	* \remark the rendering will be effective after a call to method display().
+	* \remark the rendering will be effective after a call to method flush().
 	*
-	* \see display().
+	* \see flush().
 	*
 	* \param buffer[in] The characters to write to screen.
 	*/
 	void write(const char *buffer, size_t buffer_size, uint8_t x, uint8_t y, Font* font);
 
+	/**
+	* \brief Writes a single character.
+	*
+	* \remark the rendering will be effective after a call to method flush().
+	*
+	* \see flush().
+	*
+	* \param characterCode The character to write to screen.
+	*/
 	void write(uint8_t characterCode, uint8_t x, uint8_t y, Font* font);
     
     /**
-     * \brief Display the current drawings and writes to screen.
+     * \brief flush the current drawings and writes to screen.
      *
-     * Sends buffer to screen to display the preceding orders.
+     * Sends buffer to screen to flush the preceding orders.
      */
-    void display();
+    void flush();
     
     /**
-     * \brief Clear the screen.
+     * \brief Clears the screen.
      *
      * Clear buffer to discard all preceding orders.
-     * The clearing of screen will be effective after the next display command issued.
+     * The clearing of screen will be effective after the next flush command issued.
      * 
-     * \see display().
+     * \see flush().
      */
     void clear();
 
 	/**
-	* \brief Clear a part of the screen.
+	* \brief Clears a part of the screen.
 	*
 	* Clear buffer to discard all preceding orders on a specific part of the screen.
-	* The clearing of area will be effective after the next display command issued.
+	* The clearing of area will be effective after the next flush command issued.
 	*
-	* \see display().
+	* \see flush().
 	*/
 	void clearArea(uint8_t x, uint8_t y, uint8_t width, uint8_t height);
 
 	/**
-	* \brief Clear a pixel on screen.
+	* \brief Clears a pixel on screen.
 	*
-	* The clearing of pixel will be effective after the next display command issued.
+	* The clearing of pixel will be effective after the next flush command issued.
 	*
-	* \see display().
+	* \see flush().
 	*/
 	void clearPixel(uint8_t x, uint8_t y);
+
+	/**
+	* \brief Set zoom level of next operations.
+	*/
+	void setZoom(uint8_t zoom);
+
+	/**
+	* \brief Get current zoom level.
+	*/
+	uint8_t getZoom();
     
   private:
+	/**
+	 * \brief The line where scroll gets its origin.
+	 */
 	uint8_t displayStartLine = 0;
+	/**
+	* \brief The level of zoom (multiplication factor).
+	*/
+	uint8_t zoom = 1;
 
 	/**
 	* \brief The buffer that stores the pixel of screen.

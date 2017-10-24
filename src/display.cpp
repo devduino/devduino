@@ -164,17 +164,69 @@ namespace devduino {
 		drawPixel(x, y0);
 	}
 
-	void Display::drawRectangle(uint8_t top, uint8_t left, uint8_t bottom, uint8_t right) {
-		drawHorizontalLine(left, right, top);
-		drawHorizontalLine(left, right, bottom);
-		drawVerticalLine(left, top, bottom);
-		drawVerticalLine(right, top, bottom);
+	void Display::drawRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
+		drawHorizontalLine(x, x + w, y + h);
+		drawHorizontalLine(x, x + w, y);
+		drawVerticalLine(x, y, y + h);
+		drawVerticalLine(x + w, y, y + h);
 	}
     
 	void Display::fillRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
 		while(w > 0) {
 			w--;
-			drawVerticalLine(x + w, y, y + h - 1);
+			drawVerticalLine(x + w, y, y + h);
+		}
+	}
+
+	void Display::drawCircle(uint8_t centerX, uint8_t centerY, int8_t radius) {
+		uint8_t x = 0;
+		uint8_t y = radius;
+
+		int8_t m = 5 - 4 * radius;
+
+		while (x <= y) {
+			drawPixel(centerX + x, centerY + y);
+			drawPixel(centerX + y, centerY + x);
+			drawPixel(centerX - x, centerY + y);
+			drawPixel(centerX - y, centerY + x);
+			drawPixel(centerX + x, centerY - y);
+			drawPixel(centerX + y, centerY - x);
+			drawPixel(centerX - x, centerY - y);
+			drawPixel(centerX - y, centerY - x);
+
+			if (m > 0) {
+				y--;
+				m -= 8 * y;
+			}
+
+			x++;
+			m += 8 * x + 4;
+		}
+	}
+
+	void Display::fillCircle(uint8_t centerX, uint8_t centerY, int8_t radius) {
+		uint8_t x = 0;
+		uint8_t y = radius;
+
+		int8_t m = 5 - 4 * radius;
+
+		while (x <= y) {
+			drawVerticalLine(centerX + x, centerY + y, centerY);
+			drawVerticalLine(centerX + y, centerY + x, centerY);
+			drawVerticalLine(centerX - x, centerY + y, centerY);
+			drawVerticalLine(centerX - y, centerY + x, centerY);
+			drawVerticalLine(centerX + x, centerY - y, centerY);
+			drawVerticalLine(centerX + y, centerY - x, centerY);
+			drawVerticalLine(centerX - x, centerY - y, centerY);
+			drawVerticalLine(centerX - y, centerY - x, centerY);
+
+			if (m > 0) {
+				y--;
+				m -= 8 * y;
+			}
+
+			x++;
+			m += 8 * x + 4;
 		}
 	}
 
@@ -233,58 +285,6 @@ namespace devduino {
 		setActivateScroll(activateScroll_t::deactivate);
 	}
 
-	void Display::drawCircle(uint8_t centerX, uint8_t centerY, int8_t radius) {
-		uint8_t x = 0;
-		uint8_t y = radius;
-
-		int8_t m = 5 - 4 * radius;
-
-		while (x <= y) {
-			drawPixel(centerX + x, centerY + y);
-			drawPixel(centerX + y, centerY + x);
-			drawPixel(centerX - x, centerY + y);
-			drawPixel(centerX - y, centerY + x);
-			drawPixel(centerX + x, centerY - y);
-			drawPixel(centerX + y, centerY - x);
-			drawPixel(centerX - x, centerY - y);
-			drawPixel(centerX - y, centerY - x);
-
-			if (m > 0) {
-				y--;
-				m -= 8 * y;
-			}
-
-			x++;
-			m += 8 * x + 4;
-		}
-	}
-
-	void Display::fillCircle(uint8_t centerX, uint8_t centerY, int8_t radius) {
-		uint8_t x = 0;
-		uint8_t y = radius;
-
-		int8_t m = 5 - 4 * radius;
-
-		while (x <= y) {
-			drawVerticalLine(centerX + x, centerY + y, centerY);
-			drawVerticalLine(centerX + y, centerY + x, centerY);
-			drawVerticalLine(centerX - x, centerY + y, centerY);
-			drawVerticalLine(centerX - y, centerY + x, centerY);
-			drawVerticalLine(centerX + x, centerY - y, centerY);
-			drawVerticalLine(centerX + y, centerY - x, centerY);
-			drawVerticalLine(centerX - x, centerY - y, centerY);
-			drawVerticalLine(centerX - y, centerY - x, centerY);
-
-			if (m > 0) {
-				y--;
-				m -= 8 * y;
-			}
-
-			x++;
-			m += 8 * x + 4;
-		}
-	}
-
 	void Display::drawBuffer(const uint8_t* buffer, uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
 		for (uint8_t currentX = 0; currentX < w; currentX++) {
 			for (uint8_t currentY = 0; currentY < h; currentY++) {
@@ -299,8 +299,7 @@ namespace devduino {
 		}
 	}
 
-	void Display::drawSprite(const Sprite& sprite, uint8_t x, uint8_t y, uint8_t scale = 0) {
-		//FIXME: Gérer le scale.
+	void Display::drawSprite(const Sprite& sprite, uint8_t x, uint8_t y) {
 		drawBuffer(sprite.getBuffer(), x, y, sprite.getWidth(), sprite.getHeight());
 	}
 
@@ -330,7 +329,7 @@ namespace devduino {
 		drawBuffer(font->getGlyphPixels(characterCode), x, y, width, height / 8 + 1);
 	}
 
-	void Display::display() {
+	void Display::flush() {
 		//Save previous clock configuration and set clock 400 KHz.
 		uint8_t previousClock = TWBR;
 		Wire.setClock(400000);
@@ -376,6 +375,14 @@ namespace devduino {
 		}
 
 		buffer[x + ((y / SSD1306_PIXELS_PER_BYTE) * SSD1306_WIDTH)] &= ~(1 << (y & (SSD1306_PIXELS_PER_BYTE - 1)));
+	}
+
+	void Display::setZoom(uint8_t zoom) {
+		this->zoom = zoom;
+	}
+
+	uint8_t Display::getZoom() {
+		return zoom;
 	}
 
 	//------------------------------------------------------------------------//

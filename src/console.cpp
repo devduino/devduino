@@ -119,7 +119,7 @@ namespace devduino {
 	}
 
 	Console& Console::flush() {
-		display.display();
+		display.flush();
 		return *this;
 	}
 
