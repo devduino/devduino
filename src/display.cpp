@@ -118,6 +118,7 @@ namespace devduino {
 		setComPinsHardwareConfiguration(comPinsHardwareConfigurationPin_t::alternative, comPinsHardwareConfigurationRemap_t::disable);
 		setEntireDisplayOn(entireDisplayOn_t::follow);
 		setChargePumpSetting(chargePumpSetting_t::enable);
+		stopContinuousVerticalScroll();
 		setDisplayOnOff(displayOnOff_t::on);
 	}
     
@@ -261,6 +262,10 @@ namespace devduino {
 		setDisplayStartLine(newStartLine);
 	}
 
+	void Display::resetVerticalScroll() {
+		setDisplayStartLine(0);
+	}
+
 	int8_t Display::getVerticalScroll() {
 		return displayStartLine;
 	}
@@ -304,11 +309,16 @@ namespace devduino {
 	}
 
 	void Display::drawPixel(uint8_t x, uint8_t y) {
-		if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) {
-			return;
+		for (uint8_t i = 0; i < zoom; i++) {
+			for (uint8_t j = 0; j < zoom; j++) {
+				uint8_t posX = x * zoom + i;
+				uint8_t posY = y * zoom + j;
+				if (posX < SSD1306_WIDTH && posY < SSD1306_HEIGHT) {
+					uint8_t bits = (1 << (posY & (SSD1306_PIXELS_PER_BYTE - 1)));
+					buffer[posX + (((y * zoom + j) / SSD1306_PIXELS_PER_BYTE) * SSD1306_WIDTH)] |= bits;
+				}
+			}
 		}
-
-		buffer[x + ((y / SSD1306_PIXELS_PER_BYTE) * SSD1306_WIDTH)] |= (1 << (y & (SSD1306_PIXELS_PER_BYTE - 1)));
 	}
 
 	void Display::write(String text, uint8_t x, uint8_t y, Font* font) {

@@ -195,6 +195,11 @@ namespace devduino {
 	void verticalScroll(int8_t pixels);
 
 	/**
+	 * \brief Reset vertical scroll to 0 (its original position).
+	 */
+	void resetVerticalScroll();
+
+	/**
 	 * Get the current vertical scroll offset.
 	 *
 	 * \attention Does not work with continuous scrolling function.
