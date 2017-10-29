@@ -151,6 +151,7 @@ namespace devduino {
 
 			uint8_t y = textY + display.getVerticalScroll();
 			display.drawBuffer(font->getGlyphPixels(characterCode), textX + kerning, y, width, height / 8 + 1);
+
 			incrementTextPosition(width + kerning);
 		}
 	}

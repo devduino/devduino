@@ -44,6 +44,10 @@ namespace devduino {
 
 	private:
 		static const uint8_t glyphsBuffer[96][5] PROGMEM;
+		static const uint8_t glyphsWidth[96] PROGMEM;
+		static const uint8_t glyphsPosition[96] PROGMEM;
+
+		uint8_t getGlyphPosition(uint8_t characterCode);
 	};
 } // namespace devduino
 

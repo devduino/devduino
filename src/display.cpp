@@ -328,8 +328,12 @@ namespace devduino {
 	void Display::write(const char *buffer, size_t buffer_size, uint8_t x, uint8_t y, Font* font) {
 		uint8_t width = 0;
 		while (buffer_size--) {
-			width += font->getGlyphWidth(*buffer);
-			write(*buffer++, x + width, y, font);
+			uint8_t glyphWidth = font->getGlyphWidth(*buffer);
+			uint8_t glyphHeight = font->getGlyphHeight(*buffer);
+			drawBuffer(font->getGlyphPixels(*buffer), x + width, y, glyphWidth, glyphHeight / 8 + 1);
+			buffer++;
+			//Increment width from glyphWidth + 1 to not let glyphs touch themselves.
+			width += glyphWidth + 1;
 		}
 	}
 

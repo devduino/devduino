@@ -35,7 +35,7 @@ namespace devduino {
 		{ 0x00, 0x00, 0xE0, 0x00, 0x00 },
 		{ 0x00, 0x7C, 0x82, 0x00, 0x00 },
 		{ 0x00, 0x00, 0x82, 0x7C, 0x00 },
-		{ 0x00, 0x00, 0x00, 0x00, 0x00 },
+		{ 0x00, 0xA0, 0x40, 0xA0, 0x00 },
 		{ 0x10, 0x10, 0x7C, 0x10, 0x10 },
 		{ 0x00, 0x02, 0x0C, 0x00, 0x00 },
 		{ 0x00, 0x10, 0x10, 0x10, 0x00 },
@@ -123,8 +123,24 @@ namespace devduino {
 		{ 0x1C, 0xC6, 0xC6, 0xC6, 0x70 }
 	};
 
+	const uint8_t DevduinoFont::glyphsWidth[96] PROGMEM = {
+		2, 1, 3, 5, 5, 5, 5, 1, 2, 2, 3, 5, 2, 3, 2, 3, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 1, 2, 5, 5, 5, 4, 5,
+		4, 4, 4, 4, 4, 4, 4, 4, 1, 4, 4, 4, 5, 5, 4, 4, 4, 4, 4, 5, 4, 5, 5, 5, 5, 5,
+		2, 3, 2, 5, 5, 2,
+		4, 4, 4, 4, 4, 3, 4, 4, 1, 3, 4, 3, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5,	4, 4,
+		3, 1, 3, 5, 5
+	};
+
+	const uint8_t DevduinoFont::glyphsPosition[96] PROGMEM = {
+		0, 2, 1, 0, 0, 0, 0, 2, 1, 2, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 1, 2, 0, 0, 1,
+		0, 0, 0, 0, 0, 1, 0, 0, 2, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	0, 0,
+		1, 2, 1, 0, 0
+	};
+
 	uint8_t DevduinoFont::getGlyphWidth(uint8_t characterCode) {
-		return 5;
+		return pgm_read_byte(&glyphsWidth[characterCode - 32]);
 	}
 
 	uint8_t DevduinoFont::getGlyphHeight(uint8_t characterCode) {
@@ -132,11 +148,15 @@ namespace devduino {
 	}
 
 	const uint8_t* DevduinoFont::getGlyphPixels(uint8_t characterCode) {
-		return &glyphsBuffer[characterCode - 32][0];
+		return (&glyphsBuffer[characterCode - 32][0]) + getGlyphPosition(characterCode);
 	}
 
 	int8_t DevduinoFont::getGlyphKerning(uint8_t characterCode, uint8_t previousCharacterCode) {
 		return 0;
+	}
+
+	uint8_t DevduinoFont::getGlyphPosition(uint8_t characterCode) {
+		return pgm_read_byte(&glyphsPosition[characterCode - 32]);
 	}
 } // namespace devduino
 
