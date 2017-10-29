@@ -45,7 +45,7 @@ namespace devduino {
 	 * \param nbColumns The number of columns of the spreadsheet.
 	 * \param autoFlush Defines if spreadsheet should be auto-flushed.
 	 */
-	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool autoFlush = true);
+	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool autoFlush = false, bool drawBorders = true);
 
 	/**
 	 * \brief Write to the given cell of the spreadsheet.
@@ -96,6 +96,15 @@ namespace devduino {
 	 */
 	Spreadsheet& enableAutoFlush(bool autoFlush);
 
+	/**
+	 * \brief Defines is borders must be drawn.
+	 *
+	 * \param drawBorders true if borders must be drawn, false otherwise.
+	 *
+	 * \return A reference to this spreadsheet.
+	 */
+	Spreadsheet& enableDrawBorders(bool drawBorders);
+
   private:
 	  /**
 	   * \brief The console to display output to.
@@ -106,6 +115,11 @@ namespace devduino {
 	  * \brief Defines if spreadsheet should be auto-flushed.
 	  */
 	  bool autoFlush;
+
+	  /**
+	  * \brief Defines if spreadsheet should be auto-flushed.
+	  */
+	  bool drawBorders;
 
 	  /**
 	  * \brief The number of rows of the spreadsheet.

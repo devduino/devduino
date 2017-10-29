@@ -38,6 +38,13 @@ namespace devduino {
 	class Font {
 	public:
 		/**
+		 * \brief Get the size of font.
+		 *
+		 * Size of font correspond to its height.
+		 */
+		virtual uint8_t getSize() = 0;
+
+		/**
 		 * Get the width of the glyph.
 		 */
 		virtual uint8_t getGlyphWidth(uint8_t characterCode) = 0;

@@ -32,6 +32,11 @@
 #include <stdint.h>
 #include <arduino.h>
 
+//Include devduino default font if allowed. 
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_FONT)
+#include "devduino.font.h"
+#endif
+
 #include "rtc.h"
 #include "temperature.h"
 #include "display.h"
@@ -70,6 +75,11 @@ namespace devduino {
 //Define global board variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BOARD)
 extern devduino::Board board;
+#endif
+
+//Define global default font variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT)
+extern devduino::DevduinoFont devduinoFont;
 #endif
 
 //Define global rtc variable.

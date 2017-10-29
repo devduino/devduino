@@ -45,7 +45,7 @@ namespace devduino {
 	 * \param nbAreasX The number of areas to define on X axis.
 	 * \param nbAreasY The number of areas to define on Y axis.
 	*/
-	Console(const Display& display, const Font* font = nullptr, bool autoFlush = true);
+	Console(const Display& display, const Font* font = nullptr, bool autoFlush = false);
 
 	/**
 	 * \brief Get the display attached to this console.
@@ -78,11 +78,18 @@ namespace devduino {
 	/**
 	 * \brief Set the font to use to display next characters.
 	 *
-	 * \param font The reference of the font to use for next writes.
+	 * \param font The pointer to the font to use for next writes.
 	 *
 	 * \return A reference to this console.
 	 */
 	Console& setFont(const Font* font);
+
+	/**
+	* \brief Get the the font used for texts rendering.
+	*
+	* \return A pointer the font.
+	*/
+	const Font* getFont();
 
 	/**
 	 * \brief Defines the size of the font used for next texts rendering.
@@ -95,6 +102,16 @@ namespace devduino {
 	 * \return A reference to this console.
 	 */
 	Console& setFontSize(uint8_t size);
+
+	/**
+	* \brief Get the size of the font used for texts rendering.
+	*
+	* On this type of screen, the size usually used is from 1 to 3.
+	* If never set, the size of font defaults to 1.
+	*
+	* \return The size of the font.
+	*/
+	uint8_t getFontSize();
 
 	/**
 	 * \brief Skip a line.

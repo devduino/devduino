@@ -58,6 +58,9 @@ namespace devduino {
 		Wire.endTransmission();
 	}
 
+	//------------------------------------------------------------------------//
+	//---------------------------- Private methods ---------------------------//
+	//------------------------------------------------------------------------//
 	DateTime Rtc::now() {
 		//Request seconds register.
 		Wire.beginTransmission(PCF8523_I2C_ADDRESS);

@@ -80,6 +80,9 @@ namespace devduino {
 		return ((toDay(year, month, day) + 5) % 7) + 1;
 	}
 
+	//------------------------------------------------------------------------//
+	//---------------------------- Private methods ---------------------------//
+	//------------------------------------------------------------------------//
 	void DateTime::setDateTime(uint16_t year, uint8_t month, uint8_t day, uint8_t hour = 0, uint8_t minute = 0, uint8_t second = 0) {
 		dateTime = (year - 2016) & 0x3F;
 		dateTime = (dateTime << 4) | (month & 0x0F); //4 bit shift for months.

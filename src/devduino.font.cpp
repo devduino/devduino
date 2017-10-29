@@ -139,6 +139,13 @@ namespace devduino {
 		1, 2, 1, 0, 0
 	};
 
+	//------------------------------------------------------------------------//
+	//---------------------------- Public methods ----------------------------//
+	//------------------------------------------------------------------------//
+	uint8_t DevduinoFont::getSize() {
+		return 7;
+	}
+
 	uint8_t DevduinoFont::getGlyphWidth(uint8_t characterCode) {
 		return pgm_read_byte(&glyphsWidth[characterCode - 32]);
 	}
@@ -155,11 +162,10 @@ namespace devduino {
 		return 0;
 	}
 
+	//------------------------------------------------------------------------//
+	//---------------------------- Private methods ---------------------------//
+	//------------------------------------------------------------------------//
 	uint8_t DevduinoFont::getGlyphPosition(uint8_t characterCode) {
 		return pgm_read_byte(&glyphsPosition[characterCode - 32]);
 	}
 } // namespace devduino
-
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT)
-devduino::DevduinoFont devduinoFont;
-#endif

@@ -59,6 +59,10 @@ namespace devduino {
 devduino::Board board;
 #endif
 
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT)
+devduino::DevduinoFont devduinoFont;
+#endif
+
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
 devduino::Rtc rtc;
 #endif

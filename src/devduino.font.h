@@ -37,22 +37,31 @@ namespace devduino {
 	*/
 	class DevduinoFont : public Font {
 	public:
+		uint8_t getSize();
 		uint8_t getGlyphWidth(uint8_t characterCode);
 		uint8_t getGlyphHeight(uint8_t characterCode);
 		const uint8_t* getGlyphPixels(uint8_t characterCode);
 		int8_t getGlyphKerning(uint8_t characterCode, uint8_t previousCharacterCode);
 
 	private:
+		/**
+		 * \brief The pixels of glyphs.
+		 */
 		static const uint8_t glyphsBuffer[96][5] PROGMEM;
+		/**
+		 * \brief the width in pixels of each glyph.
+		 */
 		static const uint8_t glyphsWidth[96] PROGMEM;
+		/**
+		 * \brief The x position of first pixel of glyph in its bouding box.
+		 */
 		static const uint8_t glyphsPosition[96] PROGMEM;
 
+		/**
+		 * \brief Get the x position of first pixel of glyph in its bounding box.
+		 */
 		uint8_t getGlyphPosition(uint8_t characterCode);
 	};
 } // namespace devduino
-
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT)
-extern devduino::DevduinoFont devduinoFont;
-#endif
 
 #endif //DEVDUINO_DEFAULT_FONT_H

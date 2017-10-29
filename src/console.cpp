@@ -21,19 +21,11 @@
 * SOFTWARE.
 */
 
+#include "board.h"
 #include "console.h"
-
-//Include devduino default font if allowed. 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_FONT)
-#include "devduino.font.h"
-#endif
-
-#define CONSOLE_FONT_WIDTH 5
 
 //The first ASCII code to be coded in font.
 #define CONSOLE_FONT_FIRST_CODE 33
-
-#define CONSOLE_FONT_HEIGHT 7
 
 namespace devduino {
 	//------------------------------------------------------------------------//
@@ -41,6 +33,7 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	Console::Console(const Display& display, const Font* font, bool autoFlush) :
 		display(display), 
+		//It is dangerous to set autoFlush to true before a call to "begin" of Wire. A method could be called with Wire not being initialised.
 		autoFlush(autoFlush)
 	{
 		if (font == nullptr) {
@@ -52,7 +45,7 @@ namespace devduino {
 		else {
 			setFont(font);
 		}
-		setTextPosition(0, 64 - CONSOLE_FONT_HEIGHT);
+		setTextPosition(0, 64 - this->font->getSize());
 	}
 
 	const Display& Console::getDisplay() {
@@ -70,14 +63,22 @@ namespace devduino {
 		return *this;
 	}
 
+	const Font* Console::getFont() {
+		return font;
+	}
+
 	Console& Console::setFontSize(uint8_t size) {
 		fontSize = size;
 		return *this;
 	}
 
+	uint8_t Console::getFontSize() {
+		return fontSize;
+	}
+
 	Console& Console::newLine() {
 		textX = 0;
-		textY -= fontSize * CONSOLE_FONT_HEIGHT + 1;
+		textY -= fontSize * font->getSize() + 1;
 
 		if (autoFlush) {
 			flush();

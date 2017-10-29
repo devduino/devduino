@@ -166,10 +166,10 @@ namespace devduino {
 	}
 
 	void Display::drawRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
-		drawHorizontalLine(x, x + w, y + h);
-		drawHorizontalLine(x, x + w, y);
-		drawVerticalLine(x, y, y + h);
-		drawVerticalLine(x + w, y, y + h);
+		drawHorizontalLine(x, x + w - 1, y + h - 1);
+		drawHorizontalLine(x, x + w - 1, y);
+		drawVerticalLine(x, y, y + h - 1);
+		drawVerticalLine(x + w - 1, y, y + h - 1);
 	}
     
 	void Display::fillRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h) {

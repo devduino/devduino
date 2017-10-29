@@ -27,9 +27,11 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	Spreadsheet::Spreadsheet(const Console& console, uint8_t nbRows, uint8_t nbColumns, bool autoFlush) :
+	Spreadsheet::Spreadsheet(const Console& console, uint8_t nbRows, uint8_t nbColumns, bool autoFlush, bool drawBorders) :
 		console(console),
-		autoFlush(autoFlush)
+		//Because "begin" has not yet been called, we must not set autoFlush to "true" or setGrid() would like to flush without Wire being intialised.
+		autoFlush(autoFlush),
+		drawBorders(drawBorders)
 	{
 		setGrid(nbRows, nbColumns);
 	}
@@ -38,13 +40,21 @@ namespace devduino {
 		uint8_t row = cellId / nbColumns;
 		uint8_t column = cellId - (row * nbColumns);
 
+		const Display& display = console.getDisplay();
 		if (row < nbRows && column < nbColumns) {
-			uint8_t cellWidth = console.getDisplay().getWidth() / nbColumns;
-			uint8_t cellHeight = console.getDisplay().getHeight() / nbRows;
+			float cellWidth = ((float) display.getWidth()) / nbColumns;
+			float cellHeight = ((float) display.getHeight()) / nbRows;
+
 			uint8_t cellX = column * cellWidth;
-			uint8_t cellY = console.getDisplay().getHeight() - ((row + 1) * cellHeight);
-			console.getDisplay().clearArea(cellX, cellY, cellWidth - 1, cellHeight - 1);
-			console.setTextPosition(cellX, cellY);			
+			float cellY = (display.getHeight() - ((row + 1) * cellHeight));
+
+			display.clearArea(cellX + 1, cellY + 1, cellWidth - 2, cellHeight - 2);
+
+			//Center text y in cell.
+			uint8_t textY = cellY + (cellHeight / 2) - ((float) console.getFontSize()) * (((float) console.getFont()->getSize()) / 2);
+			// Add +2 to add a space between border and text.
+			console.setTextPosition(cellX + 2, textY);
+
 			console.write(value, buffer_size);
 			if (autoFlush) {
 				flush();
@@ -62,21 +72,8 @@ namespace devduino {
 		this->nbRows = nbRows;
 		this->nbColumns = nbColumns;
 
-		/*display.clear();
+		enableDrawBorders(drawBorders);
 
-		uint8_t cellWidth = display.getWidth() / nbColumns;
-		for (uint8_t column = 1; column < nbColumns; column++) {
-			display.drawVerticalLine(column * cellWidth, 0, display.getHeight());
-		}
-
-		uint8_t cellHeight = display.getHeight() / nbRows;
-		for (uint8_t row = 1; row < nbRows; row++) {
-			display.drawVerticalLine(row * cellHeight, 0, display.getWidth());
-		}
-
-		if (autoFlush) {
-			flush();
-		}*/
 		return *this;
 	}
 
@@ -87,6 +84,37 @@ namespace devduino {
 
 	Spreadsheet& Spreadsheet::enableAutoFlush(bool autoFlush) {
 		this->autoFlush = autoFlush;
+		return *this;
+	}
+
+	Spreadsheet& Spreadsheet::enableDrawBorders(bool drawBorders) {
+		this->drawBorders = drawBorders;
+
+		const Display& display = console.getDisplay();
+
+		display.clear();
+
+		if (drawBorders) {
+			display.drawRectangle(0, 0, display.getWidth(), display.getHeight());
+
+			//Draw intermediate vertical lines.
+			float cellWidth = ((float) display.getWidth()) / nbColumns;
+			for (uint8_t column = 1; column < nbColumns; column++) {
+				display.drawVerticalLine(column * cellWidth, 0, display.getHeight());
+			}
+
+			//Draw intermediate horizontal lines.
+			//Use float for precision and to share same metrics with "write" function that clears inside these cells.
+			float cellHeight = ((float) display.getHeight()) / nbRows;
+			for (uint8_t row = 1; row < nbRows; row++) {
+				display.drawHorizontalLine(0, display.getWidth(), row * cellHeight);
+			}
+		}
+
+		if (autoFlush) {
+			display.flush();
+		}
+
 		return *this;
 	}
 
