@@ -45,7 +45,7 @@ namespace devduino {
 		else {
 			setFont(font);
 		}
-		setTextPosition(0, 64 - this->font->getSize());
+		setTextPosition(0, (display.getHeight() - 1) - this->font->getSize());
 	}
 
 	const Display& Console::getDisplay() {
@@ -151,7 +151,7 @@ namespace devduino {
 			}
 
 			uint8_t y = textY + display.getVerticalScroll();
-			display.drawBuffer(font->getGlyphPixels(characterCode), textX + kerning, y, width, height / 8 + 1);
+			display.drawBuffer(font->getGlyphPixels(characterCode), textX + kerning, y, width, height / 8 + 1, false, true);
 
 			incrementTextPosition(width + kerning);
 		}

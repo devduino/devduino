@@ -234,23 +234,22 @@ namespace devduino {
 	void Display::verticalScroll(int8_t pixels) {
 		//Compute display start line and clear scrolled buffer.
 		int8_t newStartLine = displayStartLine + pixels;
-		if (newStartLine > 64) {
-			newStartLine = (displayStartLine + pixels) % 64;
+		if (newStartLine > SSD1306_HEIGHT - 1) {
+			newStartLine %= SSD1306_HEIGHT;
 			//Clear buffer from old start line to screen height.
-			clearArea(0, displayStartLine, SSD1306_WIDTH, 64 - displayStartLine);
+			clearArea(0, displayStartLine, SSD1306_WIDTH, SSD1306_HEIGHT - displayStartLine);
 			//Clear buffer from 0 to new start line.
 			clearArea(0, 0, SSD1306_WIDTH, newStartLine);
 		}
 		else if (newStartLine < 0) {
-			newStartLine = 64 + (displayStartLine + pixels);
+			newStartLine += SSD1306_HEIGHT;
 			//Clear buffer from 0 to old start line.
 			clearArea(0, 0, SSD1306_WIDTH, displayStartLine);
 			//Clear buffer from new start line to screen height.
-			clearArea(0, newStartLine, SSD1306_WIDTH, 64 - newStartLine);
+			clearArea(0, newStartLine, SSD1306_WIDTH, SSD1306_HEIGHT - newStartLine);
 		}
 		else {
 			//Clear buffer from new start line to old start line.
-			//write(String("Start line:") + String(displayStartLine) + String("\n"));
 			if (pixels > 0) {
 				clearArea(0, displayStartLine, SSD1306_WIDTH, pixels);
 			}
@@ -290,14 +289,55 @@ namespace devduino {
 		setActivateScroll(activateScroll_t::deactivate);
 	}
 
-	void Display::drawBuffer(const uint8_t* buffer, uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
+	void Display::drawBuffer(const uint8_t* buffer, uint8_t x, uint8_t y, uint8_t w, uint8_t h, bool wrapX, bool wrapY) {
 		for (uint8_t currentX = 0; currentX < w; currentX++) {
+			uint8_t pixelX = x + currentX;
+			if (pixelX >= SSD1306_WIDTH) {
+				//Wrap X if greater than width or break.
+				if (wrapX) {
+					pixelX -= SSD1306_WIDTH;
+				}
+				else {
+					break;
+				}
+			}
+			if (pixelX < 0) {
+				//Wrap X if lower than 0 or break.
+				if (wrapY) {
+					pixelX += SSD1306_WIDTH;
+				}
+				else {
+					break;
+				}
+			}
+
 			for (uint8_t currentY = 0; currentY < h; currentY++) {
 				//Get the 8 pixels on byte.
 				uint8_t pixels = pgm_read_byte(&buffer[((h - 1) - currentY) * w + currentX]);
-				for (int pixelY = 1, i = 0; pixelY <= 128; pixelY <<= 1, i++) {
-					if (pixels & pixelY) {
-						drawPixel(x + currentX, y + currentY * 8 + i);
+
+				for (int pixelByteY = 1, i = 0; pixelByteY <= 128; pixelByteY <<= 1, i++) {
+					uint8_t pixelY = y + currentY * 8 + i;
+					if (pixelY >= SSD1306_HEIGHT) {
+						//Wrap Y if greater than height or break.
+						if (wrapY) {
+							pixelY -= SSD1306_HEIGHT;
+						}
+						else {
+							break;
+						}
+					}
+					if (pixelY < 0) {
+						//Wrap Y if lower than 0 or break.
+						if (wrapY) {
+							pixelY += SSD1306_HEIGHT;
+						}
+						else {
+							break;
+						}
+					}
+
+					if (pixels & pixelByteY) {
+						drawPixel(pixelX, pixelY);
 					}
 				}
 			}

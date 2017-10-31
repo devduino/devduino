@@ -237,8 +237,10 @@ namespace devduino {
      * \param y The position in pixel on Y axis of the buffer to draw.
      * \param w The width in pixel of the buffer.
      * \param h The height in bytes of the buffer.
+     * \param wrapX True if pixel that are beyond/before width of screen must be wrapped to left/right of screen.
+     * \param wrapY True if pixel that are beyond/before height of screen must be wrapped to top/bottom of screen.
 	 */
-	void drawBuffer(const uint8_t* buffer, uint8_t x, uint8_t y, uint8_t w, uint8_t h);
+	void drawBuffer(const uint8_t* buffer, uint8_t x, uint8_t y, uint8_t w, uint8_t h, bool wrapX = false, bool wrapY = false);
 
 	/**
 	* \brief Draws a sprite.
