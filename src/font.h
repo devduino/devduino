@@ -41,28 +41,47 @@ namespace devduino {
 		 * \brief Get the size of font.
 		 *
 		 * Size of font correspond to its height.
+		 *
+		 * \return the size of font.
 		 */
 		virtual uint8_t getSize() = 0;
 
 		/**
-		 * Get the width of the glyph.
+		 * \brief Get the width of the glyph.
+		 *
+		 * \param characterCode The code of the character to get width for.
+		 *
+		 * \return the width of glyph.
 		 */
 		virtual uint8_t getGlyphWidth(uint8_t characterCode) = 0;
 
 		/**
-		 * Get the height of the glyph.
+		 * \brief Get the height of the glyph.
+		 *
+		 * \param characterCode The code of the character to get height for.
+		 *
+		 * \return the height of glyph.
 		 */
 		virtual uint8_t getGlyphHeight(uint8_t characterCode) = 0;
 
 		/**
-		 * Get the pixels of the glyph.
+		 * \brief Get the pixels of the glyph.
 		 * 
-		 * \attention The ordering of the buffer of pixels must be compatible with the display buffer.
+		 * \attention For implementors, the ordering of the buffer of pixels must be compatible with the display buffer.
+		 *
+		 * \param characterCode The code of the character to get pixels for.
+		 *
+		 * \return A pointer to the pixels of glyph.
 		 */
 		virtual const uint8_t* getGlyphPixels(uint8_t characterCode) = 0;
 
 		/**
-		 * Get the kerning of the glyph.
+		 * \brief Get the kerning of the glyph.
+		 *
+		 * \param characterCode The code of the character to get kerning for.
+		 * \param previousCharacterCode The code of the character preceding the one to get kerning for.
+		 *
+		 * \return The kerning to apply between this character and previous one.
 		 */
 		virtual int8_t getGlyphKerning(uint8_t characterCode, uint8_t previousCharacterCode) = 0;
 	};

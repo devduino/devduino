@@ -91,8 +91,8 @@ namespace devduino {
 		return write(text.c_str(), text.length());
 	}
 
-	Console& Console::write(const char *buffer, size_t buffer_size) {
-		while (buffer_size--) {
+	Console& Console::write(const char *buffer, size_t bufferSize) {
+		while (bufferSize--) {
 			write(*buffer++);
 		}
 		if (autoFlush) {
@@ -105,11 +105,11 @@ namespace devduino {
 		return writeln(text.c_str(), text.length());
 	}
 
-	Console& Console::writeln(const char* text, size_t buffer_size) {
+	Console& Console::writeln(const char* buffer, size_t bufferSize) {
 		bool currentAutoFlush = autoFlush;
 		enableAutoFlush(false);
 
-		write(text, buffer_size);
+		write(buffer, bufferSize);
 		write("\n");
 
 		if (currentAutoFlush) {

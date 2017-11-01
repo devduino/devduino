@@ -34,7 +34,7 @@
 
 //Include devduino default font if allowed. 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_FONT)
-#include "devduino.font.h"
+#include "devduinoFont.h"
 #endif
 
 #include "rtc.h"

@@ -41,16 +41,16 @@ namespace devduino {
   public:
 	/** \brief Constructs a console working with the given display.
 	 *
-	 * \param display The display display to bind console to.
-	 * \param nbAreasX The number of areas to define on X axis.
-	 * \param nbAreasY The number of areas to define on Y axis.
+	 * \param display A reference to the display to bind console to.
+	 * \param font The font to use with console or none for defaultl devduino font.
+	 * \param autoFlush To flush buffer to display on each method call (much lower but easier to use).
 	*/
 	Console(const Display& display, const Font* font = nullptr, bool autoFlush = false);
 
 	/**
 	 * \brief Get the display attached to this console.
 	 * 
-	 * \return The display attached to this console.
+	 * \return A reference to the display attached to this console.
 	 */
 	const Display& getDisplay();
 
@@ -138,7 +138,7 @@ namespace devduino {
 	 *
 	 * \remark the rendering will be effective after a call to method flush().
 	 *
-	 * \see write(const char *buffer, size_t buffer_size).
+	 * \see write(const char *buffer, size_t bufferSize).
 	 * \see setTextPosition().
 	 * \see setFontSize().
 	 * \see flush().
@@ -160,12 +160,12 @@ namespace devduino {
  	 *
 	 * \see flush().
 	 *
-	 * \param buffer[in] The characters to write to screen.
-	 * \param buffer_size The size of buffer.
+	 * \param buffer[] The characters to write to screen.
+	 * \param bufferSize The size of buffer.
 	 *
 	 * \return A reference to this console.
 	 */
-	Console& write(const char *buffer, size_t buffer_size);
+	Console& write(const char *buffer, size_t bufferSize);
 
 	/**
 	* \brief Write a text and jump to next line.
@@ -195,24 +195,24 @@ namespace devduino {
 	 *
 	 * \see flush().
 	 *
-	 * \param buffer[in] The characters to write to screen.
-	 * \param buffer_size The size of buffer.
+	 * \param buffer[] The characters to write to screen.
+	 * \param bufferSize The size of buffer.
 	 *
 	 * \return A reference to this console.
 	 */
-	Console& writeln(const char* text, size_t buffer_size);
+	Console& writeln(const char* buffer, size_t bufferSize);
 
 	/**
 	 * \brief Flush the console to display.
 	 *
-	 * \remark Console needs to be flushed if "write" methods are used.
+	 * \remark Console needs to be flushed if "write" methods are used and autoFlush is false.
 	 *
 	 * \return A reference to this console.
 	 */
 	Console& flush();
 
 	/**
-	 * \brief Defines is console must automatically flush display or let the user flush manually by code.
+	 * \brief Defines if console must automatically flush display or let the user flush manually by code.
 	 *
 	 * \see flush();
 	 *
@@ -246,7 +246,7 @@ namespace devduino {
 	   */
 	  uint8_t fontSize = 1;
 	  /**
-	   * \brief Defines is console must automatically flush display or let the user flush by code.
+	   * \brief Defines if console must automatically flush display or let the user flush by code.
 	   */
 	  bool autoFlush;
 
@@ -281,12 +281,12 @@ namespace devduino {
 	   * A new line is created only if the text position + the pixels given as parameter exceed the width of screen.
 	   * The position of the new line is calculated from the current font size.
 	   *
-	   * \param pixels The number of pixels used to compute if a new line must be created.
-	   *
 	   * \remark the rendering will be effective after a call to method flush().
 	   *
 	   * \see setFontSize().
 	   * \see flush().
+	   *
+	   * \param pixels The number of pixels used to compute if a new line must be created.
 	   *
 	   * \return A reference to this console.
 	   */

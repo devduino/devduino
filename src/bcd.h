@@ -48,7 +48,7 @@ namespace devduino {
 		/**
 		 * Utility method to convert from binary to bcd.
 		 *
-		 * \binary The binary to convert to BCD.
+		 * \param binary The binary to convert to BCD.
 		 * \return encoded binary as BCD.
 		 */
 		static uint8_t fromBinary(uint8_t binary);

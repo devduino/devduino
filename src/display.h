@@ -67,8 +67,6 @@ namespace devduino {
 	 * This method must be called before any other method of this class.
 	 *
 	 * \remark Default font can be disabled by setting the preprocessor NO_GLOBAL_DISPLAY_FONT.
-	 *
-	 * \param font A pointer to the font to use when rendering text. If null, the DevDuino default font will be used. If no default is found, no text will have to be rendered.
 	 */
 	void begin();
 
@@ -146,7 +144,7 @@ namespace devduino {
 	/**
 	* \brief Fill a rectangle with white.
 	*
-	* Rectangle is filled from \p x and \p y, a width \p w and a height \h.
+	* Rectangle is filled from \p x and \p y, a width \p w and a height \p h.
 	*
 	* \remark the rendering will be effective after a call to method flush().
 	*
@@ -213,7 +211,7 @@ namespace devduino {
 	*
 	* Negative speed scrolls bottom of screen, positive one scroll top of screen.
 	*
-	* \param pixels The speed of scroll.
+	* \param speed The speed of scroll.
 	*/
 	void continuousVerticalScroll(uint8_t speed);
 
@@ -233,6 +231,7 @@ namespace devduino {
      * 
      * \see flush().
      * 
+     * \param buffer The buffer to draw to display.
      * \param x The position in pixel on X axis of the buffer to draw.
      * \param y The position in pixel on Y axis of the buffer to draw.
      * \param w The width in pixel of the buffer.
@@ -252,6 +251,7 @@ namespace devduino {
 	*
 	* \see flush().
 	*
+    * \param sprite The sprite to draw to display.
 	* \param x The position in pixel on X axis of the sprite to draw.
 	* \param y The position in pixel on Y axis of the sprite to draw.
 	*/
@@ -280,12 +280,15 @@ namespace devduino {
 	*
 	* \remark the rendering will be effective after a call to method flush().
 	*
-	* \see write(const char *buffer, size_t buffer_size).
+	* \see write(const char *buffer, size_t bufferSize).
 	* \see setTextPosition().
 	* \see setFontSize().
 	* \see flush().
 	*
 	* \param text The text to write.
+    * \param x The position in pixel on X axis of the text to draw.
+    * \param y The position in pixel on Y axis of the text to draw.
+    * \param font The font to use to draw text.
 	*/
 	void write(String text, uint8_t x, uint8_t y, Font* font);
 
@@ -299,9 +302,13 @@ namespace devduino {
 	*
 	* \see flush().
 	*
-	* \param buffer[in] The characters to write to screen.
+	* \param buffer[] The characters to write to screen.
+	* \param bufferSize The characters to write to screen.
+    * \param x The position in pixel on X axis of the text to draw.
+    * \param y The position in pixel on Y axis of the text to draw.
+    * \param font The font to use to draw text.
 	*/
-	void write(const char *buffer, size_t buffer_size, uint8_t x, uint8_t y, Font* font);
+	void write(const char *buffer, size_t bufferSize, uint8_t x, uint8_t y, Font* font);
 
 	/**
 	* \brief Writes a single character.
@@ -311,6 +318,9 @@ namespace devduino {
 	* \see flush().
 	*
 	* \param characterCode The character to write to screen.
+    * \param x The position in pixel on X axis of the text to draw.
+    * \param y The position in pixel on Y axis of the text to draw.
+    * \param font The font to use to draw text.
 	*/
 	void write(uint8_t characterCode, uint8_t x, uint8_t y, Font* font);
     
@@ -351,14 +361,14 @@ namespace devduino {
 	void clearPixel(uint8_t x, uint8_t y);
 
 	/**
-	* \brief Set zoom level of next operations.
+	* \brief Set scale level of next operations.
 	*/
-	void setZoom(uint8_t zoom);
+	void setScale(uint8_t scale);
 
 	/**
-	* \brief Get current zoom level.
+	* \brief Get current scale level.
 	*/
-	uint8_t getZoom();
+	uint8_t getScale();
     
   private:
 	/**
@@ -366,14 +376,14 @@ namespace devduino {
 	 */
 	uint8_t displayStartLine = 0;
 	/**
-	* \brief The level of zoom (multiplication factor).
+	* \brief The level of scale (multiplication factor).
 	*/
-	uint8_t zoom = 1;
+	uint8_t scale = 1;
 
 	/**
 	* \brief The buffer that stores the pixel of screen.
 	*/
-	static uint8_t Display::buffer[];
+	static uint8_t buffer[];
 
 	/**
 	 * Constants for memory adressing mode.

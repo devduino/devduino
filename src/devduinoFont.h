@@ -48,10 +48,12 @@ namespace devduino {
 		 * \brief The pixels of glyphs.
 		 */
 		static const uint8_t glyphsBuffer[96][5] PROGMEM;
+
 		/**
 		 * \brief the width in pixels of each glyph.
 		 */
 		static const uint8_t glyphsWidth[96] PROGMEM;
+
 		/**
 		 * \brief The x position of first pixel of glyph in its bouding box.
 		 */

@@ -349,13 +349,13 @@ namespace devduino {
 	}
 
 	void Display::drawPixel(uint8_t x, uint8_t y) {
-		for (uint8_t i = 0; i < zoom; i++) {
-			for (uint8_t j = 0; j < zoom; j++) {
-				uint8_t posX = x * zoom + i;
-				uint8_t posY = y * zoom + j;
+		for (uint8_t i = 0; i < scale; i++) {
+			for (uint8_t j = 0; j < scale; j++) {
+				uint8_t posX = x * scale + i;
+				uint8_t posY = y * scale + j;
 				if (posX < SSD1306_WIDTH && posY < SSD1306_HEIGHT) {
 					uint8_t bits = (1 << (posY & (SSD1306_PIXELS_PER_BYTE - 1)));
-					buffer[posX + (((y * zoom + j) / SSD1306_PIXELS_PER_BYTE) * SSD1306_WIDTH)] |= bits;
+					buffer[posX + (((y * scale + j) / SSD1306_PIXELS_PER_BYTE) * SSD1306_WIDTH)] |= bits;
 				}
 			}
 		}
@@ -365,9 +365,9 @@ namespace devduino {
 		write(text.c_str(), text.length(), x, y, font);
 	}
 
-	void Display::write(const char *buffer, size_t buffer_size, uint8_t x, uint8_t y, Font* font) {
+	void Display::write(const char *buffer, size_t bufferSize, uint8_t x, uint8_t y, Font* font) {
 		uint8_t width = 0;
-		while (buffer_size--) {
+		while (bufferSize--) {
 			uint8_t glyphWidth = font->getGlyphWidth(*buffer);
 			uint8_t glyphHeight = font->getGlyphHeight(*buffer);
 			drawBuffer(font->getGlyphPixels(*buffer), x + width, y, glyphWidth, glyphHeight / 8 + 1);
@@ -431,12 +431,12 @@ namespace devduino {
 		buffer[x + ((y / SSD1306_PIXELS_PER_BYTE) * SSD1306_WIDTH)] &= ~(1 << (y & (SSD1306_PIXELS_PER_BYTE - 1)));
 	}
 
-	void Display::setZoom(uint8_t zoom) {
-		this->zoom = zoom;
+	void Display::setScale(uint8_t scale) {
+		this->scale = scale;
 	}
 
-	uint8_t Display::getZoom() {
-		return zoom;
+	uint8_t Display::getScale() {
+		return scale;
 	}
 
 	//------------------------------------------------------------------------//

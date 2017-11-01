@@ -50,7 +50,15 @@ namespace devduino {
 		* \brief Initialize rtc on DevDuino.
 		*
 		* This method must be called before any other method of this class.
+		* 
 		* \remark If you call this method, you don't need to call method "setDateTime()".
+		*
+		* \param year The year to set to the devduino.
+		* \param month The month to set to the devduino.
+		* \param day The day to set to the devduino.
+		* \param hour The hour to set to the devduino or 0 if none specified.
+		* \param minute The minute to set to the devduino or 0 if none specified.
+		* \param second The second to set to the devduino or 0 if none specified.
 		*/
 		void begin(uint16_t year, uint8_t month, uint8_t day, uint8_t hour = 0, uint8_t minute = 0, uint8_t second = 0);
 
@@ -58,6 +66,13 @@ namespace devduino {
 		* \brief Set the current date and time on RTC.
 		*
 		* \remark If this method is never called, the date and time of rtc is set to factory defaults and will not represent the "real" date and time.
+		*
+		* \param year The year to set to the devduino.
+		* \param month The month to set to the devduino.
+		* \param day The day to set to the devduino.
+		* \param hour The hour to set to the devduino or 0 if none specified.
+		* \param minute The minute to set to the devduino or 0 if none specified.
+		* \param second The second to set to the devduino or 0 if none specified.
 		*/
 		void setDateTime(uint16_t year, uint8_t month, uint8_t day, uint8_t hour = 0, uint8_t minute = 0, uint8_t second = 0);
 
@@ -68,6 +83,8 @@ namespace devduino {
 		 *
 		 * \see setDateTime();
 		 * \see begin();
+		 *
+		 * \return The current date/time according to the one set in devduino.
 		 */
 		DateTime now();
 

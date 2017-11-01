@@ -27,16 +27,16 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	Spreadsheet::Spreadsheet(const Console& console, uint8_t nbRows, uint8_t nbColumns, bool autoFlush, bool drawBorders) :
+	Spreadsheet::Spreadsheet(const Console& console, uint8_t nbRows, uint8_t nbColumns, bool drawBorders) :
 		console(console),
 		//Because "begin" has not yet been called, we must not set autoFlush to "true" or setGrid() would like to flush without Wire being intialised.
-		autoFlush(autoFlush),
+		autoFlush(false),
 		drawBorders(drawBorders)
 	{
 		setGrid(nbRows, nbColumns);
 	}
 
-	Spreadsheet& Spreadsheet::write(uint8_t cellId, const char* value, size_t buffer_size) {
+	Spreadsheet& Spreadsheet::write(uint8_t cellId, const char* value, size_t bufferSize) {
 		uint8_t row = cellId / nbColumns;
 		uint8_t column = cellId - (row * nbColumns);
 
@@ -55,7 +55,7 @@ namespace devduino {
 			// Add +2 to add a space between border and text.
 			console.setTextPosition(cellX + 2, textY);
 
-			console.write(value, buffer_size);
+			console.write(value, bufferSize);
 			if (autoFlush) {
 				flush();
 			}

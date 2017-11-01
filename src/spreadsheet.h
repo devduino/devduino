@@ -43,20 +43,20 @@ namespace devduino {
 	 * \param console The console display output to.
 	 * \param nbRows The number of rows of the spreadsheet.
 	 * \param nbColumns The number of columns of the spreadsheet.
-	 * \param autoFlush Defines if spreadsheet should be auto-flushed.
+	 * \param drawBorders true if borders must be drawn, false otherwise.
 	 */
-	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool autoFlush = false, bool drawBorders = true);
+	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool drawBorders = true);
 
 	/**
 	 * \brief Write to the given cell of the spreadsheet.
 	 *
 	 * \param cellId The cell to ouput value to.
 	 * \param value The buffer containing value to output.
-	 * \param buffer_size The size of value buffer.
+	 * \param bufferSize The size of value buffer.
 	 *
 	 * \return A reference to this spreadsheet.
 	 */
-	Spreadsheet& write(uint8_t cellId, const char* value, size_t buffer_size);
+	Spreadsheet& write(uint8_t cellId, const char* value, size_t bufferSize);
 
 	/**
 	 * \brief Write to the given cell of the spreadsheet.
