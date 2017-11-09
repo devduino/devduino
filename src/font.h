@@ -84,6 +84,33 @@ namespace devduino {
 		 * \return The kerning to apply between this character and previous one.
 		 */
 		virtual int8_t getGlyphKerning(uint8_t characterCode, uint8_t previousCharacterCode) = 0;
+
+		/**
+		 * \brief Get the number of pixels to advance on X axis after having rendered this font.
+		 *
+		 * \param characterCode The code of the character to get advance for.
+		 *
+		 * \return The number of pixels representing advancement.
+		 */
+		virtual uint8_t getGlyphXAdvance(uint8_t characterCode) = 0;
+
+		/**
+		* \brief Get the number of pixels to advance on X axis before rendering this font.
+		*
+		* \param characterCode The code of the character to get offset for.
+		*
+		* \return The number of pixels representing offset.
+		*/
+		virtual int8_t getGlyphXOffset(uint8_t characterCode) = 0;
+
+		/**
+		* \brief Get the number of pixels to advance on Y axis before rendering this font.
+		*
+		* \param characterCode The code of the character to get offset for.
+		*
+		* \return The number of pixels representing offset.
+		*/
+		virtual int8_t getGlyphYOffset(uint8_t characterCode) = 0;
 	};
 } // namespace devduino
 

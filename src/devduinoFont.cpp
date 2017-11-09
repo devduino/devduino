@@ -162,6 +162,18 @@ namespace devduino {
 		return 0;
 	}
 
+	uint8_t DevduinoFont::getGlyphXAdvance(uint8_t characterCode) {
+		return pgm_read_byte(&glyphsWidth[characterCode - 32]);
+	}
+
+	int8_t DevduinoFont::getGlyphXOffset(uint8_t characterCode) {
+		return 0;
+	}
+
+	int8_t DevduinoFont::getGlyphYOffset(uint8_t characterCode) {
+		return 0;
+	}
+
 	//------------------------------------------------------------------------//
 	//---------------------------- Private methods ---------------------------//
 	//------------------------------------------------------------------------//

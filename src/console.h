@@ -128,7 +128,7 @@ namespace devduino {
 	Console& newLine();
 
 	/**
-	 * \brief Printn a text.
+	 * \brief Print a text.
 	 *
 	 * Text will be rendered at current position with current font size.
 	 * After this method call, the current position of text will be updated to be the next empty coordinates.
