@@ -31,7 +31,7 @@
  */
 namespace devduino {
   /** 
-   * \brief Console writer for devduino.
+   * \brief Console printer for devduino.
    * 
    * This class allows to display text on DISPLAY screen in a console way by auto-scrolling.
    *
@@ -55,18 +55,18 @@ namespace devduino {
 	const Display& getDisplay();
 
 	/**
-	 * \brief Set the position of the next character to write.
+	 * \brief Set the position of the next character to print.
 	 *
-	 * After this method call, the next character to write will be placed at this exact position.
-	 * It is important to notice that the position of a text is dynamic. The next character to write will be placed at this position
+	 * After this method call, the next character to print will be placed at this exact position.
+	 * It is important to notice that the position of a text is dynamic. The next character to print will be placed at this position
 	 * but the position will be incremented each time a character is written. Therefore, if few characters are displayed between
 	 * calls to this method, they will not overlap.
 	 *
-	 * The automatic incrementation of position of the text to write is done on both X and Y axes.
+	 * The automatic incrementation of position of the text to print is done on both X and Y axes.
 	 *
 	 * Before calling this method, the X and Y positions defaults to 0.
 	 *
-	 * \see write().
+	 * \see print().
 	 *
 	 * \param x The position in pixel on X axis of the pixel to draw.
 	 * \param y The position in pixel on Y axis of the pixel to draw.
@@ -78,7 +78,7 @@ namespace devduino {
 	/**
 	 * \brief Set the font to use to display next characters.
 	 *
-	 * \param font The pointer to the font to use for next writes.
+	 * \param font The pointer to the font to use for next prints.
 	 *
 	 * \return A reference to this console.
 	 */
@@ -128,7 +128,7 @@ namespace devduino {
 	Console& newLine();
 
 	/**
-	 * \brief Write a text.
+	 * \brief Printn a text.
 	 *
 	 * Text will be rendered at current position with current font size.
 	 * After this method call, the current position of text will be updated to be the next empty coordinates.
@@ -138,74 +138,74 @@ namespace devduino {
 	 *
 	 * \remark the rendering will be effective after a call to method flush().
 	 *
-	 * \see write(const char *buffer, size_t bufferSize).
+	 * \see print(const char *buffer, size_t bufferSize).
 	 * \see setTextPosition().
 	 * \see setFontSize().
 	 * \see flush().
 	 *
-	 * \param text The text to write.
+	 * \param text The text to print.
 	 *
 	 * \return A reference to this console.
 	 */
-	Console& write(String text);
+	Console& print(String text);
 
 	/**
-	 * \brief Write a text.
+	 * \brief Print a text.
 	 *
 	 * This method should be prefered to the one with (string) parameter for memory consumption reason.
 	 *
-	 * \see write(String text) for a more detailled description.
+	 * \see print(String text) for a more detailled description.
 	 *
  	 * \remark If auto-flush is not enable, the rendering will be effective after a call to method flush().
  	 *
 	 * \see flush().
 	 *
-	 * \param buffer[] The characters to write to screen.
+	 * \param buffer[] The characters to print to screen.
 	 * \param bufferSize The size of buffer.
 	 *
 	 * \return A reference to this console.
 	 */
-	Console& write(const char *buffer, size_t bufferSize);
+	Console& print(const char *buffer, size_t bufferSize);
 
 	/**
-	* \brief Write a text and jump to next line.
+	* \brief print a text and jump to next line.
 	*
 	* \attention If you need to reduce memory usage, you should not use class "String" and prefer the method with 'C style' parameters (char*, size_t).
 	*
-	* \see write(String text) for a more detailled description.
+	* \see print(String text) for a more detailled description.
 	*
 	* \remark If auto-flush is not enable, the rendering will be effective after a call to method flush().
 	*
 	* \see flush().
 	*
-	* \param text The text to write.
+	* \param text The text to print.
 	*
 	* \return A reference to this console.
 	*/
-	Console& writeln(const String& text);
+	Console& println(const String& text);
 
 	/**
-	 * \brief Write a text and jump to next line.
+	 * \brief Print a text and jump to next line.
 	 *
 	 * This method should be prefered to the one with (string) parameter for memory consumption reason.
 	 *
-	 * \see write(String text) for a more detailled description.
+	 * \see print(String text) for a more detailled description.
 	 *
 	 * \remark If auto-flush is not enable, the rendering will be effective after a call to method flush().
 	 *
 	 * \see flush().
 	 *
-	 * \param buffer[] The characters to write to screen.
+	 * \param buffer[] The characters to print to screen.
 	 * \param bufferSize The size of buffer.
 	 *
 	 * \return A reference to this console.
 	 */
-	Console& writeln(const char* buffer, size_t bufferSize);
+	Console& println(const char* buffer, size_t bufferSize);
 
 	/**
 	 * \brief Flush the console to display.
 	 *
-	 * \remark Console needs to be flushed if "write" methods are used and autoFlush is false.
+	 * \remark Console needs to be flushed if "print" methods are used and autoFlush is false.
 	 *
 	 * \return A reference to this console.
 	 */
@@ -251,20 +251,20 @@ namespace devduino {
 	  bool autoFlush;
 
 	  /**
-	   * \brief Write a character.
+	   * \brief Print a character.
 	   *
 	   * This method draws a single character.
 	   * The kerning is calculated from previous character code.
 	   *
 	   * \remark the rendering will be effective after a call to method flush().
 	   *
-	   * \see write(string text) for a more detailled description.
+	   * \see print(string text) for a more detailled description.
 	   * \see flush().
 	   *
-	   * \param characterCode The code of the character to write to screen.
-	   * \param previousCharacterCode The code of the previous character to writen to screen or 0 (default) if none.
+	   * \param characterCode The code of the character to print to screen.
+	   * \param previousCharacterCode The code of the previous character to print to screen or 0 (default) if none.
 	   */
-	  void write(uint8_t characterCode, uint8_t previousCharacterCode = 0);
+	  void print(uint8_t characterCode, uint8_t previousCharacterCode = 0);
 
 	  /**
 	   * \brief Increment text position by width of one character.

@@ -87,13 +87,13 @@ namespace devduino {
 		return *this;
 	}
 
-	Console& Console::write(String text) {
-		return write(text.c_str(), text.length());
+	Console& Console::print(String text) {
+		return print(text.c_str(), text.length());
 	}
 
-	Console& Console::write(const char *buffer, size_t bufferSize) {
+	Console& Console::print(const char *buffer, size_t bufferSize) {
 		while (bufferSize--) {
-			write(*buffer++);
+			print(*buffer++);
 		}
 		if (autoFlush) {
 			flush();
@@ -101,16 +101,16 @@ namespace devduino {
 		return *this;
 	}
 
-	Console& Console::writeln(const String& text) {
-		return writeln(text.c_str(), text.length());
+	Console& Console::println(const String& text) {
+		return println(text.c_str(), text.length());
 	}
 
-	Console& Console::writeln(const char* buffer, size_t bufferSize) {
+	Console& Console::println(const char* buffer, size_t bufferSize) {
 		bool currentAutoFlush = autoFlush;
 		enableAutoFlush(false);
 
-		write(buffer, bufferSize);
-		write("\n");
+		print(buffer, bufferSize);
+		print("\n");
 
 		if (currentAutoFlush) {
 			enableAutoFlush(true);
@@ -133,7 +133,7 @@ namespace devduino {
 	//--------------------------- Private methods ----------------------------//
 	//------------------------------------------------------------------------//
 
-	void Console::write(uint8_t characterCode, uint8_t previousCharacterCode) {
+	void Console::print(uint8_t characterCode, uint8_t previousCharacterCode) {
 		if (characterCode == '\n') {
 			newLine();
 		}

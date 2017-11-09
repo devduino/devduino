@@ -270,7 +270,7 @@ namespace devduino {
     void drawPixel(uint8_t x, uint8_t y);
 
 	/**
-	* \brief Writes a text.
+	* \brief Print a text.
 	*
 	* Text will be rendered at current position with current font size.
 	* After this method call, the current position of text will be updated to be the next empty coordinates.
@@ -280,52 +280,52 @@ namespace devduino {
 	*
 	* \remark the rendering will be effective after a call to method flush().
 	*
-	* \see write(const char *buffer, size_t bufferSize).
+	* \see print(const char *buffer, size_t bufferSize).
 	* \see setTextPosition().
 	* \see setFontSize().
 	* \see flush().
 	*
-	* \param text The text to write.
+	* \param text The text to print.
     * \param x The position in pixel on X axis of the text to draw.
     * \param y The position in pixel on Y axis of the text to draw.
     * \param font The font to use to draw text.
 	*/
-	void write(String text, uint8_t x, uint8_t y, Font* font);
+	void print(String text, uint8_t x, uint8_t y, Font* font);
 
 	/**
-	* \brief Writes a text.
+	* \brief Print a text.
 	*
-	* \see write(string text) for a more detailled description.
+	* \see print(string text) for a more detailled description.
 	* This method should be prefered to the one with (string) parameter for memory consumption reason.
 	*
 	* \remark the rendering will be effective after a call to method flush().
 	*
 	* \see flush().
 	*
-	* \param buffer[] The characters to write to screen.
-	* \param bufferSize The characters to write to screen.
+	* \param buffer[] The characters to print to screen.
+	* \param bufferSize The characters to print to screen.
     * \param x The position in pixel on X axis of the text to draw.
     * \param y The position in pixel on Y axis of the text to draw.
     * \param font The font to use to draw text.
 	*/
-	void write(const char *buffer, size_t bufferSize, uint8_t x, uint8_t y, Font* font);
+	void print(const char *buffer, size_t bufferSize, uint8_t x, uint8_t y, Font* font);
 
 	/**
-	* \brief Writes a single character.
+	* \brief Print a single character.
 	*
 	* \remark the rendering will be effective after a call to method flush().
 	*
 	* \see flush().
 	*
-	* \param characterCode The character to write to screen.
+	* \param characterCode The character to print to screen.
     * \param x The position in pixel on X axis of the text to draw.
     * \param y The position in pixel on Y axis of the text to draw.
     * \param font The font to use to draw text.
 	*/
-	void write(uint8_t characterCode, uint8_t x, uint8_t y, Font* font);
+	void print(uint8_t characterCode, uint8_t x, uint8_t y, Font* font);
     
     /**
-     * \brief flush the current drawings and writes to screen.
+     * \brief flush the current drawings and print to screen.
      *
      * Sends buffer to screen to flush the preceding orders.
      */

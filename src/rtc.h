@@ -98,7 +98,7 @@ namespace devduino {
 		class RtcDateTime : DateTime {
 		public:
 			/**
-			* \brief Allow Rtc class to write date and time.
+			* \brief Allow Rtc class to access date and time.
 			*/
 			friend class Rtc;
 

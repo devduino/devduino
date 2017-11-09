@@ -361,11 +361,11 @@ namespace devduino {
 		}
 	}
 
-	void Display::write(String text, uint8_t x, uint8_t y, Font* font) {
-		write(text.c_str(), text.length(), x, y, font);
+	void Display::print(String text, uint8_t x, uint8_t y, Font* font) {
+		print(text.c_str(), text.length(), x, y, font);
 	}
 
-	void Display::write(const char *buffer, size_t bufferSize, uint8_t x, uint8_t y, Font* font) {
+	void Display::print(const char *buffer, size_t bufferSize, uint8_t x, uint8_t y, Font* font) {
 		uint8_t width = 0;
 		while (bufferSize--) {
 			uint8_t glyphWidth = font->getGlyphWidth(*buffer);
@@ -377,7 +377,7 @@ namespace devduino {
 		}
 	}
 
-	void Display::write(uint8_t characterCode, uint8_t x, uint8_t y, Font* font) {
+	void Display::print(uint8_t characterCode, uint8_t x, uint8_t y, Font* font) {
 		uint8_t width = font->getGlyphWidth(characterCode);
 		uint8_t height = font->getGlyphHeight(characterCode);
 		drawBuffer(font->getGlyphPixels(characterCode), x, y, width, height / 8 + 1);

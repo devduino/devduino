@@ -36,7 +36,7 @@ namespace devduino {
 		setGrid(nbRows, nbColumns);
 	}
 
-	Spreadsheet& Spreadsheet::write(uint8_t cellId, const char* value, size_t bufferSize) {
+	Spreadsheet& Spreadsheet::print(uint8_t cellId, const char* value, size_t bufferSize) {
 		uint8_t row = cellId / nbColumns;
 		uint8_t column = cellId - (row * nbColumns);
 
@@ -55,7 +55,7 @@ namespace devduino {
 			// Add +2 to add a space between border and text.
 			console.setTextPosition(cellX + 2, textY);
 
-			console.write(value, bufferSize);
+			console.print(value, bufferSize);
 			if (autoFlush) {
 				flush();
 			}
@@ -64,8 +64,8 @@ namespace devduino {
 		return *this;
 	}
 
-	Spreadsheet& Spreadsheet::write(uint8_t cellId, const String& value) {
-		return write(cellId, value.c_str(), value.length());
+	Spreadsheet& Spreadsheet::print(uint8_t cellId, const String& value) {
+		return print(cellId, value.c_str(), value.length());
 	}
 
 	Spreadsheet& Spreadsheet::setGrid(uint8_t nbRows, uint8_t nbColumns) {
@@ -104,7 +104,7 @@ namespace devduino {
 			}
 
 			//Draw intermediate horizontal lines.
-			//Use float for precision and to share same metrics with "write" function that clears inside these cells.
+			//Use float for precision and to share same metrics with "print" function that clears inside these cells.
 			float cellHeight = ((float) display.getHeight()) / nbRows;
 			for (uint8_t row = 1; row < nbRows; row++) {
 				display.drawHorizontalLine(0, display.getWidth(), row * cellHeight);

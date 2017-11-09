@@ -33,7 +33,7 @@
  */
 namespace devduino {
   /** 
-   * Partition and write to screen like on a spreadsheet.
+   * Split and print to screen like on a spreadsheet.
    */
   class Spreadsheet {
   public:
@@ -48,7 +48,7 @@ namespace devduino {
 	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool drawBorders = true);
 
 	/**
-	 * \brief Write to the given cell of the spreadsheet.
+	 * \brief Print to the given cell of the spreadsheet.
 	 *
 	 * \param cellId The cell to ouput value to.
 	 * \param value The buffer containing value to output.
@@ -56,17 +56,17 @@ namespace devduino {
 	 *
 	 * \return A reference to this spreadsheet.
 	 */
-	Spreadsheet& write(uint8_t cellId, const char* value, size_t bufferSize);
+	Spreadsheet& print(uint8_t cellId, const char* value, size_t bufferSize);
 
 	/**
-	 * \brief Write to the given cell of the spreadsheet.
+	 * \brief Print to the given cell of the spreadsheet.
 	 *
 	 * \param cellId The cell to ouput value to.
 	 * \param value The value to output.
 	 *
 	 * \return A reference to this spreadsheet.
 	 */
-	Spreadsheet& write(uint8_t cellId, const String& value);
+	Spreadsheet& print(uint8_t cellId, const String& value);
 
 	/**
 	 * \brief Set the number of rows and columns of the spreadsheet.
@@ -81,7 +81,7 @@ namespace devduino {
 	/**
 	 * \brief Flush the console to display.
 	 *
-	 * \remark Console needs to be flushed if "write" methods are used.
+	 * \remark Console needs to be flushed if "print" methods are used.
 	 *
 	 * \return A reference to this spreadsheet.
 	 */
