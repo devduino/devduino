@@ -20,22 +20,24 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-
-#ifndef DEVDUINO_DEFAULT_FONT_H
-#define DEVDUINO_DEFAULT_FONT_H
+#ifndef DEVDUINO_ADAFRUIT_FONT_H
+#define DEVDUINO_ADAFRUIT_FONT_H
 
 #include <arduino.h>
 
 #include "font.h"
 
 /**
- * Default namespace for devduino related code.
- */
+* Default namespace for devduino related code.
+*/
 namespace devduino {
 	/**
-	* \brief The default font for devduino.
+	* \brief Class to represent the default font from Adafruit GFX library: https://github.com/adafruit/Adafruit-GFX-Library.
+	*
+	* Special not for Alexandre Pailhoux: This class is implemented because you don't like my devduino font :/
+	* \attention Special note for other readers: Alexandre Pailhoux nickname is Papayou: https://www.youtube.com/watch?v=Wv1cX9o8JJM.
 	*/
-	class DevduinoFont : public Font {
+	class AdafruitFont : public Font {
 	public:
 		uint8_t getSize();
 		uint8_t getGlyphWidth(uint8_t characterCode);
@@ -48,25 +50,10 @@ namespace devduino {
 
 	private:
 		/**
-		 * \brief The pixels of glyphs.
-		 */
+		* \brief The pixels of glyphs.
+		*/
 		static const uint8_t glyphsBuffer[96][5] PROGMEM;
-
-		/**
-		 * \brief the width in pixels of each glyph.
-		 */
-		static const uint8_t glyphsWidth[96] PROGMEM;
-
-		/**
-		 * \brief The x position of first pixel of glyph in its bouding box.
-		 */
-		static const uint8_t glyphsPosition[96] PROGMEM;
-
-		/**
-		 * \brief Get the x position of first pixel of glyph in its bounding box.
-		 */
-		uint8_t getGlyphPosition(uint8_t characterCode);
 	};
 } // namespace devduino
 
-#endif //DEVDUINO_DEFAULT_FONT_H
+#endif //DEVDUINO_ADAFRUIT_FONT_H

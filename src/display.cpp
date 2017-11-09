@@ -370,10 +370,14 @@ namespace devduino {
 		while (bufferSize--) {
 			uint8_t glyphWidth = font->getGlyphWidth(*buffer);
 			uint8_t glyphHeight = font->getGlyphHeight(*buffer);
-			drawBuffer(font->getGlyphPixels(*buffer), x + width, y, glyphWidth, glyphHeight / 8 + 1);
+			drawBuffer(font->getGlyphPixels(*buffer), 
+				x + width + font->getGlyphXOffset(*buffer), 
+				y + font->getGlyphYOffset(*buffer), 
+				glyphWidth, 
+				glyphHeight / 8 + 1);
 			buffer++;
 			//Increment width from glyphWidth + 1 to not let glyphs touch themselves.
-			width += glyphWidth + 1;
+			width += font->getGlyphXAdvance(*buffer);
 		}
 	}
 
