@@ -22,18 +22,25 @@
 */
 
 #include "spreadsheet.h"
+#include <Wire.h>
 
 namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	Spreadsheet::Spreadsheet(const Console& console, uint8_t nbRows, uint8_t nbColumns, bool drawBorders) :
+	Spreadsheet::Spreadsheet(const Console& console, uint8_t nbRows, uint8_t nbColumns, bool shouldDrawBorders, bool autoFlush) :
 		console(console),
-		//Because "begin" has not yet been called, we must not set autoFlush to "true" or setGrid() would like to flush without Wire being intialised.
-		autoFlush(false),
-		drawBorders(drawBorders)
+		autoFlush(autoFlush),
+		shouldDrawBorders(shouldDrawBorders),
+		nbRows(nbRows),
+		nbColumns(nbColumns)
 	{
-		setGrid(nbRows, nbColumns);
+	}
+
+	void Spreadsheet::begin() {
+		if (shouldDrawBorders) {
+			drawBorders();
+		}
 	}
 
 	Spreadsheet& Spreadsheet::print(uint8_t cellId, const char* value, size_t bufferSize) {
@@ -72,7 +79,9 @@ namespace devduino {
 		this->nbRows = nbRows;
 		this->nbColumns = nbColumns;
 
-		enableDrawBorders(drawBorders);
+		if (shouldDrawBorders) {
+			drawBorders();
+		}
 
 		return *this;
 	}
@@ -87,32 +96,11 @@ namespace devduino {
 		return *this;
 	}
 
-	Spreadsheet& Spreadsheet::enableDrawBorders(bool drawBorders) {
-		this->drawBorders = drawBorders;
+	Spreadsheet& Spreadsheet::enableDrawBorders(bool shouldDrawBorders) {
+		this->shouldDrawBorders = shouldDrawBorders;
 
-		const Display& display = console.getDisplay();
-
-		display.clear();
-
-		if (drawBorders) {
-			display.drawRectangle(0, 0, display.getWidth(), display.getHeight());
-
-			//Draw intermediate vertical lines.
-			float cellWidth = ((float) display.getWidth()) / nbColumns;
-			for (uint8_t column = 1; column < nbColumns; column++) {
-				display.drawVerticalLine(column * cellWidth, 0, display.getHeight());
-			}
-
-			//Draw intermediate horizontal lines.
-			//Use float for precision and to share same metrics with "print" function that clears inside these cells.
-			float cellHeight = ((float) display.getHeight()) / nbRows;
-			for (uint8_t row = 1; row < nbRows; row++) {
-				display.drawHorizontalLine(0, display.getWidth(), row * cellHeight);
-			}
-		}
-
-		if (autoFlush) {
-			display.flush();
+		if (shouldDrawBorders) {
+			drawBorders();
 		}
 
 		return *this;
@@ -121,4 +109,28 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//--------------------------- Private methods ----------------------------//
 	//------------------------------------------------------------------------//
+	void Spreadsheet::drawBorders() {
+		const Display& display = console.getDisplay();
+
+		display.clear();
+
+		display.drawRectangle(0, 0, display.getWidth(), display.getHeight());
+
+		//Draw intermediate vertical lines.
+		float cellWidth = ((float)display.getWidth()) / nbColumns;
+		for (uint8_t column = 1; column < nbColumns; column++) {
+			display.drawVerticalLine(column * cellWidth, 0, display.getHeight());
+		}
+
+		//Draw intermediate horizontal lines.
+		//Use float for precision and to share same metrics with "print" function that clears inside these cells.
+		float cellHeight = ((float)display.getHeight()) / nbRows;
+		for (uint8_t row = 1; row < nbRows; row++) {
+			display.drawHorizontalLine(0, display.getWidth(), row * cellHeight);
+		}
+
+		if (autoFlush) {
+			display.flush();
+		}
+	}
 } // namespace devduino

@@ -24,7 +24,7 @@
 #include "devduinoFont.h"
 
 namespace devduino {
-	const uint8_t DevduinoFont::glyphsBuffer[96][5] PROGMEM = {
+	const uint8_t DevduinoFont::glyphsBuffer[95][5] PROGMEM = {
 		{ 0x00, 0x00, 0x00, 0x00, 0x00 },
 		{ 0x00, 0x00, 0xFA, 0x00, 0x00 },
 		{ 0x00, 0xE0, 0x00, 0xE0, 0x00 },
@@ -119,24 +119,23 @@ namespace devduino {
 		{ 0x00, 0x10, 0x6C, 0x82, 0x00 },
 		{ 0x00, 0x00, 0xFE, 0x00, 0x00 },
 		{ 0x00, 0x82, 0x6C, 0x10, 0x00 },
-		{ 0x40, 0x80, 0x40, 0x20, 0x40 },
-		{ 0x1C, 0xC6, 0xC6, 0xC6, 0x70 }
+		{ 0x40, 0x80, 0x40, 0x20, 0x40 }
 	};
 
-	const uint8_t DevduinoFont::glyphsWidth[96] PROGMEM = {
+	const uint8_t DevduinoFont::glyphsWidth[95] PROGMEM = {
 		2, 1, 3, 5, 5, 5, 5, 1, 2, 2, 3, 5, 2, 3, 2, 3, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 1, 2, 5, 5, 5, 4, 5,
 		4, 4, 4, 4, 4, 4, 4, 4, 1, 4, 4, 4, 5, 5, 4, 4, 4, 4, 4, 5, 4, 5, 5, 5, 5, 5,
 		2, 3, 2, 5, 5, 2,
 		4, 4, 4, 4, 4, 3, 4, 4, 1, 3, 4, 3, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5,	4, 4,
-		3, 1, 3, 5, 5
+		3, 1, 3, 5
 	};
 
-	const uint8_t DevduinoFont::glyphsPosition[96] PROGMEM = {
+	const uint8_t DevduinoFont::glyphsPosition[95] PROGMEM = {
 		0, 2, 1, 0, 0, 0, 0, 2, 1, 2, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 1, 2, 0, 0, 1,
 		0, 0, 0, 0, 0, 1, 0, 0, 2, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	0, 0,
-		1, 2, 1, 0, 0
+		1, 2, 1, 0
 	};
 
 	//------------------------------------------------------------------------//

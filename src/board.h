@@ -32,8 +32,13 @@
 #include <stdint.h>
 #include <arduino.h>
 
+//Include adafruit default font if allowed. 
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && !defined(PREFER_DEVDUINO_FONT)
+#include "adafruitFont.h"
+#endif
+
 //Include devduino default font if allowed. 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_FONT)
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && defined(NO_GLOBAL_DISPLAY_FONT) && defined(PREFER_DEVDUINO_FONT)
 #include "devduinoFont.h"
 #endif
 
@@ -54,6 +59,13 @@ namespace devduino {
 	 */
 	class Board {
 	public:
+		/**
+		 * \brief Default constructor.
+		 *
+		 * Initialize board with functionalities that must be done prior to begin().
+		 */
+		Board();
+
 		/**
 		 * \brief Initialize DevDuino board.
 		 *
@@ -77,9 +89,14 @@ namespace devduino {
 extern devduino::Board board;
 #endif
 
-//Define global default font variable.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT)
-extern devduino::DevduinoFont devduinoFont;
+//Define global default adafruit font variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && !defined(PREFER_DEVDUINO_FONT)
+extern devduino::AdafruitFont defaultFont;
+#endif
+
+//Define global default devduino font variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && defined(PREFER_DEVDUINO_FONT)
+extern devduino::DevduinoFont defaultFont;
 #endif
 
 //Define global rtc variable.
