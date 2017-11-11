@@ -33,13 +33,12 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	Console::Console(const Display& display, const Font* font, bool autoFlush) :
 		display(display), 
-		//It is dangerous to set autoFlush to true before a call to "begin" of Wire. A method could be called with Wire not being initialised.
 		autoFlush(autoFlush)
 	{
 		if (font == nullptr) {
 			//If no font is set but default font accepted, we set it.
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_FONT)
-			setFont(&devduinoFont);
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT)
+			setFont(&defaultFont);
 #endif
 		}
 		else {
@@ -126,6 +125,14 @@ namespace devduino {
 
 	Console& Console::enableAutoFlush(bool autoFlush) {
 		this->autoFlush = autoFlush;
+		return *this;
+	}
+
+	Console& Console::clear() {
+		display.clear();
+
+		setTextPosition(0, (display.getHeight() - 1) - this->font->getSize());
+
 		return *this;
 	}
 

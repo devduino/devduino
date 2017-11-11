@@ -26,7 +26,7 @@
 namespace devduino { 
 	//This byte array is copied (and bits have ben reverted to match our code) from the Adafruit font under BSD license: 
 	//https://github.com/adafruit/Adafruit-GFX-Library/blob/master/glcdfont.c.
-	const uint8_t AdafruitFont::glyphsBuffer[96][5] PROGMEM = {
+	const uint8_t AdafruitFont::glyphsBuffer[95][5] PROGMEM = {
 		{ 0x00, 0x00, 0x00, 0x00, 0x00 },
 		{ 0x00, 0x00, 0xfa, 0x00, 0x00 },
 		{ 0x00, 0xe0, 0x00, 0xe0, 0x00 },
@@ -121,8 +121,7 @@ namespace devduino {
 		{ 0x00, 0x10, 0x6c, 0x82, 0x00 },
 		{ 0x00, 0x00, 0xee, 0x00, 0x00 },
 		{ 0x00, 0x82, 0x6c, 0x10, 0x00 },
-		{ 0x40, 0x80, 0x40, 0x20, 0x40 },
-		{ 0x3c, 0x64, 0xc4, 0x64, 0x3c }
+		{ 0x40, 0x80, 0x40, 0x20, 0x40 }
 	};
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
@@ -148,7 +147,7 @@ namespace devduino {
 	}
 
 	uint8_t AdafruitFont::getGlyphXAdvance(uint8_t characterCode) {
-		return 5;
+		return 6;
 	}
 
 	int8_t AdafruitFont::getGlyphXOffset(uint8_t characterCode) {

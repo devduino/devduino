@@ -37,7 +37,6 @@ namespace devduino {
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
 	void Rtc::begin() {
-		Wire.begin();
 	}
 
 	void Rtc::begin(uint16_t year, uint8_t month, uint8_t day, uint8_t hour = 0, uint8_t minute = 0, uint8_t second = 0) {

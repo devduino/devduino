@@ -45,7 +45,14 @@ namespace devduino {
 	 * \param nbColumns The number of columns of the spreadsheet.
 	 * \param drawBorders true if borders must be drawn, false otherwise.
 	 */
-	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool drawBorders = true);
+	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool drawBorders = false, bool autoFlush = true);
+
+	/**
+	* \brief Initialize spreadsheet.
+	*
+	* This method must be called before any other method of this class.
+	*/
+	void begin();
 
 	/**
 	 * \brief Print to the given cell of the spreadsheet.
@@ -103,7 +110,7 @@ namespace devduino {
 	 *
 	 * \return A reference to this spreadsheet.
 	 */
-	Spreadsheet& enableDrawBorders(bool drawBorders);
+	Spreadsheet& enableDrawBorders(bool shouldDrawBorders);
 
   private:
 	  /**
@@ -112,33 +119,38 @@ namespace devduino {
 	  const Console& console;
 
 	  /**
-	  * \brief Defines if spreadsheet should be auto-flushed.
-	  */
+	   * \brief Defines if spreadsheet should be auto-flushed.
+	   */
 	  bool autoFlush;
 
 	  /**
-	  * \brief Defines if spreadsheet should be auto-flushed.
-	  */
-	  bool drawBorders;
+	   * \brief Defines if spreadsheet should be auto-flushed.
+	   */
+	  bool shouldDrawBorders;
 
 	  /**
-	  * \brief The number of rows of the spreadsheet.
-	  */
+	   * \brief The number of rows of the spreadsheet.
+	   */
 	  uint8_t nbRows;
 
 	  /**
-	  * \brief The number of columns of the spreadsheet.
-	  */
+	   * \brief The number of columns of the spreadsheet.
+	   */
 	  uint8_t nbColumns;
 
 	  /**
-	  * \brief The x position in  screen coordinates of next character to display.
-	  */
+	   * \brief The x position in  screen coordinates of next character to display.
+	   */
 	  uint8_t textX;
 	  /**
-	  * \brief The y position in  screen coordinates of next character to display.
-	  */
+	   * \brief The y position in  screen coordinates of next character to display.
+	   */
 	  uint8_t textY;
+
+	  /**
+	   * \brief draw borders of spreadsheet.
+	   */
+	  void drawBorders();
   };
 } // namespace devduino
 

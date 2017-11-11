@@ -103,7 +103,6 @@ namespace devduino {
 	}
 
 	void Display::begin() {
-		Wire.begin();
 		setDisplayOnOff(displayOnOff_t::off);
 		setDisplayStartLine(0);
 		setMemoryAddressingMode(memoryAddressingMode_t::horizontal);
@@ -120,6 +119,8 @@ namespace devduino {
 		setChargePumpSetting(chargePumpSetting_t::enable);
 		stopContinuousVerticalScroll();
 		setDisplayOnOff(displayOnOff_t::on);
+
+		clear();
 	}
     
 	void Display::drawLine(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1) {

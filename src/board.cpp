@@ -22,6 +22,7 @@
 */
 
 #include <arduino.h>
+#include <Wire.h>
 
 #include "board.h"
 
@@ -29,6 +30,10 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
+	Board::Board() {
+		Wire.begin();
+	}
+
 	void Board::begin() {
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
 		rtc.begin();
@@ -40,6 +45,10 @@ namespace devduino {
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY)
 		display.begin();
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_CONSOLE) && !defined(NO_GLOBAL_SPREADSHEET)
+		spreadsheet.begin();
 #endif
 
 		//Set "INT" button as input pullup.
@@ -59,8 +68,12 @@ namespace devduino {
 devduino::Board board;
 #endif
 
-#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT)
-devduino::DevduinoFont devduinoFont;
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && !defined(PREFER_DEVDUINO_FONT)
+devduino::AdafruitFont defaultFont;
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && defined(PREFER_DEVDUINO_FONT)
+devduino::DevduinoFont defaultFont;
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)

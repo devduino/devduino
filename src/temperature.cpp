@@ -47,7 +47,6 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 
 	void Temperature::begin() {
-		Wire.begin();
 	}
     
 	float Temperature::read() {

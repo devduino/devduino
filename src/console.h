@@ -44,8 +44,8 @@ namespace devduino {
 	 * \param display A reference to the display to bind console to.
 	 * \param font The font to use with console or none for defaultl devduino font.
 	 * \param autoFlush To flush buffer to display on each method call (much lower but easier to use).
-	*/
-	Console(const Display& display, const Font* font = nullptr, bool autoFlush = false);
+	 */
+	Console(const Display& display, const Font* font = nullptr, bool autoFlush = true);
 
 	/**
 	 * \brief Get the display attached to this console.
@@ -221,6 +221,21 @@ namespace devduino {
 	 * \return A reference to this console.
 	 */
 	Console& enableAutoFlush(bool autoFlush);
+
+	/**
+	* \brief Clears the screen and reinit text position.
+	*
+	* Clear buffer to discard all preceding orders.
+	* The clearing of screen will be effective after the next flush command issued.
+	* Text position is reset.
+	*
+	* If you uniquely want to clear screen without resetting text position, you should call clear method of class Display.
+	*
+	* \see flush().
+	*
+	* \return A reference to this console.
+	*/
+	Console& clear();
 
   private:
 	  /**

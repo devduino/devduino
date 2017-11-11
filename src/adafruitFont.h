@@ -52,7 +52,7 @@ namespace devduino {
 		/**
 		* \brief The pixels of glyphs.
 		*/
-		static const uint8_t glyphsBuffer[96][5] PROGMEM;
+		static const uint8_t glyphsBuffer[95][5] PROGMEM;
 	};
 } // namespace devduino
 
