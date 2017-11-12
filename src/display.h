@@ -189,8 +189,9 @@ namespace devduino {
 	 * Negative pixels scroll to bottom of screen, positive ones scroll to top of screen.
 	 *
 	 * \param pixels The number of pixels to scroll.
+	 * \param clear True if pixels out of bounds must be cleared, false if pixels must be wrapped.
 	 */
-	void verticalScroll(int8_t pixels);
+	void verticalScroll(int8_t pixels, bool clear =true);
 
 	/**
 	 * \brief Reset vertical scroll to 0 (its original position).

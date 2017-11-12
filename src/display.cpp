@@ -232,24 +232,29 @@ namespace devduino {
 		}
 	}
 
-	void Display::verticalScroll(int8_t pixels) {
+	void Display::verticalScroll(int8_t pixels, bool clear) {
 		//Compute display start line and clear scrolled buffer.
 		int8_t newStartLine = displayStartLine + pixels;
 		if (newStartLine > SSD1306_HEIGHT - 1) {
 			newStartLine %= SSD1306_HEIGHT;
-			//Clear buffer from old start line to screen height.
-			clearArea(0, displayStartLine, SSD1306_WIDTH, SSD1306_HEIGHT - displayStartLine);
-			//Clear buffer from 0 to new start line.
-			clearArea(0, 0, SSD1306_WIDTH, newStartLine);
+
+			if (clear) {
+				//Clear buffer from old start line to screen height.
+				clearArea(0, displayStartLine, SSD1306_WIDTH, SSD1306_HEIGHT - displayStartLine);
+				//Clear buffer from 0 to new start line.
+				clearArea(0, 0, SSD1306_WIDTH, newStartLine);
+			}
 		}
 		else if (newStartLine < 0) {
 			newStartLine += SSD1306_HEIGHT;
-			//Clear buffer from 0 to old start line.
-			clearArea(0, 0, SSD1306_WIDTH, displayStartLine);
-			//Clear buffer from new start line to screen height.
-			clearArea(0, newStartLine, SSD1306_WIDTH, SSD1306_HEIGHT - newStartLine);
+			if (clear) {
+				//Clear buffer from 0 to old start line.
+				clearArea(0, 0, SSD1306_WIDTH, displayStartLine);
+				//Clear buffer from new start line to screen height.
+				clearArea(0, newStartLine, SSD1306_WIDTH, SSD1306_HEIGHT - newStartLine);
+			}
 		}
-		else {
+		else if (clear) {
 			//Clear buffer from new start line to old start line.
 			if (pixels > 0) {
 				clearArea(0, displayStartLine, SSD1306_WIDTH, pixels);
@@ -274,13 +279,13 @@ namespace devduino {
 		setActivateScroll(activateScroll_t::deactivate);
 
 		sendCommand(SSD1306_COMMAND_SET_VERTICAL_SCROLL_AREA);
-		sendCommand(0X00);
+		sendCommand(0x00);
 		sendCommand(SSD1306_HEIGHT);
 		sendCommand(SSD1306_COMMAND_SET_VERTICAL_RIGHT_SCROLL);
-		sendCommand(0X00);
-		sendCommand(0X00);
-		sendCommand(0X00);
-		sendCommand(0X00);
+		sendCommand(0x00);
+		sendCommand(0x00);
+		sendCommand(0x00);
+		sendCommand(0x00);
 		sendCommand(speed);
 
 		setActivateScroll(activateScroll_t::activate);
