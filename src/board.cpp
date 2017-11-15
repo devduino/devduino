@@ -43,6 +43,10 @@ namespace devduino {
 		temperature.begin();
 #endif
 
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BUZZER)
+		buzzer.begin();
+#endif
+
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY)
 		display.begin();
 #endif
@@ -53,6 +57,12 @@ namespace devduino {
 
 		//Set "INT" button as input pullup.
 		pinMode(PIN_INT_BUTTON, INPUT_PULLUP);
+	}
+
+	void Board::update() {
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BUZZER)
+		buzzer.update();
+#endif
 	}
 
 	void Board::attachToIntButton(void(*callback)(), int mode) {
@@ -82,6 +92,10 @@ devduino::Rtc rtc;
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
 devduino::Temperature temperature;
+#endif
+
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BUZZER)
+devduino::Buzzer buzzer;
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY)
