@@ -44,6 +44,7 @@
 
 #include "rtc.h"
 #include "temperature.h"
+#include "buzzer.h"
 #include "display.h"
 #include "console.h"
 #include "spreadsheet.h"
@@ -72,6 +73,13 @@ namespace devduino {
 		 * This method must be called before any other method of this class.
 		 */
 		void begin();
+
+		/**
+		* \brief Tell whole board API to update.
+		*
+		* Some methods of API needs to be called repeatedly. To allow the API to works well with such methods, this update method needs to be called in a loop as much often as possible.
+		*/
+		void update();
 
 		/**
 		 * \brief Attach function to "Interrupt" button.
@@ -107,6 +115,11 @@ extern devduino::Rtc rtc;
 //Define global temperature variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
 extern devduino::Temperature temperature;
+#endif
+
+//Define global buzzer variable.
+#if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BUZZER)
+extern devduino::Buzzer buzzer;
 #endif
 
 //Define global display variable.

@@ -33,8 +33,4 @@
 
 #documentation folder
 doc/
-examples/temperature/
-examples/spreadsheet/
-examples/rtc/
-examples/display/
-examples/console/
+examples/
