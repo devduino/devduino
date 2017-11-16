@@ -24,4 +24,8 @@ This library also defines configuration files for arduino IDE, especially to pro
 ## How to use it ?
 The best way is to go to http://devduino.cc to the download section and to unzip the library found on website with the other libraries of your Arduino IDE.
 
-A complete tutorial on how to use this library can be found on [DevDuino](http://devduino.cc) web site.
+By doing so, the library and all examples will be pre-packaged together and will appear directly in your arduino IDE.
+
+If you choose to download source code of this library directly on github, you will also have to download source code of each example in this github organisation. This is not the recommended way.
+
+A complete tutorial on how to install and use this library can be found on [DevDuino](http://devduino.cc) web site.
