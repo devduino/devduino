@@ -69,6 +69,10 @@ namespace devduino {
 		::tone(PIN_BUZZER, pgm_read_word(&frequencies[0]), pgm_read_word(&durations[0]));
 	}
 
+	bool Buzzer::isPlaying() {
+		return startMs != 0;
+	}
+
 	void Buzzer::stop() {
 		::noTone(PIN_BUZZER);
 		startMs = 0;
