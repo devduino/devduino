@@ -80,7 +80,7 @@ namespace devduino {
 	void play(const uint16_t frequencies[], const uint16_t durations[], uint8_t nbSounds);
 
 	/**
-	 * \Brief Check if a music is currently playing.
+	 * \brief Check if a music is currently playing.
 	 *
 	 * \return true if a music is currently playing, false otherwise.
 	 */
