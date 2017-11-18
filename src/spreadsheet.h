@@ -44,6 +44,7 @@ namespace devduino {
 	 * \param nbRows The number of rows of the spreadsheet.
 	 * \param nbColumns The number of columns of the spreadsheet.
 	 * \param drawBorders true if borders must be drawn, false otherwise.
+	 * \param autoFlush true to flush automatically on each API call, false otherwise.
 	 */
 	Spreadsheet(const Console& console, uint8_t nbRows = 4, uint8_t nbColumns = 1, bool drawBorders = false, bool autoFlush = true);
 
@@ -106,7 +107,7 @@ namespace devduino {
 	/**
 	 * \brief Defines is borders must be drawn.
 	 *
-	 * \param drawBorders true if borders must be drawn, false otherwise.
+	 * \param shouldDrawBorders true if borders must be drawn, false otherwise.
 	 *
 	 * \return A reference to this spreadsheet.
 	 */
