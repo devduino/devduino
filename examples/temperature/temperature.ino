@@ -25,7 +25,7 @@
 #include <board.h>
 
 //DevDuino logo to display a splash screen before example.
-#include "devduinoSprite.h"
+#include <devduinoSprite.h>
 
 //The sprite representing the thermometer.
 #include "thermometerSprite.h"

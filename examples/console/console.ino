@@ -25,7 +25,7 @@
 #include <board.h>
 
 //DevDuino logo to display a splash screen before example.
-#include "devduinoSprite.h"
+#include <devduinoSprite.h>
 
 //All classes of devduino are classified into namespace "devduino".
 using namespace devduino;

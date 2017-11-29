@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="95.250038mm"
+   height="21.16667mm"
+   viewBox="0 0 95.250038 21.16667"
+   version="1.1"
+   id="svg4585"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="devduino.svg">
+  <defs
+     id="defs4579" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-148.57142"
+     inkscape:cy="328.57144"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4582">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-22.300592,-214.60119)">
+    <rect
+       style="fill:#0fbe7c;fill-opacity:1;stroke-width:0.36554262"
+       id="rect4746-1-5-2-4"
+       width="36.140923"
+       height="12.07964"
+       x="65.802719"
+       y="215.9633" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:36.12739944px;line-height:5.25;font-family:'Agency FB';-inkscape-font-specification:'Agency FB Bold';letter-spacing:0px;word-spacing:0px;fill:#1f1f1f;fill-opacity:1;stroke:none;stroke-width:0.90318489"
+       x="42.720203"
+       y="222.61389"
+       id="text1506-4-6-7-7-9-1-1-9-6-1"
+       transform="scale(0.98542613,1.0147894)"><tspan
+         sodipodi:role="line"
+         id="tspan1504-2-5-9-4-9-0-2-5-8-9"
+         x="42.720203"
+         y="222.61389"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.20297813px;line-height:1.25;font-family:Lato;-inkscape-font-specification:'Lato, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#1f1f1f;fill-opacity:1;stroke-width:0.90318489"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.20297813px;font-family:Lato;-inkscape-font-specification:'Lato, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#303030;fill-opacity:1;stroke-width:0.90318489"
+           id="tspan4969-2-5-2-3">Dev </tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10.20297813px;font-family:Lato;-inkscape-font-specification:'Lato, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke-width:0.90318489"
+           id="tspan4805-0-9-5-0">Duino</tspan></tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#0fbe7c;fill-opacity:1;stroke:none;stroke-width:0.42091167"
+       d="m 31.987303,214.60119 c -0.613922,0.49324 -0.278832,0.22102 -0.892716,0.71436 v 0.0238 c 0.425642,0.58896 0.655518,1.29724 0.657012,2.02442 -3.24e-4,1.91242 -1.547369,3.46263 -3.455847,3.46295 -0.04618,-0.001 -0.0926,-0.004 -0.13878,-0.008 l -2.150881,1.35044 -0.02722,6.3127 5.501594,3.20696 5.343072,-3.12222 c 0.0812,-7.24838 0.0834,-6.3409 0.0872,-8.67366 l 1.80924,0.9496 -0.0616,8.1232 c -0.82888,0.33968 -1.37074,1.1476 -1.37148,2.045 8e-5,1.22116 0.988,2.21114 2.20672,2.2112 1.218681,-6e-5 2.206641,-0.99004 2.206701,-2.2112 -0.0013,-0.85308 -0.49218,-1.62934 -1.26146,-1.9948 l -0.0222,-9.05634 -5.298744,-3.55425 v 8.87287 c 6.2e-5,0.008 8.46e-4,0.012 8.46e-4,0.018 0,0.006 -8.46e-4,0.01 -8.46e-4,0.016 v 0.0756 h -0.004 c -0.04902,1.86994 -1.57371,3.37168 -3.451731,3.37156 -1.909125,1.2e-4 -3.456793,-1.55072 -3.456673,-3.46374 -1.2e-4,-1.913 1.547548,-3.46386 3.456673,-3.4637 0.54885,0.001 1.089108,0.1338 1.576796,0.38594 v -2.57581 l -0.006,-4.2628 z m -3.738351,0.59582 c -1.262259,6e-5 -2.285485,1.02542 -2.285567,2.29024 8.46e-4,0.1484 0.0162,0.29642 0.04518,0.44192 -1.266658,0.77856 -3.065507,1.85158 -3.707973,2.21697 v 10.3854 l 9.122505,5.23632 5.30696,-2.86132 c -0.317581,-0.493 -0.560781,-1.067 -0.600341,-1.65244 l -4.681969,2.51402 -7.38966,-4.3418 0.0361,-8.31076 2.92531,-1.70099 c 0.366863,0.23594 0.793451,0.36188 1.229421,0.36288 1.262564,3.8e-4 2.286295,-1.02508 2.286377,-2.2902 -8.2e-5,-1.26514 -1.023813,-2.29062 -2.286377,-2.29024 z m 0.02382,0.98094 c 0.735538,8e-5 1.331852,0.57586 1.332074,1.28626 2.22e-4,0.7107 -0.596212,1.28698 -1.332074,1.28706 -0.73586,-8e-5 -1.332295,-0.57636 -1.332073,-1.28706 2.22e-4,-0.7104 0.596537,-1.28618 1.332075,-1.28626 z m 3.413971,7.33235 a 1.8989825,1.8340816 0 0 0 -1.898759,1.8343 1.8989825,1.8340816 0 0 0 1.898759,1.8335 1.8989825,1.8340816 0 0 0 1.898735,-1.8335 1.8989825,1.8340816 0 0 0 -1.898735,-1.8343 z m 7.856914,6.22466 c 0.735881,6e-5 1.332321,0.57632 1.332101,1.28706 2.2e-4,0.71072 -0.59622,1.28698 -1.332101,1.28706 -0.73584,-8e-5 -1.3323,-0.57634 -1.33206,-1.28706 -2.4e-4,-0.71074 0.59622,-1.287 1.33206,-1.28706 z"
+       id="path896-7-8-3-0-2-5-6-0-4-2-1-4" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:25.28740883px;line-height:5.25;font-family:'Agency FB';-inkscape-font-specification:'Agency FB Bold';letter-spacing:0px;word-spacing:0px;fill:#0fbe7c;fill-opacity:1;stroke:none;stroke-width:0.63218516"
+       x="43.25687"
+       y="230.74524"
+       id="text1506-4-6-7-7-9-3-4-0-0-6-7-6"
+       transform="scale(0.98542613,1.0147894)"><tspan
+         sodipodi:role="line"
+         id="tspan1504-2-5-9-4-9-1-4-0-0-0-3-8"
+         x="43.25687"
+         y="230.74524"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.79825735px;line-height:1.25;font-family:Lato;-inkscape-font-specification:'Lato, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#0fbe7c;fill-opacity:1;stroke-width:0.63218516"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.79825735px;font-family:Lato;-inkscape-font-specification:'Lato, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#303030;fill-opacity:1;stroke-width:0.63218516"
+   id="tspan4668-4-22-7-3-5">Development</tspan> Platform</tspan></text>
+  </g>
+</svg>
