@@ -25,7 +25,7 @@
 #include <board.h>
 
 //DevDuino logo to display a splash screen before example.
-#include <devduinoSprite.h>
+#include <devduinoLogo.h>
 
 //All classes of devduino are classified into namespace "devduino".
 using namespace devduino;
@@ -44,7 +44,7 @@ void setup()
   board.begin();
   
   //Draw splash screen to buffer.
-  display.drawSprite(devduinoSprite, 37, 0);
+  display.drawSprite(devduinoLogo, 37, 0);
   //Then transfer buffer to screen.
   display.flush();
 

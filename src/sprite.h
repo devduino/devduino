@@ -21,8 +21,8 @@
 * SOFTWARE.
 */
 
-#ifndef DEVDUINO_SPRITE_H
-#define DEVDUINO_SPRITE_H
+#ifndef DEVDUINO_SPRITE_INTERFACE_H
+#define DEVDUINO_SPRITE_INTERFACE_H
 
 #include <stdint.h>
 
@@ -36,6 +36,15 @@ namespace devduino {
 	class Sprite {
 	public:
 		/**
+		* \brief Get the buffer of pixels of this sprite.
+		*
+		* \remark Because each pixel is coded as a single boolean, each byte returned contains the pixels for 8 consecutive vertical pixels.
+		*
+		* \return The buffer of the sprite.
+		*/
+		virtual const uint8_t* getBuffer() = 0;
+
+		/**
 		 * \brief Get the width in pixels of this sprite.
 		 * 
 		 * \return The width of the sprite.
@@ -48,16 +57,7 @@ namespace devduino {
 		 * \return The height of the sprite.
 		 */
 		virtual uint8_t getHeight() = 0;
-
-		/**
-		 * \brief Get the buffer of pixels of this sprite.
-		 *
-		 * \remark Because each pixel is coded as a single boolean, each byte returned contains the pixels for 8 consecutive vertical pixels.
-		 *
-		 * \return The buffer of the sprite.
-		 */
-		virtual const uint8_t* getBuffer() = 0;
 	};
 } // namespace devduino
 
-#endif //DEVDUINO_SPRITE_H
+#endif //DEVDUINO_SPRITE_INTERFACE_H

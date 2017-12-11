@@ -21,10 +21,7 @@
 * SOFTWARE.
 */
 
-#ifndef DEVDUINO_SPRITE
-#define DEVDUINO_SPRITE
-
-#include "sprite.h"
+#include "devduinoSprite.h"
 
 using namespace devduino;
 
@@ -32,27 +29,24 @@ using namespace devduino;
 * Default namespace for devduino related code.
 */
 namespace devduino {
-	/**
-	* Default implementation of Sprite class for DevDuino.
-	*/
-	class DevduinoSprite : public Sprite {
-	public:
-		/**
-		 * \brief Construct a sprite from the given buffer, width and height.
-		 * 
-		 * \remark Sprite buffer can be constructed using the sprite connverter available on DevDuino web-site (http://devduino.cc).
-		 */
-		DevduinoSprite(const uint8_t* buffer, uint8_t width, uint8_t height);
+	//------------------------------------------------------------------------//
+	//---------------------------- Public methods ----------------------------//
+	//------------------------------------------------------------------------//
+	DevduinoSprite::DevduinoSprite(const uint8_t* buffer, uint8_t width, uint8_t height) {
+		this->buffer = buffer;
+		this->width = width;
+		this->height = height;
+	}
 
-		const uint8_t* getBuffer();
-		uint8_t getWidth();
-		uint8_t getHeight();
+	const uint8_t* DevduinoSprite::getBuffer() {
+		return buffer;
+	}
 
-	private:
-		const uint8_t* buffer;
-		uint8_t width;
-		uint8_t height;
-	};
+	uint8_t DevduinoSprite::getWidth() {
+		return width;
+	}
+
+	uint8_t DevduinoSprite::getHeight() {
+		return height;
+	}
 }
-
-#endif //DEVDUINO_SPRITE

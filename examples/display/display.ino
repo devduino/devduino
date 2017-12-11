@@ -25,7 +25,7 @@
 #include <board.h>
 
 //DevDuino logo to display a splash screen before example.
-#include <devduinoSprite.h>
+#include <devduinoLogo.h>
 
 #define DISPLAY_PERIOD  25
 
@@ -44,7 +44,7 @@ void setup()
   board.attachToIntButton(buttonPressed);
   
   //Draw splash screen to buffer.
-  display.drawSprite(devduinoSprite, 37, 0);
+  display.drawSprite(devduinoLogo, 37, 0);
   //Then transfer buffer to screen.
   display.flush();
   
@@ -134,7 +134,7 @@ void exampleSprite()
   if(exampleId == DISPLAY_PERIOD * 2) {
     display.clear();
     
-    display.drawSprite(devduinoSprite, 37, 0);
+    display.drawSprite(devduinoLogo, 37, 0);
     
     display.flush();
   }
@@ -167,7 +167,7 @@ void exampleScrolling()
   if(exampleId == DISPLAY_PERIOD * 4) {
     display.clear();
     
-    display.drawSprite(devduinoSprite, 37, 0);
+    display.drawSprite(devduinoLogo, 37, 0);
     
     display.flush();
   } else if(exampleId == DISPLAY_PERIOD * 5 - 1) {
