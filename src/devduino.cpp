@@ -24,17 +24,17 @@
 #include <arduino.h>
 #include <Wire.h>
 
-#include "board.h"
+#include "devduino.h"
 
-namespace devduino {
+
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	Board::Board() {
+	DevDuino::DevDuino() {
 		Wire.begin();
 	}
 
-	void Board::begin() {
+	void DevDuino::begin() {
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
 		rtc.begin();
 #endif
@@ -59,53 +59,53 @@ namespace devduino {
 		pinMode(PIN_INT_BUTTON, INPUT_PULLUP);
 	}
 
-	void Board::update() {
+	void DevDuino::update() {
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BUZZER)
 		buzzer.update();
 #endif
 	}
 
-	void Board::attachToIntButton(void(*callback)(), int mode) {
+	void DevDuino::attachToIntButton(void(*callback)(), int mode) {
 		attachInterrupt(digitalPinToInterrupt(PIN_INT_BUTTON), callback, mode);
 	}
 
 	//------------------------------------------------------------------------//
 	//---------------------------- Private methods ---------------------------//
 	//------------------------------------------------------------------------//
-} // namespace devduino
+
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BOARD)
-devduino::Board board;
+DevDuino devduino;
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && !defined(PREFER_DEVDUINO_FONT)
-devduino::AdafruitFont defaultFont;
+AdafruitFont defaultFont;
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && defined(PREFER_DEVDUINO_FONT)
-devduino::DevduinoFont defaultFont;
+DevduinoFont defaultFont;
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
-devduino::Rtc rtc;
+Rtc rtc;
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
-devduino::Temperature temperature;
+Temperature temperature;
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BUZZER)
-devduino::Buzzer buzzer;
+Buzzer buzzer;
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY)
-devduino::Display display;
+Display display;
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_CONSOLE)
-devduino::Console console(display);
+Console console(display);
 #endif
 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_CONSOLE) && !defined(NO_GLOBAL_SPREADSHEET)
-devduino::Spreadsheet spreadsheet(console);
+Spreadsheet spreadsheet(console);
 #endif

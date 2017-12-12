@@ -3,8 +3,6 @@
 
 #include "Sprite.h"
 
-using namespace devduino;
-
 class ThermometerSprite : public Sprite {
 public:
 	static const uint8_t buffer[8][48] PROGMEM;

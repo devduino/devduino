@@ -29,7 +29,7 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
+
 	/**
 	 * \brief A sprite represents an image for displaying.
 	 */
@@ -58,6 +58,6 @@ namespace devduino {
 		 */
 		virtual const uint8_t* getBuffer() = 0;
 	};
-} // namespace devduino
+
 
 #endif //DEVDUINO_SPRITE_H

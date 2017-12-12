@@ -22,13 +22,8 @@
 */
 
 //Include board with DevDuino components.
-#include <board.h>
-
-//DevDuino logo to display a splash screen before example.
+#include <devduino.h>
 #include <devduinoSprite.h>
-
-//All classes of devduino are classified into namespace "devduino".
-using namespace devduino;
 
 //Define the frequencies of sounds to play.
 const uint16_t frequencies[] PROGMEM = {494, 988, 740, 622, 988, 740, 622, 523, 1046, 784, 659, 1046, 784, 659, 494, 988, 740, 622, 988, 740, 622, 622, 659, 698, 698, 739, 783, 783, 831, 880, 988};
@@ -41,7 +36,7 @@ boolean startExample = false;
 void setup()
 {
   //First thing to do is to initialize DevDuino board.
-  board.begin();
+  devduino.begin();
   
   //Draw splash screen to buffer.
   display.drawSprite(devduinoSprite, 37, 0);
@@ -73,14 +68,14 @@ void setup()
   delay(BUZZER_LONG_DURATION + 300);
 
   //Attach "interrupt" button to "buttonPressed" function.
-  board.attachToIntButton(buttonPressed);
+  devduino.attachToIntButton(buttonPressed);
 }
 
 //Loop over program execution.
 void loop()
 {
   //Update board and buzzer to let API do its job as well as possible.
-  board.update();
+  devduino.update();
 
   //If button has been pressed, play a music.
   if(startExample && !buzzer.isPlaying()) {    
@@ -100,4 +95,3 @@ void buttonPressed()
     startExample = true;
   }
 }
-

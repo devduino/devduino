@@ -22,26 +22,24 @@
 */
 
 //Include board with DevDuino components.
-#include <board.h>
+#include <devduino.h>
 
 //DevDuino logo to display a splash screen before example.
-#include <devduinoSprite.h>
+#include "devduinoSprite.h"
 
 #define DISPLAY_PERIOD  25
 
 unsigned int exampleId = 0;
 boolean startExample = false;
 
-//All classes of devduino are classified into namespace "devduino".
-using namespace devduino;
 
 void setup()
 {
   //First thing to do is to initialize DevDuino board.
-  board.begin();
+  devduino.begin();
 
   //Attach "interrupt" button to "buttonPressed" function.
-  board.attachToIntButton(buttonPressed);
+  devduino.attachToIntButton(buttonPressed);
   
   //Draw splash screen to buffer.
   display.drawSprite(devduinoSprite, 37, 0);

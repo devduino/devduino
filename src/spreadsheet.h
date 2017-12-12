@@ -31,7 +31,7 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
+
   /** 
    * Split and print to screen like on a spreadsheet.
    */
@@ -153,6 +153,6 @@ namespace devduino {
 	   */
 	  void drawBorders();
   };
-} // namespace devduino
+
 
 #endif //DEVDUINO_SPREADSHEET_H

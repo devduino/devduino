@@ -29,7 +29,7 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
+
 	/**
 	 * \brief Utility class to work with BCD encoding.
      * 
@@ -59,6 +59,6 @@ namespace devduino {
 		 */
 		Bcd();
 	};
-} // namespace devduino
+
 
 #endif //DEVDUINO_BCD_H

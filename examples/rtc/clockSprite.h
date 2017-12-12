@@ -3,8 +3,6 @@
 
 #include "Sprite.h"
 
-using namespace devduino;
-
 class ClockSprite : public Sprite {
 public:
 	static const uint8_t buffer[7][53] PROGMEM;

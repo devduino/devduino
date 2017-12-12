@@ -29,7 +29,7 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
+
 	/**
 	 * \brief Class used to represent a date and time and perform simple conversions.
 	 */
@@ -141,6 +141,6 @@ namespace devduino {
 		 */
 		void setDateTime(uint16_t year, uint8_t month, uint8_t day, uint8_t hour = 0, uint8_t minute = 0, uint8_t second = 0);
 	};
-} // namespace devduino
+
 
 #endif //DEVDUINO_DATE_TIME_H

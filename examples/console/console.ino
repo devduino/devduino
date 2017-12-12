@@ -22,22 +22,19 @@
 */
 
 //Include board constants to get "INT" button pin.
-#include <board.h>
+#include <devduino.h>
 
 //DevDuino logo to display a splash screen before example.
-#include <devduinoSprite.h>
-
-//All classes of devduino are classified into namespace "devduino".
-using namespace devduino;
+#include "devduinoSprite.h"
 
 //Initialize program.
 void setup()
 {
   //First step is to initialize DevDuino board.
-  board.begin();
+  devduino.begin();
 
   //Attach "interrupt" button to "buttonPressed" function.
-  board.attachToIntButton(buttonPressed);
+  devduino.attachToIntButton(buttonPressed);
   
   //Draw splash screen to buffer.
   display.drawSprite(devduinoSprite, 37, 0);

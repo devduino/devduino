@@ -3,8 +3,6 @@
 
 #include "Sprite.h"
 
-using namespace devduino;
-
 class ThanksSprite : public Sprite {
 public:
 	static const uint8_t buffer[8][128] PROGMEM;

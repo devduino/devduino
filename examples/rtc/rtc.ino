@@ -22,16 +22,13 @@
 */
 
 //Include board with DevDuino components.
-#include <board.h>
+#include <devduino.h>
 
 //DevDuino logo to display a splash screen before example.
 #include <devduinoSprite.h>
 
 //The sprite representing the clock.
 #include "clockSprite.h"
-
-//All classes of devduino are classified into namespace "devduino".
-using namespace devduino;
 
 //Define constants for a unitary angle for hours and minutes.
 #define HOUR_ANGLE M_PI / 6
@@ -48,7 +45,7 @@ using namespace devduino;
 void setup()
 {
   //First thing to do is to initialize DevDuino board.
-  board.begin();
+  devduino.begin();
   
   //Draw splash screen to buffer.
   display.drawSprite(devduinoSprite, 37, 0);

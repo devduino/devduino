@@ -26,10 +26,7 @@
 
 #include <stdint.h>
 
-/**
- * Default namespace for devduino related code.
- */
-namespace devduino {
+
   /** 
    * \brief High level driver for MCP9808 of devduino.
    * 
@@ -71,6 +68,6 @@ namespace devduino {
      */
     void wakeup();
   };
-} // namespace devduino
+
 
 #endif //DEVDUINO_TEMPERATURE_H

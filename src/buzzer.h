@@ -42,7 +42,7 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
+
   /** 
    * \brief High level driver for buzzer of devduino.
    * 
@@ -141,6 +141,6 @@ namespace devduino {
 	   */
 	  uint8_t nbSounds;
   };
-} // namespace devduino
+
 
 #endif //DEVDUINO_BUZZER_H

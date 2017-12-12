@@ -29,8 +29,7 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
-  /** 
+/** 
    * \brief Console printer for devduino.
    * 
    * This class allows to display text on DISPLAY screen in a console way by auto-scrolling.
@@ -307,6 +306,6 @@ namespace devduino {
 	   */
 	  Console& newLine(uint8_t pixels);
   };
-} // namespace devduino
+
 
 #endif //DEVDUINO_CONSOLE_H

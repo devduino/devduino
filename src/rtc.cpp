@@ -32,7 +32,7 @@
 #define PCF8523_I2C_ADDRESS 0x68
 #define PCF8523_SECONDS_REGISTER_ADDRESS 0x03
 
-namespace devduino {
+
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
@@ -89,4 +89,3 @@ namespace devduino {
 	}
 
 	Rtc::RtcDateTime::RtcDateTime() : DateTime(2016, 1, 1) {}
-} // namespace devduino
