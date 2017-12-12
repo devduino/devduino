@@ -30,16 +30,25 @@
 //The sprite representing the clock.
 #include "clockSprite.h"
 
+//Define if you want to set the RTC and the exact time you want to set
+#define SET_RTC             false // true when you want to set the RTC
+#define SET_YEAR            2017
+#define SET_MONTH           12
+#define SET_DAY             31
+#define SET_HOUR            18 //24 hours format
+#define SET_MINUTE          30
+#define SET_SECOND          0
+
 //Define constants for a unitary angle for hours and minutes.
-#define HOUR_ANGLE M_PI / 6
+#define HOUR_ANGLE M_PI   / 6
 #define MINUTE_ANGLE M_PI / 30
 
 //Define constants for clock graphical display.
-#define CENTER_X 27
-#define CENTER_Y 31
-#define HOUR_HAND_SIZE 10
-#define MINUTE_HAND_SIZE 15
-#define SECOND_HAND_SIZE 20
+#define CENTER_X          27
+#define CENTER_Y          31
+#define HOUR_HAND_SIZE    10
+#define MINUTE_HAND_SIZE  15
+#define SECOND_HAND_SIZE  20
 
 //Initialize program.
 void setup()
@@ -53,7 +62,10 @@ void setup()
   display.flush();
 
   //Set an arbitrary time to RTC (The date when DevDuino was launched on KickStarter (sort of epoch of DevDuino)).
-  rtc.setDateTime(2017, 11, 1, 14, 0, 0);
+  if(SET_RTC)
+  {
+    rtc.setDateTime(SET_YEAR, SET_MONTH, SET_DAY, SET_HOUR, SET_MINUTE, SET_SECOND);
+  }
   
   //Sleep for 1 second with splash screen displayed to be able to see it before continuing.
   delay(1000);
@@ -130,4 +142,3 @@ void drawTextClock(DateTime currentClock)
   //Write time to display buffer.
   display.print(String(timeBuffer), 60, 6, &defaultFont);
 }
-
