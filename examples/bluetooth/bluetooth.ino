@@ -4,7 +4,7 @@
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files(the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
+* in the Software without restri  ction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions :
@@ -25,7 +25,7 @@
 #include <SoftwareSerial.h>
 #include "devduinoSprite.h"
 
-SoftwareSerial HC06(10,11);
+SoftwareSerial HC06(10,12);
 
 String messageReceived= "";
 float analogValue = 0;
@@ -39,8 +39,10 @@ void setup()
   devduino.attachToIntButton(buttonPressed);
   display.drawSprite(devduinoSprite, 37, 0);
   display.flush();  
+  delay(1000);
+  display.clear();
 
-  Serial.begin(9600);
+  //Serial.begin(9600);
   HC06.begin(9600); 
   
   for(int i=0;i<=1;i++)
@@ -58,12 +60,12 @@ void setup()
   pinMode(i, OUTPUT);
   digitalWrite(i, LOW); 
   }
+  
+  pinMode(11, OUTPUT);
+  digitalWrite(11, LOW);
 
-  for(int i=12;i<=13;i++)
-  {
-  pinMode(i, OUTPUT);
-    digitalWrite(i, LOW); 
-  }  
+  pinMode(13, OUTPUT);
+  digitalWrite(13, LOW);
 }
 
 void loop() 
@@ -76,7 +78,7 @@ void loop()
  }
  if (messageReceived.length() >0) 
  {  
-  Serial.println(messageReceived);
+  console.println(messageReceived);
   /*****************************************************/
   /*                  DIGITAL 0                        */
   /*****************************************************/
@@ -163,24 +165,24 @@ void loop()
    }  
   }
   /*****************************************************/
-  /*                  DIGITAL 12                        */
+  /*                  DIGITAL 11                        */
   /*****************************************************/
-  else if ((messageReceived.indexOf("D09") != -1)) 
+  else if ((messageReceived.indexOf("D11") != -1)) 
   {
    if ((messageReceived.indexOf("ON") != -1)) 
-   {digitalWrite(12,HIGH);}
+   {digitalWrite(11,HIGH);}
    else if((messageReceived.indexOf("OFF") != -1)) 
-   {digitalWrite(12,LOW);}   
+   {digitalWrite(11,LOW);}   
    else
    {   
      messageReceived=  messageReceived.substring(4,7);
-     analogWrite(12,messageReceived.toInt());
+     analogWrite(11,messageReceived.toInt());
    }  
   }
   /*****************************************************/
   /*                  DIGITAL 13                       */
   /*****************************************************/
-  else if ((messageReceived.indexOf("D09") != -1)) 
+  else if ((messageReceived.indexOf("D13") != -1)) 
   {
    if ((messageReceived.indexOf("ON") != -1)) 
    {digitalWrite(13,HIGH);}
@@ -199,6 +201,7 @@ void loop()
   {
    analogValue = analogRead(0);   
    analogValue = analogValue*analogRef/1000;
+   console.println("A0=" + String(analogValue));
    HC06.print(String(analogValue));
   }
   /*****************************************************/
@@ -208,6 +211,7 @@ void loop()
   {
    analogValue = analogRead(1);   
    analogValue = analogValue*analogRef/1000; 
+   console.println("A1=" + String(analogValue));
    HC06.print(String(analogValue));
   }
   /*****************************************************/
@@ -217,6 +221,7 @@ void loop()
   {
    analogValue = analogRead(2);   
    analogValue = analogValue*analogRef/1000; 
+   console.println("A2=" + String(analogValue));
    HC06.print(String(analogValue));
   }
   /*****************************************************/
@@ -226,6 +231,7 @@ void loop()
   {
    analogValue = analogRead(3);   
    analogValue = analogValue*analogRef/1000;
+   console.println("A3=" + String(analogValue));
    HC06.print(String(analogValue));
   }
   /*****************************************************/
@@ -235,6 +241,7 @@ void loop()
   {
    analogValue = analogRead(4);   
    analogValue = analogValue*analogRef/1000;
+   console.println("A4=" + String(analogValue));
    HC06.print(String(analogValue));
   }
   /*****************************************************/
@@ -244,6 +251,7 @@ void loop()
   {
    analogValue = analogRead(5);   
    analogValue = analogValue*analogRef/1000;
+   console.println("A5=" + String(analogValue));
    HC06.print(String(analogValue));
   }
   /*****************************************************/
@@ -253,5 +261,5 @@ void loop()
 
 void buttonPressed()
 {
-
+  
 }
