@@ -23,30 +23,23 @@
 
 #include "devduinoSprite.h"
 
-using namespace devduino;
+//------------------------------------------------------------------------//
+//---------------------------- Public methods ----------------------------//
+//------------------------------------------------------------------------//
+DevduinoSprite::DevduinoSprite(const uint8_t* buffer, uint8_t width, uint8_t height) {
+	this->buffer = buffer;
+	this->width = width;
+	this->height = height;
+}
 
-/**
-* Default namespace for devduino related code.
-*/
-namespace devduino {
-	//------------------------------------------------------------------------//
-	//---------------------------- Public methods ----------------------------//
-	//------------------------------------------------------------------------//
-	DevduinoSprite::DevduinoSprite(const uint8_t* buffer, uint8_t width, uint8_t height) {
-		this->buffer = buffer;
-		this->width = width;
-		this->height = height;
-	}
+const uint8_t* DevduinoSprite::getBuffer() {
+	return buffer;
+}
 
-	const uint8_t* DevduinoSprite::getBuffer() {
-		return buffer;
-	}
+uint8_t DevduinoSprite::getWidth() {
+	return width;
+}
 
-	uint8_t DevduinoSprite::getWidth() {
-		return width;
-	}
-
-	uint8_t DevduinoSprite::getHeight() {
-		return height;
-	}
+uint8_t DevduinoSprite::getHeight() {
+	return height;
 }
