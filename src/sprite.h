@@ -29,7 +29,7 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
+
 	/**
 	 * \brief A sprite represents an image for displaying.
 	 */
@@ -58,6 +58,6 @@ namespace devduino {
 		 */
 		virtual uint8_t getHeight() = 0;
 	};
-} // namespace devduino
+
 
 #endif //DEVDUINO_SPRITE_INTERFACE_H

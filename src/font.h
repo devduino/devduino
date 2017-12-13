@@ -29,7 +29,7 @@
 /**
 * Default namespace for devduino related code.
 */
-namespace devduino {
+
 	/**
 	 * \brief A font is the graphical representation of a set of characters to display.
 	 *
@@ -112,6 +112,6 @@ namespace devduino {
 		*/
 		virtual int8_t getGlyphYOffset(uint8_t characterCode) = 0;
 	};
-} // namespace devduino
+
 
 #endif //DEVDUINO_FONT_H

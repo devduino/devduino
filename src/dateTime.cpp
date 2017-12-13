@@ -23,7 +23,7 @@
 
 #include <dateTime.h>
 
-namespace devduino {
+
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
@@ -91,4 +91,3 @@ namespace devduino {
 		dateTime = (dateTime << 6) | (minute & 0x3F); //6 bit shift for minutes.
 		dateTime = (dateTime << 6) | (second & 0x3F); //6 bit shift for seconds.
 	}
-} // namespace devduino

@@ -21,13 +21,13 @@
 * SOFTWARE.
 */
 
-#include "board.h"
+#include "devduino.h"
 #include "console.h"
 
 //The first ASCII code to be coded in font.
 #define CONSOLE_FONT_FIRST_CODE 33
 
-namespace devduino {
+
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
@@ -182,4 +182,3 @@ namespace devduino {
 		return *this;
 	}
 
-} // namespace devduino

@@ -23,7 +23,7 @@
 
 #include "devduinoFont.h"
 
-namespace devduino {
+
 	const uint8_t DevduinoFont::glyphsBuffer[95][5] PROGMEM = {
 		{ 0x00, 0x00, 0x00, 0x00, 0x00 },
 		{ 0x00, 0x00, 0xFA, 0x00, 0x00 },
@@ -179,4 +179,3 @@ namespace devduino {
 	uint8_t DevduinoFont::getGlyphPosition(uint8_t characterCode) {
 		return pgm_read_byte(&glyphsPosition[characterCode - 32]);
 	}
-} // namespace devduino

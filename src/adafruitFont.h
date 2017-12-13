@@ -28,32 +28,28 @@
 #include "font.h"
 
 /**
-* Default namespace for devduino related code.
+* \brief Class to represent the default font from Adafruit GFX library: https://github.com/adafruit/Adafruit-GFX-Library.
+*
+* Special not for Alexandre Pailhoux: This class is implemented because you don't like my devduino font :/
+* \attention Special note for other readers: Alexandre Pailhoux nickname is Papayou: https://www.youtube.com/watch?v=Wv1cX9o8JJM.
 */
-namespace devduino {
-	/**
-	* \brief Class to represent the default font from Adafruit GFX library: https://github.com/adafruit/Adafruit-GFX-Library.
-	*
-	* Special not for Alexandre Pailhoux: This class is implemented because you don't like my devduino font :/
-	* \attention Special note for other readers: Alexandre Pailhoux nickname is Papayou: https://www.youtube.com/watch?v=Wv1cX9o8JJM.
-	*/
-	class AdafruitFont : public Font {
-	public:
-		uint8_t getSize();
-		uint8_t getGlyphWidth(uint8_t characterCode);
-		uint8_t getGlyphHeight(uint8_t characterCode);
-		const uint8_t* getGlyphPixels(uint8_t characterCode);
-		int8_t getGlyphKerning(uint8_t characterCode, uint8_t previousCharacterCode);
-		uint8_t getGlyphXAdvance(uint8_t characterCode);
-		int8_t getGlyphXOffset(uint8_t characterCode);
-		int8_t getGlyphYOffset(uint8_t characterCode);
+class AdafruitFont : public Font {
+public:
+	uint8_t getSize();
+	uint8_t getGlyphWidth(uint8_t characterCode);
+	uint8_t getGlyphHeight(uint8_t characterCode);
+	const uint8_t* getGlyphPixels(uint8_t characterCode);
+	int8_t getGlyphKerning(uint8_t characterCode, uint8_t previousCharacterCode);
+	uint8_t getGlyphXAdvance(uint8_t characterCode);
+	int8_t getGlyphXOffset(uint8_t characterCode);
+	int8_t getGlyphYOffset(uint8_t characterCode);
 
-	private:
-		/**
-		 * \brief The pixels of glyphs.
-		 */
-		static const uint8_t glyphsBuffer[95][5] PROGMEM;
-	};
-} // namespace devduino
+private:
+	/**
+	 * \brief The pixels of glyphs.
+	 */
+	static const uint8_t glyphsBuffer[95][5] PROGMEM;
+};
+
 
 #endif //DEVDUINO_ADAFRUIT_FONT_H

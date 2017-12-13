@@ -49,23 +49,19 @@
 #include "console.h"
 #include "spreadsheet.h"
 
-/**
- * Default namespace for devduino related code.
- */
-namespace devduino {
 	/**
 	 * \brief Board of devduino.
 	 *
 	 * This class allows to initialize DevDuino board.
 	 */
-	class Board {
+	class DevDuino {
 	public:
 		/**
 		 * \brief Default constructor.
 		 *
 		 * Initialize board with functionalities that must be done prior to begin().
 		 */
-		Board();
+		DevDuino();
 
 		/**
 		 * \brief Initialize DevDuino board.
@@ -90,51 +86,50 @@ namespace devduino {
 		void attachToIntButton(void (*callback)(), int mode = FALLING);
 	private:
 	};
-} // namespace devduino
 
 //Define global board variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BOARD)
-extern devduino::Board board;
+extern DevDuino devduino;
 #endif
 
 //Define global default adafruit font variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && !defined(PREFER_DEVDUINO_FONT)
-extern devduino::AdafruitFont defaultFont;
+extern AdafruitFont defaultFont;
 #endif
 
 //Define global default devduino font variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && defined(PREFER_DEVDUINO_FONT)
-extern devduino::DevduinoFont defaultFont;
+extern DevduinoFont defaultFont;
 #endif
 
 //Define global rtc variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_RTC)
-extern devduino::Rtc rtc;
+extern Rtc rtc;
 #endif
 
 //Define global temperature variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_TEMPERATURE)
-extern devduino::Temperature temperature;
+extern Temperature temperature;
 #endif
 
 //Define global buzzer variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_BUZZER)
-extern devduino::Buzzer buzzer;
+extern Buzzer buzzer;
 #endif
 
 //Define global display variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY)
-extern devduino::Display display;
+extern Display display;
 #endif
 
 //Define global console variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_CONSOLE)
-extern devduino::Console console;
+extern Console console;
 #endif
 
 //Define global spreadsheet variable.
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_SPREADSHEET)
-extern devduino::Spreadsheet spreadsheet;
+extern Spreadsheet spreadsheet;
 #endif
 
 #endif //DEVDUINO_BOARD_H

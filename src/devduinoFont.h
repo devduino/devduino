@@ -31,7 +31,6 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
 	/**
 	* \brief The default font for devduino.
 	*/
@@ -67,6 +66,6 @@ namespace devduino {
 		 */
 		uint8_t getGlyphPosition(uint8_t characterCode);
 	};
-} // namespace devduino
+
 
 #endif //DEVDUINO_DEFAULT_FONT_H

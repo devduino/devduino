@@ -22,22 +22,19 @@
 */
 
 //Include board with DevDuino components.
-#include <board.h>
+#include <devduino.h>
 
 //DevDuino logo to display a splash screen before example.
-#include <devduinoLogo.h>
+#include "devduinoLogo.h"
 
 //The sprite representing the thermometer.
 #include "thermometerSprite.h"
-
-//All classes of devduino are classified into namespace "devduino".
-using namespace devduino;
 
 //Initialize program.
 void setup()
 {
   //First thing to do is to initialize DevDuino board.
-  board.begin();
+  devduino.begin();
   
   //Draw splash screen to buffer.
   display.drawSprite(devduinoLogo, 37, 0);
@@ -90,6 +87,6 @@ void drawTextTemperature(float currentTemperature)
   //Display text except for "degree" symbol (let an empty space for it) which is not part of DevDuino font.
   display.print(String(currentTemperature) + "  C", 60, 15, &defaultFont);
   //Display a lowercase 'o' above the previous text to simulate the degree (°) symbol.
-  display.print(String("o"), 88, 19, &defaultFont);
+  display.print(String("o"), 95, 19, &defaultFont);
 }
 

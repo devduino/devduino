@@ -84,7 +84,6 @@
 //Charge Pump Commands
 #define SSD1306_COMMAND_SET_CHARGE_PUMP_SETTING 0x8D
 
-namespace devduino {
 	//------------------------------------------------------------------------//
 	//--------------------------- Static variables ---------------------------//
 	//------------------------------------------------------------------------//
@@ -547,4 +546,3 @@ namespace devduino {
 		Wire.write(c);
 		Wire.endTransmission();
 	}
-} // namespace devduino

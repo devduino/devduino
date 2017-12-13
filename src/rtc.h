@@ -29,7 +29,7 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
+
 	/**
 	 * \brief High level driver for PCF8523 of devduino.
      * 
@@ -113,6 +113,6 @@ namespace devduino {
 		 */
 		RtcDateTime dateTime;
 	};
-} // namespace devduino
+
 
 #endif //DEVDUINO_RTC_H

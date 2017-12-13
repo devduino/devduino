@@ -23,7 +23,6 @@
 
 #include "adafruitFont.h"
 
-namespace devduino { 
 	//This byte array is copied (and bits have ben reverted to match our code) from the Adafruit font under BSD license: 
 	//https://github.com/adafruit/Adafruit-GFX-Library/blob/master/glcdfont.c.
 	const uint8_t AdafruitFont::glyphsBuffer[95][5] PROGMEM = {
@@ -161,4 +160,3 @@ namespace devduino {
 	//------------------------------------------------------------------------//
 	//---------------------------- Private methods ---------------------------//
 	//------------------------------------------------------------------------//
-} // namespace devduino

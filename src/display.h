@@ -33,7 +33,6 @@
 /**
  * Default namespace for devduino related code.
  */
-namespace devduino {
   /** 
    * \brief High level driver for SSD1306 of devduino.
    * 
@@ -645,6 +644,6 @@ namespace devduino {
      */
     void sendCommand(uint8_t command);
   };
-} // namespace devduino
+
 
 #endif //DEVDUINO_DISPLAY_H

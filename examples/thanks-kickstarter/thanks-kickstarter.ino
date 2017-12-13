@@ -22,7 +22,7 @@
 */
 
 //Include board with DevDuino components.
-#include <board.h>
+#include <devduino.h>
 
 //DevDuino logo to display a splash screen before example.
 #include <devduinoLogo.h>
@@ -30,13 +30,10 @@
 //Thanks sprite.
 #include "thanksSprite.h"
 
-//All classes of devduino are classified into namespace "devduino".
-using namespace devduino;
-
 void setup()
 {
   //First thing to do is to initialize DevDuino board.
-  board.begin();
+  devduino.begin();
   
   //Draw splash screen to buffer.
   display.drawSprite(devduinoLogo, 37, 0);
