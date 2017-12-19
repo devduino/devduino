@@ -23,7 +23,7 @@
 
 //Include board with DevDuino components.
 #include <devduino.h>
-#include <devduinoSprite.h>
+#include <devduinoLogo.h>
 
 //Define the frequencies of sounds to play.
 const uint16_t frequencies[] PROGMEM = {494, 988, 740, 622, 988, 740, 622, 523, 1046, 784, 659, 1046, 784, 659, 494, 988, 740, 622, 988, 740, 622, 622, 659, 698, 698, 739, 783, 783, 831, 880, 988};
@@ -39,7 +39,7 @@ void setup()
   devduino.begin();
   
   //Draw splash screen to buffer.
-  display.drawSprite(devduinoSprite, 37, 0);
+  display.drawSprite(devduinoLogo, 37, 0);
   //Then transfer buffer to screen.
   display.flush();
 

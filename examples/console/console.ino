@@ -25,7 +25,7 @@
 #include <devduino.h>
 
 //DevDuino logo to display a splash screen before example.
-#include "devduinoSprite.h"
+#include "devduinoLogo.h"
 
 //Initialize program.
 void setup()
@@ -37,7 +37,7 @@ void setup()
   devduino.attachToIntButton(buttonPressed);
   
   //Draw splash screen to buffer.
-  display.drawSprite(devduinoSprite, 37, 0);
+  display.drawSprite(devduinoLogo, 37, 0);
   //Then transfer buffer to screen.
   display.flush();
   

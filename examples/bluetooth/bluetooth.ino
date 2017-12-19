@@ -23,7 +23,7 @@
 
 #include <devduino.h>
 #include <SoftwareSerial.h>
-#include "devduinoSprite.h"
+#include "devduinoLogo.h"
 
 SoftwareSerial HC06(10,12);
 
@@ -37,7 +37,7 @@ void setup()
 {
   devduino.begin();  
   devduino.attachToIntButton(buttonPressed);
-  display.drawSprite(devduinoSprite, 37, 0);
+  display.drawSprite(devduinoLogo, 37, 0);
   display.flush();  
   delay(1000);
   display.clear();
