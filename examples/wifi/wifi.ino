@@ -25,11 +25,12 @@
 #include <SoftwareSerial.h>
 #include "devduinoLogo.h"
 
+#define BAUDRATE 74800
+
 SoftwareSerial DT06(10,12);
 
 String messageReceived= "";
 float analogValue = 0;
-
 float analogRef = 4.9;
 
 //Initialize program.
@@ -38,12 +39,12 @@ void setup()
   devduino.begin();  
   devduino.attachToIntButton(buttonPressed);
   display.drawSprite(devduinoLogo, 37, 0);
-  display.flush();  
-  delay(1000);
-  display.clear();
+  display.flush();    
+  delay(2000);
+  display.clear(); 
 
-  //Serial.begin(9600);
-  DT06.begin(74800); 
+  DT06.begin(BAUDRATE); 
+  //DT06.setTimeout(300);
   
   for(int i=0;i<=1;i++)
   {
@@ -74,11 +75,10 @@ void loop()
 {
  while(DT06.available()) 
  {
-  delay(3);
-  char c = DT06.read();
-  messageReceived+= c;
- }
- if (messageReceived.length() >0) 
+  messageReceived = DT06.readString();  
+ } 
+ if (messageReceived.length() > 0) 
+ //if (messageReceived.length() >0 && messageReceived.length() < 128) 
  {  
   //console.println(messageReceived);
   /*****************************************************/
@@ -225,13 +225,9 @@ void loop()
     console.println("*     D13 = OFF     *");
    }   
   }  
-  messageReceived="";
+  messageReceived=""; // Flush buffer
   }
-}
-
-void buttonPressed()
-{
-  DT06.write("AT+TCPCLIENT");  
+  delay(1);
 }
 
 void checkStatus()
@@ -240,13 +236,11 @@ void checkStatus()
   boolean TCP_OK = false;
   console.println("INIT...");
   console.println("---------------------"); 
-  DT06.write("AT+TCPCLIENT");
+  DT06.print("AT+TCPCLIENT");
   delay(100);
   while(DT06.available()) 
    {
-    delay(3);
-    char c = DT06.read();
-    messageReceived+= c;
+    messageReceived = DT06.readString();  
    } 
   console.println(messageReceived); 
 
@@ -258,24 +252,36 @@ void checkStatus()
   console.println("---------------------"); 
   delay(300);
   
-  DT06.write("AT+STASTATUS");  
+  DT06.print("AT+STASTATUS");  
   delay(100);
   while(DT06.available()) 
    {
-    delay(3);
-    char c = DT06.read();
-    messageReceived+= c;
+    messageReceived = DT06.readString();  
    }
   console.println(messageReceived);
+  
   if ((messageReceived.indexOf("OK") != -1)) 
    {
     STA_OK = true;      
    }
   console.println("---------------------"); 
+  messageReceived=""; 
+  delay(100);
+     
   if (STA_OK && TCP_OK)
   {
-    console.println("READY!"); 
+    console.println("READY!");     
     console.println("---------------------"); 
+    DT06.print("AT+STAINFO");  
+    delay(100);
+    while(DT06.available()) 
+     {
+      messageReceived = DT06.readString();  
+     }
+    //console.println(messageReceived); 
+    console.println("MAC|" + messageReceived.substring(0,2) +"-" +messageReceived.substring(2,4)+"-" +messageReceived.substring(4,6)+"-" +messageReceived.substring(6,8)+"-" +messageReceived.substring(8,10)+"-" +messageReceived.substring(10,12)    );
+    console.println("---------------------"); 
+    delay(100);
     console.println(" IP | 115.29.109.104"); 
     console.println("PORT| 6524"); 
   }  
@@ -285,6 +291,12 @@ void checkStatus()
     console.println("Go to www.devduino.cc");      
   }
   messageReceived="";  
-  console.println("---------------------"); 
-
+  DT06.flush();
+  console.println("---------------------");  
 }
+void buttonPressed()
+{
+  DT06.print("AT+RESET"); 
+}
+
+
