@@ -30,8 +30,6 @@
 SoftwareSerial DT06(10,12);
 
 String messageReceived= "";
-float analogValue = 0;
-float analogRef = 4.9;
 
 //Initialize program.
 void setup()
@@ -44,7 +42,7 @@ void setup()
   display.clear(); 
 
   DT06.begin(BAUDRATE); 
-  //DT06.setTimeout(300);
+  DT06.setTimeout(1000);
   
   for(int i=0;i<=1;i++)
   {
