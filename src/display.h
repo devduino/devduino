@@ -25,10 +25,10 @@
 #define DEVDUINO_DISPLAY_H
 
 #include <stdint.h>
-#include <arduino.h>
+#include <Arduino.h>
 
-#include "Sprite.h"
-#include "Font.h"
+#include "sprite.h"
+#include "font.h"
 
 /**
  * Default namespace for devduino related code.

@@ -31,12 +31,12 @@
 #include "clockSprite.h"
 
 //Define if you want to set the RTC and the exact time you want to set
-#define SET_RTC             false // true when you want to set the RTC
-#define SET_YEAR            2017
-#define SET_MONTH           12
-#define SET_DAY             31
-#define SET_HOUR            18 //24 hours format
-#define SET_MINUTE          30
+#define SET_RTC             true //false // true when you want to set the RTC
+#define SET_YEAR            2018
+#define SET_MONTH           03
+#define SET_DAY             25
+#define SET_HOUR            16 //24 hours format
+#define SET_MINUTE          48
 #define SET_SECOND          0
 
 //Define constants for a unitary angle for hours and minutes.

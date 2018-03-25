@@ -31,18 +31,12 @@
 //------------------------------------------------------------------------//
 #define PCF8523_I2C_ADDRESS 0x68
 #define PCF8523_SECONDS_REGISTER_ADDRESS 0x03
-#define PCF8523_CONTROL_3_REGISTER_ADDRESS 0x02
 
 
 	//------------------------------------------------------------------------//
 	//---------------------------- Public methods ----------------------------//
 	//------------------------------------------------------------------------//
-	void Rtc::begin() 
-	{
-		Wire.beginTransmission(PCF8523_I2C_ADDRESS);
-		Wire.write(PCF8523_CONTROL_3_REGISTER_ADDRESS);
-		Wire.write(0x80); // Enable switch-over, no interrupt
-		Wire.endTransmission();
+	void Rtc::begin() {
 	}
 
 	void Rtc::begin(uint16_t year, uint8_t month, uint8_t day, uint8_t hour = 0, uint8_t minute = 0, uint8_t second = 0) {

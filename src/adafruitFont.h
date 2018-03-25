@@ -20,26 +20,36 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+#ifndef DEVDUINO_ADAFRUIT_FONT_H
+#define DEVDUINO_ADAFRUIT_FONT_H
 
-#include "devduinoSprite.h"
+#include <Arduino.h>
 
-//------------------------------------------------------------------------//
-//---------------------------- Public methods ----------------------------//
-//------------------------------------------------------------------------//
-DevduinoSprite::DevduinoSprite(const uint8_t* buffer, uint8_t width, uint8_t height) {
-	this->buffer = buffer;
-	this->width = width;
-	this->height = height;
-}
+#include "font.h"
 
-const uint8_t* DevduinoSprite::getBuffer() {
-	return buffer;
-}
+/**
+* \brief Class to represent the default font from Adafruit GFX library: https://github.com/adafruit/Adafruit-GFX-Library.
+*
+* Special not for Alexandre Pailhoux: This class is implemented because you don't like my devduino font :/
+* \attention Special note for other readers: Alexandre Pailhoux nickname is Papayou: https://www.youtube.com/watch?v=Wv1cX9o8JJM.
+*/
+class AdafruitFont : public Font {
+public:
+	uint8_t getSize();
+	uint8_t getGlyphWidth(uint8_t characterCode);
+	uint8_t getGlyphHeight(uint8_t characterCode);
+	const uint8_t* getGlyphPixels(uint8_t characterCode);
+	int8_t getGlyphKerning(uint8_t characterCode, uint8_t previousCharacterCode);
+	uint8_t getGlyphXAdvance(uint8_t characterCode);
+	int8_t getGlyphXOffset(uint8_t characterCode);
+	int8_t getGlyphYOffset(uint8_t characterCode);
 
-uint8_t DevduinoSprite::getWidth() {
-	return width;
-}
+private:
+	/**
+	 * \brief The pixels of glyphs.
+	 */
+	static const uint8_t glyphsBuffer[95][5] PROGMEM;
+};
 
-uint8_t DevduinoSprite::getHeight() {
-	return height;
-}
+
+#endif //DEVDUINO_ADAFRUIT_FONT_H
