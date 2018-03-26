@@ -30,7 +30,7 @@
 #define PIN_INT_BUTTON 7
 
 #include <stdint.h>
-#include <arduino.h>
+#include <Arduino.h>
 
 //Include adafruit default font if allowed. 
 #if !defined(NO_GLOBAL_INSTANCES) && !defined(NO_GLOBAL_DISPLAY) && !defined(NO_GLOBAL_DISPLAY_FONT) && !defined(PREFER_DEVDUINO_FONT)

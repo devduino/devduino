@@ -24,7 +24,7 @@
 #ifndef DEVDUINO_SPREADSHEET_H
 #define DEVDUINO_SPREADSHEET_H
 
-#include <arduino.h>
+#include <Arduino.h>
 
 #include "console.h"
 

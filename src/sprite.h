@@ -21,31 +21,39 @@
 * SOFTWARE.
 */
 
-#ifndef DEVDUINO_SPRITE
-#define DEVDUINO_SPRITE
+#ifndef DEVDUINO_SPRITE_INTERFACE_H
+#define DEVDUINO_SPRITE_INTERFACE_H
 
-#include "sprite.h"
+#include <stdint.h>
 
 /**
-* Default implementation of Sprite class for DevDuino.
-*/
-class DevduinoSprite : public Sprite {
-public:
-	/**
-	 * \brief Construct a sprite from the given buffer, width and height.
-	 * 
-	 * \remark Sprite buffer can be constructed using the sprite connverter available on DevDuino web-site (http://devduino.cc).
+ * \brief A sprite represents an image for displaying.
 	 */
-	DevduinoSprite(const uint8_t* buffer, uint8_t width, uint8_t height);
-
-	const uint8_t* getBuffer();
-	uint8_t getWidth();
-	uint8_t getHeight();
-
-private:
-	const uint8_t* buffer;
-	uint8_t width;
-	uint8_t height;
+class Sprite {
+ public:
+  /**
+   * \brief Get the buffer of pixels of this sprite.
+   *
+   * \remark Because each pixel is coded as a single boolean, each byte returned contains the pixels for 8 consecutive vertical pixels.
+   *
+   * \return The buffer of the sprite.
+   */
+  virtual const uint8_t** getBuffer() const = 0;
+  
+  /**
+   * \brief Get the width in pixels of this sprite.
+   * 
+   * \return The width of the sprite.
+   */
+  virtual uint8_t getWidth() const = 0;
+  
+  /**
+   * \brief Get the height in pixels of this sprite.
+   *
+   * \return The height of the sprite.
+   */
+  virtual uint8_t getHeight() const = 0;
 };
 
-#endif //DEVDUINO_SPRITE
+
+#endif //DEVDUINO_SPRITE_INTERFACE_H

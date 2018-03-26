@@ -350,7 +350,7 @@
 	}
 
 	void Display::drawSprite(const Sprite& sprite, uint8_t x, uint8_t y) {
-		drawBuffer(sprite.getBuffer(), x, y, sprite.getWidth(), sprite.getHeight());
+	  drawBuffer((uint8_t*)sprite.getBuffer(), x, y, sprite.getWidth(), sprite.getHeight());
 	}
 
 	void Display::drawPixel(uint8_t x, uint8_t y) {

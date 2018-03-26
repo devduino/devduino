@@ -1,5 +1,9 @@
 # DevDuino core library
 
+I have updated this library to work properly on a linux platform.
+
+All examples have been tested, but the Bluetooth and wifi functionality was not tested.
+
 ## What is the purpose of this library ?
 This library is intended to ease the programming of your project using a [DevDuino](http://devduino.cc).
 
