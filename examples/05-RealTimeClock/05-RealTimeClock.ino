@@ -31,7 +31,7 @@
 #include "clockSprite.h"
 
 //Define if you want to set the RTC and the exact time you want to set
-#define SET_RTC             true //false // true when you want to set the RTC
+#define SET_RTC             false // true when you want to set the RTC
 #define SET_YEAR            2018
 #define SET_MONTH           03
 #define SET_DAY             25
