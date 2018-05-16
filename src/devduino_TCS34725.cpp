@@ -344,8 +344,7 @@ void DevDuino_TCS3472::displayChart(unsigned int r, unsigned int g, unsigned int
 		display.flush();
 	  }  
    else
-	  {  
-		
+	  {  		
 		  display.clear();
 		  display.drawLine(0, 55, 128, 55);
 		  
@@ -361,13 +360,14 @@ void DevDuino_TCS3472::displayChart(unsigned int r, unsigned int g, unsigned int
 		  display.print("C", 108, 56, &defaultFont);
           display.fillRectangle(100, 0, 20, map(c, 0,maxResolution, 0, 55));			  
 		  display.flush();
-		
+		 
+		c = map(c, 0, maxResolution, 0, 255);
 	  
 		if (r>=b && r>=g)
 		{
-		  analogWrite(LED_PINOUT_RED, 0);  
-		  g = map(g, 0, r, 0, 255);
-		  b = map(b, 0, r, 0, 255);
+		  analogWrite(LED_PINOUT_RED, 255-c);  
+		  g = map(g, 0, r, 0, c);
+		  b = map(b, 0, r, 0, c);
 				
 		  if (b>=g)
 		  {        
@@ -382,9 +382,9 @@ void DevDuino_TCS3472::displayChart(unsigned int r, unsigned int g, unsigned int
 		}
 		else if (g>=b && g>=r)
 		{
-		  analogWrite(LED_PINOUT_GREEN, 0); 
-		  r = map(r, 0, g, 0, 255);
-		  b = map(b, 0, g, 0, 255);
+		  analogWrite(LED_PINOUT_GREEN, 255-c); 
+		  r = map(r, 0, g, 0, c);
+		  b = map(b, 0, g, 0, c);
 				
 		  if (b>=r)
 		  {        
@@ -399,9 +399,9 @@ void DevDuino_TCS3472::displayChart(unsigned int r, unsigned int g, unsigned int
 		}
 		else if (b>=r && b>=g)
 		{
-		  analogWrite(LED_PINOUT_BLUE, 0); 
-		  r = map(r, 0, b, 0, 255);
-		  g = map(g, 0, b, 0, 255);
+		  analogWrite(LED_PINOUT_BLUE, 255-c); 
+		  r = map(r, 0, b, 0, c);
+		  g = map(g, 0, b, 0, c);
 				
 		  if (g>=r)
 		  {        
@@ -416,6 +416,7 @@ void DevDuino_TCS3472::displayChart(unsigned int r, unsigned int g, unsigned int
 		}  	
 	   }	
 }
+
 
 /*=============================================================================
                              CONSTRUCTOR

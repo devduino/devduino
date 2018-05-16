@@ -175,7 +175,7 @@ void loop()
 void buttonPushed()
 {
   /*============================================================================
-                                DEBOUCING FILTER
+                                DEBOUNCING FILTER
   =============================================================================*/
   static unsigned long last_interrupt_time = 0;
   unsigned long interrupt_time = millis();
