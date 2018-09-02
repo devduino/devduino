@@ -37,36 +37,43 @@
 #define LED_PINOUT_GREEN    10     
 #define LED_PINOUT_RED      11   
 
+#define OFFSET_RGB_LED_RED      0
+#define OFFSET_RGB_LED_GREEN  121
+#define OFFSET_RGB_LED_BLUE   142
+
+#define IGNORING_COEFFICIENT   6
+
 
 class DevDuino_TCS3472 
 {
 	 public: 
-	  DevDuino_TCS3472();
-	  
-	  unsigned int deviceID = 0;	  
-	  
-	  boolean ready();
-	  
-	  void setGain(unsigned int gain);
-	  void setIntegrationTime(unsigned int integrationTime);
-	  
-	  unsigned int getCLEAR();
-	  unsigned int getRED();
-	  unsigned int getGREEN();
-	  unsigned int getBLUE();
-	  
-	  void displayRGBC(unsigned int RED, unsigned int GREEN, unsigned int BLUE, unsigned int CLEAR, unsigned int integrationTime);
-	  void displayChart(unsigned int RED, unsigned int GREEN, unsigned int BLUE, unsigned int CLEAR, unsigned int integrationTime);
+	 
+		  DevDuino_TCS3472();
+		  
+			  unsigned int deviceID = 0;	  
+			  
+			  boolean ready();
+			  
+			  void setGain(unsigned int gain);
+			  void setIntegrationTime(unsigned int integrationTime);
+			  
+			  unsigned int getCLEAR();
+			  unsigned int getRED();
+			  unsigned int getGREEN();
+			  unsigned int getBLUE();
+			  
+			  void displayRGBC(unsigned int RED, unsigned int GREEN, unsigned int BLUE, unsigned int CLEAR, unsigned int integrationTime);
+			  void displayChart(unsigned int RED, unsigned int GREEN, unsigned int BLUE, unsigned int CLEAR, unsigned int integrationTime);
 
 	 private:
 	 
-	  unsigned int valueCLEAR=0;
-	  unsigned int valueRED=0;
-	  unsigned int valueGREEN=0;
-	  unsigned int valueBLUE=0;
-	  unsigned int LSB = 0;
-	  unsigned int MSB = 0;	
-	  
-	  unsigned int maxResolution=1024;	  
+			  unsigned int valueCLEAR=0;
+			  unsigned int valueRED=0;
+			  unsigned int valueGREEN=0;
+			  unsigned int valueBLUE=0;
+			  unsigned int LSB = 0;
+			  unsigned int MSB = 0;	
+			  
+			  unsigned int maxResolution=1024;	  
 };
 #endif

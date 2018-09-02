@@ -84,6 +84,10 @@
 //Charge Pump Commands
 #define SSD1306_COMMAND_SET_CHARGE_PUMP_SETTING 0x8D
 
+#ifndef _swap_int16_t
+#define _swap_int16_t(a, b) { int16_t t = a; a = b; b = t; }
+#endif
+
 	//------------------------------------------------------------------------//
 	//--------------------------- Static variables ---------------------------//
 	//------------------------------------------------------------------------//
@@ -148,6 +152,8 @@
 		}
 		drawPixel(x0, y0);
 	}
+	
+
     
 	void Display::drawHorizontalLine(uint8_t x0, uint8_t x1, uint8_t y) {
 		while (x0 != x1) {

@@ -15,23 +15,23 @@
                                    INCLUDES
 ==============================================================================*/
 #include <Wire.h>
+#include <Arduino.h>
 #include <devduino.h>
 #include <devduino_TCS34725.h>
 #include <devduinoLogo.h>
 /*=============================================================================
                                   DEFINITIONS
 ==============================================================================*/
-
 /*=============================================================================
                                 GLOBAL VARIABLES
 ==============================================================================*/
-unsigned int  valueRED   = 0;
-unsigned int  valueGREEN = 0;
-unsigned int  valueBLUE  = 0;
-unsigned int  valueCLEAR = 0;
+uint16_t  valueRED   = 0;
+uint16_t  valueGREEN = 0;
+uint16_t  valueBLUE  = 0;
+uint16_t  valueCLEAR = 0;
 
-unsigned int gain = 1;  //1 or 4 or 16 or 60
-unsigned int integrationTime = 24;  //3 or 24 or 101 or 154 or 700
+uint8_t gain = 4;  //1 or 4 or 16 or 60
+uint16_t integrationTime = 24;  //3 or 24 or 101 or 154 or 700
 
 boolean displayRawData = false;
 /*=============================================================================
@@ -56,7 +56,10 @@ void setup()
                                    DIGITAL OUT
   =============================================================================*/
   pinMode(LED_PINOUT_WHITE, OUTPUT);
-  digitalWrite(LED_PINOUT_WHITE, HIGH);
+  TCCR3B = TCCR3B & 0b11111000 | 0x01;
+  TCCR1B = TCCR1B & 0b11111000 | 0x01;
+  TCCR0B = TCCR0B & 0b11111000 | 0x01;
+  analogWrite(LED_PINOUT_WHITE, 100);
 
   if (!TCS3472.ready()) 
   {    
@@ -116,6 +119,3 @@ void buttonPushed()
   }
  last_interrupt_time = interrupt_time; 
 }
-//============================================================================
-//                       ADJUST WHITE LED INTENSITY (5 LEVELS)
-//=============================================================================
