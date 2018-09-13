@@ -1,7 +1,7 @@
 #ifndef DEVDUINO_MAX30102_H_
 #define DEVDUINO_MAX30102_H_
 
-#include <arduino.h>
+#include <Arduino.h>
 #define I2C_WRITE_ADDR 0x57 
 #define I2C_READ_ADDR 0x57
 
